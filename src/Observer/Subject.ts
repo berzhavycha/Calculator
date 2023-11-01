@@ -1,48 +1,36 @@
-import { IObserver } from "./Observer"
-
-export interface ISubjectState {
-    result: number | null,
-    error: string | null
-}
-
 export interface ISubject {
-    getState: () => ISubjectState,
-    subscribe: (observer: IObserver) => void,
-    unsubscribe: (observer: IObserver) => void
-    notify: () => void
+    subscribe: (eventName: string, callback: Callback) => void,
+    unsubscribe: (eventName: string) => void
+    notify: <T>(eventName: string, argc?: T) => void
 }
 
-export class Observable implements ISubject {
-    private state: ISubjectState = { result: null, error: null }
-    private observers: IObserver[] = []
+type Callback = <T>(argc: T) => void
 
-    getState() {
-        return this.state
-    }
-
-    subscribe(observer: IObserver) {
-        this.observers.push(observer)
-    }
-
-    unsubscribe(observer: IObserver) {
-        const observerIndex = this.observers.indexOf(observer)
-        if (observerIndex > -1) {
-            this.observers.splice(observerIndex, 1)
-        } else {
-            console.log('Observer doesn`t exist')
-        }
-
-    }
-
-    notify() {
-        for (const observer of this.observers) {
-            observer.update(this)
-        }
-    }
-
-    updateState(newState: ISubjectState): void {
-        this.state = newState;
-        this.notify();
-    }
-
+interface IEvents {
+    [key: string]: Array<Callback>
 }
+
+class Subject implements ISubject {
+    private events: IEvents = {}
+
+    subscribe(eventName: string, callback: Callback) {
+        if (!(eventName in this.events)) {
+            this.events[eventName] = []
+        }
+        this.events[eventName].push(callback)
+    }
+
+    unsubscribe(eventName: string) {
+        delete this.events[eventName]
+    }
+
+    notify<T>(eventName: string, argc?: T) {
+        if (eventName in this.events) {
+            for (const callback of this.events[eventName]) {
+                callback(argc)
+            }
+        }
+    }
+}
+
+export default new Subject()

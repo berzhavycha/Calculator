@@ -1,23 +1,16 @@
-import { Observable } from "../Observer/Subject";
-import { OperatorRegistry, BinaryOperator, UnaryOperator, IOperatorsObject } from "./operators";
+import { OperatorType, Operators, TOKENIZE_REGEX_PATTERN } from "../config/constants";
+import { IOperations } from "../config/operations";
+import { operations } from "../config/operations";
 
-export class CalculatorModel extends Observable {
-    private _result: number = 0;
-    private operatorRegister: OperatorRegistry = new OperatorRegistry()
-    private availableOperators: IOperatorsObject = {}
+class CalculatorModel {
+    private availableOperators: IOperations = {}
 
-    constructor() {
-        super()
-        this.operatorRegister.registerOperator('+', new BinaryOperator('+', 1))
-        this.operatorRegister.registerOperator('-', new BinaryOperator('-', 1))
-        this.operatorRegister.registerOperator('*', new BinaryOperator('*', 2))
-        this.operatorRegister.registerOperator('/', new BinaryOperator('/', 2))
-
-        this.availableOperators = this.operatorRegister.getOperators()
+    constructor(operators: IOperations) {
+        this.availableOperators = operators
     }
 
     private isOperator(token: string) {
-        return token in this.operatorRegister.getOperators()
+        return token in this.availableOperators
     }
 
     private infixToPostfix(expression: string[]): string[] {
@@ -26,76 +19,66 @@ export class CalculatorModel extends Observable {
 
         expression.forEach(token => {
             if (!isNaN(parseFloat(token))) {
-                output.push(token);
+                output.push(token)
             } else if (this.isOperator(token)) {
                 const topOperator = expressionOperators[expressionOperators.length - 1]
 
                 while (
                     expressionOperators.length &&
-                    expressionOperators[expressionOperators.length - 1] !== '(' &&
-                    this.availableOperators[topOperator]?.priority >= this.availableOperators[token]?.priority
+                    expressionOperators[expressionOperators.length - 1] !== Operators.LEFT_BRACKET &&
+                    this.availableOperators[topOperator].priority >= this.availableOperators[token].priority
                 ) {
                     output.push(expressionOperators.pop() as string)
                 }
 
                 expressionOperators.push(token)
-            } else if (token === '(') {
+            } else if (token === Operators.LEFT_BRACKET) {
                 expressionOperators.push(token)
-            } else if (token === ')') {
-                while (expressionOperators.length && expressionOperators[expressionOperators.length - 1] !== '(') {
+            } else if (token === Operators.RIGHT_BRACKET) {
+                while (expressionOperators.length && expressionOperators[expressionOperators.length - 1] !== Operators.LEFT_BRACKET) {
                     output.push(expressionOperators.pop() as string)
                 }
-                expressionOperators.pop();
+                expressionOperators.pop()
             }
-        });
+        })
+
         while (expressionOperators.length) {
             output.push(expressionOperators.pop() as string)
         }
+
         return output
     }
 
     private tokenize(expression: string): string[] {
+        const pattern = TOKENIZE_REGEX_PATTERN
         const tokens: string[] = []
-        let numBuffer = ''
-        let decimalBuffer = ''
+        let match
 
-        expression.split('').forEach(char => {
-            if (char === ' ') {
-                if (numBuffer !== '') {
-                    tokens.push(parseFloat(numBuffer + decimalBuffer).toString())
-                    numBuffer = ''
-                    decimalBuffer = ''
-                }
-            } else if (this.isOperator(char) || char === '(' || char === ')') {
-                if (numBuffer !== '') {
-                    tokens.push(parseFloat(numBuffer + decimalBuffer).toString())
-                    numBuffer = ''
-                    decimalBuffer = ''
-                }
-                tokens.push(char)
-            } else if (char >= '0' && char <= '9') {
-                if (decimalBuffer === '') {
-                    numBuffer += char
-                } else {
-                    decimalBuffer += char
-                }
-            } else if (char === '.') {
-                if (decimalBuffer === '') {
-                    decimalBuffer = '.'
-                } else {
-                    throw new Error(`Invalid character: ${char}`)
-                }
-            } else {
-                throw new Error(`Invalid character: ${char}`)
+        while ((match = pattern.exec(expression)) !== null) {
+            const operator = match[1]
+            const number = match[2]
+            const invalidToken = match[3]
+
+            if (invalidToken) {
+                throw new Error(`Invalid token: ${invalidToken}`)
             }
-        })
 
-        if (numBuffer !== '' || decimalBuffer !== '') {
-            tokens.push(parseFloat(numBuffer + decimalBuffer).toString())
+            if (operator) {
+                if (this.isOperator(operator) || operator === Operators.LEFT_BRACKET || operator === Operators.RIGHT_BRACKET) {
+                    tokens.push(operator);
+                } else if (operator === Operators.COS || operator === Operators.SIN || operator === Operators.TAN) {
+                    tokens.push(operator);
+                } else {
+                    throw new Error(`Invalid operator: ${operator}`)
+                }
+            } else if (number) {
+                tokens.push(number)
+            }
         }
 
         return tokens
     }
+
 
     public evaluate(expression: string) {
         const tokens = this.tokenize(expression) || []
@@ -107,20 +90,21 @@ export class CalculatorModel extends Observable {
                 stack.push(parseFloat(token))
             } else {
                 const operator = this.availableOperators[token];
-                if (operator instanceof BinaryOperator) {
+                if (operator.type === OperatorType.BINARY) {
                     const a = stack.pop() as number
                     const b = stack.pop() as number
 
                     stack.push(operator.calculate(b, a));
-                } else if (operator instanceof UnaryOperator) {
+                } else if (operator.type === OperatorType.UNARY) {
                     const a = stack.pop() as number
                     stack.push(operator.calculate(a))
                 }
             }
         });
 
-        this._result = stack.pop() as number
-        this.updateState({ result: this._result, error: null })
+        return stack.pop() as number
     }
 
 }
+
+export default new CalculatorModel(operations)

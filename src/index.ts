@@ -1,5 +1,3 @@
-import { CalculatorController } from "./controller/calculatorController";
-import { CalculatorModel } from "./model/calculatorModel";
-import { CalculatorView } from "./view/calculatorView";
+import CalculatorView from "./view/CalculatorView";
 
-const app = new CalculatorController(new CalculatorModel(), new CalculatorView())
+const view = new CalculatorView()

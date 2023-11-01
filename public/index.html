@@ -11,47 +11,65 @@
     <title>Calculator</title>
 </head>
 
-<body class="bg-gray-100 h-screen flex items-center justify-center">
+<body class="">
 
-    <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
-        <div class="mb-2">
-            <input id="expression" class="w-full p-2 border rounded outline-none" type="text"
-                placeholder="Введіть вираз">
-        </div>
-        <div class="mb-4">
-            <div class="result m-2 text-3xl"></div>
-            <div class="error-block text-red-500"></div>
-        </div>
-        <div class="button-container">
-            <div class="flex justify-between mb-4 gap-8">
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">1</button>
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">2</button>
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">3</button>
-                <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700">+</button>
+    <div id="root" class="bg-gray-100 h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
+            <div class="mb-2">
+                <input id="expression" class="w-full p-2 border rounded outline-none" type="text"
+                    placeholder="Введіть вираз">
             </div>
-            <div class="flex justify-between mb-4 gap-8">
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">4</button>
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">5</button>
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">6</button>
-                <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700">-</button>
+            <div class="mb-4">
+                <div class="result m-2 text-3xl"></div>
+                <div class="error-block text-red-500"></div>
             </div>
-            <div class="flex justify-between mb-4 gap-8">
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">7</button>
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">8</button>
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">9</button>
-                <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700">*</button>
+            <div class="button-container">
+                <div class="flex justify-between mb-4 gap-8">
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="1">1</button>
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="2">2</button>
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="3">3</button>
+                    <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        data-calc-btn="+">+</button>
+                </div>
+                <div class="flex justify-between mb-4 gap-8">
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="4">4</button>
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="5">5</button>
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="6">6</button>
+                    <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        data-calc-btn="-">-</button>
+                </div>
+                <div class="flex justify-between mb-4 gap-8">
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="7">7</button>
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="8">8</button>
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="9">9</button>
+                    <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        data-calc-btn="*">*</button>
+                </div>
+                <div class="flex justify-between mb-4 gap-8">
+                    <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        data-calc-btn="0">0</button>
+                    <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        data-calc-btn=".">.</button>
+                    <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        data-calc-btn="C">C</button>
+                    <button class=" w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                        data-calc-btn="/">/</button>
+                </div>
             </div>
-            <div class="flex justify-between mb-4 gap-8">
-                <button class="w-1/4 p-2 bg-blue-500 text-white rounded hover:bg-blue-700">0</button>
-                <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700">.</button>
-                <button class="w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700">C</button>
-                <button class=" w-1/4 p-2 bg-green-500 text-white rounded hover:bg-green-700">/</button>
+            <div class="w-full">
+                <button class="eval-button w-full p-2 bg-green-500 text-white rounded hover:bg-green-700"
+                    data-calc-btn="=">=</button>
             </div>
         </div>
-        <div class="w-full">
-            <button class="eval-button w-full p-2 bg-green-500 text-white rounded hover:bg-green-700">=</button>
-        </div>
-    </div>
 
 </body>
 
