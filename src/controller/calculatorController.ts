@@ -1,20 +1,25 @@
-import { observerEvents } from "../config/observerEvents"
-import calculatorModel from "../model/CalculatorModel"
+import { ObserverEvents } from "../config/observerEvents"
+import CalculatorModel from "../model/CalculatorModel";
 import subject from "../Observer/Subject"
 
 class CalculatorController {
-    constructor() { }
+    private model: CalculatorModel
 
-    handleEvaluateButtonClick(expression: string) {
-        try {
-            const calculationResult = calculatorModel.evaluate(expression)
-            subject.notify(observerEvents.CALCULATE, calculationResult)
-        } catch (error) {
-            if (error instanceof Error) {
-                subject.notify(observerEvents.SHOW_ERROR, error.message)
+    constructor(model: CalculatorModel) {
+        this.model = model
+
+        subject.subscribe(ObserverEvents.EVALUATE_BUTTON_CLICK, (expression: string) => {
+            try {
+                const calculationResult = this.model.evaluate(expression)
+                subject.notify(ObserverEvents.CALCULATED, calculationResult)
+            } catch (error) {
+                if (error instanceof Error) {
+                    subject.notify(ObserverEvents.SHOW_ERROR, error.message)
+                }
             }
-        }
+        });
     }
+
 }
 
-export default new CalculatorController()
+export default CalculatorController

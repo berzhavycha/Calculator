@@ -1,15 +1,14 @@
-import { OperatorType, Operators, TOKENIZE_REGEX_PATTERN } from "../config/constants";
-import { IOperations } from "../config/operations";
-import { operations } from "../config/operations";
+import { OperatorType, MathOperators, SpecialOperators } from "../config/constants";
+import { IOperations, TOKENIZE_REGEX_PATTERN } from "../config/operations";
 
 class CalculatorModel {
-    private availableOperators: IOperations = {}
+    private availableOperators: IOperations;
 
     constructor(operators: IOperations) {
         this.availableOperators = operators
     }
 
-    private isOperator(token: string) {
+    private isOperator(token: string): boolean {
         return token in this.availableOperators
     }
 
@@ -17,25 +16,25 @@ class CalculatorModel {
         const output: string[] = []
         const expressionOperators: string[] = []
 
-        expression.forEach(token => {
+        expression.forEach((token) => {
             if (!isNaN(parseFloat(token))) {
                 output.push(token)
             } else if (this.isOperator(token)) {
-                const topOperator = expressionOperators[expressionOperators.length - 1]
+                const topOperator = expressionOperators[expressionOperators.length - 1] as MathOperators
 
                 while (
                     expressionOperators.length &&
-                    expressionOperators[expressionOperators.length - 1] !== Operators.LEFT_BRACKET &&
-                    this.availableOperators[topOperator].priority >= this.availableOperators[token].priority
+                    expressionOperators[expressionOperators.length - 1] !== SpecialOperators.LEFT_BRACKET &&
+                    this.availableOperators[topOperator].priority >= this.availableOperators[token as MathOperators].priority
                 ) {
                     output.push(expressionOperators.pop() as string)
                 }
 
                 expressionOperators.push(token)
-            } else if (token === Operators.LEFT_BRACKET) {
+            } else if (token === SpecialOperators.LEFT_BRACKET) {
                 expressionOperators.push(token)
-            } else if (token === Operators.RIGHT_BRACKET) {
-                while (expressionOperators.length && expressionOperators[expressionOperators.length - 1] !== Operators.LEFT_BRACKET) {
+            } else if (token === SpecialOperators.RIGHT_BRACKET) {
+                while (expressionOperators.length && expressionOperators[expressionOperators.length - 1] !== SpecialOperators.LEFT_BRACKET) {
                     output.push(expressionOperators.pop() as string)
                 }
                 expressionOperators.pop()
@@ -50,37 +49,18 @@ class CalculatorModel {
     }
 
     private tokenize(expression: string): string[] {
-        const pattern = TOKENIZE_REGEX_PATTERN
-        const tokens: string[] = []
-        let match
+        const pattern = TOKENIZE_REGEX_PATTERN;
+        const tokens = expression.match(pattern);
 
-        while ((match = pattern.exec(expression)) !== null) {
-            const operator = match[1]
-            const number = match[2]
-            const invalidToken = match[3]
-
-            if (invalidToken) {
-                throw new Error(`Invalid token: ${invalidToken}`)
-            }
-
-            if (operator) {
-                if (this.isOperator(operator) || operator === Operators.LEFT_BRACKET || operator === Operators.RIGHT_BRACKET) {
-                    tokens.push(operator);
-                } else if (operator === Operators.COS || operator === Operators.SIN || operator === Operators.TAN) {
-                    tokens.push(operator);
-                } else {
-                    throw new Error(`Invalid operator: ${operator}`)
-                }
-            } else if (number) {
-                tokens.push(number)
-            }
+        if (!tokens) {
+            const invalidSymbols = expression.split('').filter(symbol => !pattern.test(symbol)).join('');
+            throw new Error(`Invalid symbol(s): - ${invalidSymbols}`);
         }
 
-        return tokens
+        return tokens;
     }
 
-
-    public evaluate(expression: string) {
+    public evaluate(expression: string): number {
         const tokens = this.tokenize(expression) || []
         const postfixExpression = this.infixToPostfix(tokens)
         const stack: (number | string)[] = []
@@ -89,7 +69,7 @@ class CalculatorModel {
             if (!this.isOperator(token)) {
                 stack.push(parseFloat(token))
             } else {
-                const operator = this.availableOperators[token];
+                const operator = this.availableOperators[token as MathOperators];
                 if (operator.type === OperatorType.BINARY) {
                     const a = stack.pop() as number
                     const b = stack.pop() as number
@@ -102,9 +82,15 @@ class CalculatorModel {
             }
         });
 
-        return stack.pop() as number
+        const result = stack.pop() as number
+
+        if (!result && result !== 0) {
+            throw new Error(`Invalid math expression`);
+        }
+
+        return result
     }
 
 }
 
-export default new CalculatorModel(operations)
+export default CalculatorModel

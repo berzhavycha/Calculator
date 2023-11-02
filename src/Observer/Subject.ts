@@ -1,36 +1,37 @@
+import { observerEventsContainer, Callback, IEvents, ObserverEvents } from "../config/observerEvents"
+
 export interface ISubject {
-    subscribe: (eventName: string, callback: Callback) => void,
-    unsubscribe: (eventName: string) => void
-    notify: <T>(eventName: string, argc?: T) => void
-}
-
-type Callback = <T>(argc: T) => void
-
-interface IEvents {
-    [key: string]: Array<Callback>
+    subscribe: <T>(eventName: ObserverEvents, callback: Callback<T>) => void,
+    unsubscribe: (eventName: ObserverEvents) => void,
+    notify: <T>(eventName: ObserverEvents, argc?: T) => void
 }
 
 class Subject implements ISubject {
-    private events: IEvents = {}
+    private events: IEvents;
 
-    subscribe(eventName: string, callback: Callback) {
+    constructor() {
+        this.events = observerEventsContainer;
+    }
+
+    subscribe<T>(eventName: ObserverEvents, callback: Callback<T>) {
         if (!(eventName in this.events)) {
-            this.events[eventName] = []
+            this.events[eventName] = [];
         }
-        this.events[eventName].push(callback)
+        this.events[eventName].push(callback);
     }
 
-    unsubscribe(eventName: string) {
-        delete this.events[eventName]
+    unsubscribe(eventName: ObserverEvents) {
+        delete this.events[eventName];
     }
 
-    notify<T>(eventName: string, argc?: T) {
+    notify<T>(eventName: ObserverEvents, argc?: T) {
         if (eventName in this.events) {
             for (const callback of this.events[eventName]) {
-                callback(argc)
+                callback(argc);
             }
         }
     }
 }
+
 
 export default new Subject()
