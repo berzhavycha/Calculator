@@ -1,6 +1,6 @@
-import subject from "../Observer/Subject"
-import { SpecialOperators } from "../config/constants"
-import { ObserverEvents } from "../config/observerEvents"
+import subject from '../Observer/Subject'
+import { SpecialOperators } from '../config/constants'
+import { ObserverEvents } from '../config/observerEvents'
 
 class CalculatorView {
     private inputEl = document.querySelector('#expression') as HTMLInputElement
@@ -14,7 +14,7 @@ class CalculatorView {
             if (event && event.target instanceof HTMLButtonElement) {
                 if (event.target.dataset.calcBtn === SpecialOperators.CLEAR_ALL) {
                     this.inputEl.value = ''
-                    this.resultEl.innerText = ''
+                    this.resultEl.innerText = '0'
                 } else {
                     this.inputEl.value += event.target.dataset.calcBtn
                 }
@@ -25,16 +25,19 @@ class CalculatorView {
             subject.notify(ObserverEvents.EVALUATE_BUTTON_CLICK, this.inputEl.value)
         })
 
-        subject.subscribe(ObserverEvents.CALCULATED, (result: number) => {
-            this.resultEl.innerText = result + ''
-        })
-
-        subject.subscribe(ObserverEvents.SHOW_ERROR, (errorMessage: string) => {
-            this.errorBlock.style.display = 'block'
-            this.errorBlock.innerText = errorMessage
-        })
+        subject.subscribe(ObserverEvents.CALCULATED, this.showResult.bind(this))
+        subject.subscribe(ObserverEvents.SHOW_ERROR, this.showError.bind(this))
     }
 
+    private showResult(result: number) {
+        this.errorBlock.style.display = 'none'
+        this.resultEl.innerText = result + ''
+    }
+
+    private showError(errorMessage: string) {
+        this.errorBlock.style.display = 'block'
+        this.errorBlock.innerText = errorMessage
+    }
 }
 
 export default CalculatorView

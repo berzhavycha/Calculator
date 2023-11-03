@@ -1,14 +1,15 @@
-import { MathOperators, MathOperationPriority, OperatorType } from "./constants";
+import { factorial } from '../utils/utils'
+import { MathOperators, MathOperationPriority, OperatorType, SpecialOperators } from './constants'
 
-export type IOperations = {
-    [key in MathOperators]: {
-        priority: number
-        calculate: (...operands: number[]) => number,
-        type: string,
-    };
+export type IOperation = {
+    priority: number
+    calculate: (...operands: number[]) => number
+    type: string
 }
 
-export const operations: IOperations = {
+export type operationsType = Record<MathOperators, IOperation>
+
+export const operations: operationsType = {
     [MathOperators.PLUS]: {
         priority: MathOperationPriority.ADD_AND_SUB,
         calculate: (a, b) => a + b,
@@ -29,11 +30,28 @@ export const operations: IOperations = {
         calculate: (a, b) => a / b,
         type: OperatorType.BINARY,
     },
+    [MathOperators.COS]: {
+        priority: MathOperationPriority.MULT_AND_DIVISION,
+        calculate: (a) => Math.cos(a),
+        type: OperatorType.UNARY,
+    },
+    [MathOperators.SIN]: {
+        priority: MathOperationPriority.MULT_AND_DIVISION,
+        calculate: (a) => Math.sin(a),
+        type: OperatorType.UNARY,
+    },
+    [MathOperators.TAN]: {
+        priority: MathOperationPriority.MULT_AND_DIVISION,
+        calculate: (a) => Math.tan(a),
+        type: OperatorType.UNARY,
+    },
+    [MathOperators.FACTORIAL]: {
+        priority: MathOperationPriority.MULT_AND_DIVISION,
+        calculate: (a) => factorial(a),
+        type: OperatorType.UNARY,
+    }
+}
 
-};
-
-
-export const TOKENIZE_REGEX_PATTERN = new RegExp(
-    `\\d+(\\.\\d+)?|[()+${Object.keys(operations).join("\\|\\")}]`,
-    "g"
-);
+const escapedOperators = [...Object.keys(operations), ...Object.values(SpecialOperators)]
+    .map(operator => operator !== '-' ? operator : '\\' + operator);
+export const TOKENIZE_REGEX_PATTERN = new RegExp(`\\d+(\\.\\d+)?|[${escapedOperators.join('|')}]`, 'g')
