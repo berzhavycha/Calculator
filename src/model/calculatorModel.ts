@@ -47,6 +47,19 @@ class CalculatorModel {
         return token in this.availableOperators;
     }
 
+    private isSpecialOperator(token: string): token is SpecialOperators {
+        return Object.values(SpecialOperators).includes(token as SpecialOperators);
+    }
+
+    private executeOperatorProcessor(expressionOperators: string[], output: string[], token: MathOperators | SpecialOperators) {
+        const opProcessor = this.operatorProcessors[token]
+        if (opProcessor) {
+            opProcessor.process(expressionOperators, output, token)
+        } else {
+            throw new Error('There is no processor for this token!')
+        }
+    }
+
     private infixToPostfix(expression: string[]): string[] {
         const output: string[] = []
         const expressionOperators: string[] = []
@@ -58,11 +71,12 @@ class CalculatorModel {
             if (!isNaN(parseFloat(token))) {
                 output.push(token)
             } else {
-                if (this.isMathOperator(token)) {
-                    const opProcessor = this.operatorProcessors[token]
-                    if (opProcessor) {
-                        opProcessor.process(expressionOperators, output, token, stringOperators)
-                    }
+                if (this.isMathOperator(token) || this.isSpecialOperator(token)) {
+                    this.executeOperatorProcessor(expressionOperators, output, token)
+                    stringOperators = ''
+                } else if (this.isMathOperator(stringOperators)) {
+                    this.executeOperatorProcessor(expressionOperators, output, stringOperators)
+                    stringOperators = ''
                 }
             }
         })
@@ -107,10 +121,7 @@ class CalculatorModel {
         return result;
     }
 
-    private evaluateBinaryOperator(
-        stack: (number | string)[] = [],
-        calculate: (a: number, b: number) => number
-    ) {
+    private evaluateBinaryOperator(stack: (number | string)[] = [], calculate: (a: number, b: number) => number) {
         const a = stack.pop() as number
         const b = stack.pop() as number
 

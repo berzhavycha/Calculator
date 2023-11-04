@@ -3,13 +3,13 @@ import { MathOperators } from "../config/constants"
 import { SpecialOperators } from "../config/constants"
 
 export interface IOperatorProcessor {
-    process(expressionOperators: string[], output: string[], token: MathOperators, stringOperators: string): void
+    process(expressionOperators: string[], output: string[], token: MathOperators | SpecialOperators): void
 }
 
 export class OperatorProcessor implements IOperatorProcessor {
     constructor(private availableOperators: operationsType) { }
 
-    process(expressionOperators: string[], output: string[], token: MathOperators, stringOperators: string): void {
+    process(expressionOperators: string[], output: string[], token: MathOperators): void {
         const topOperator = expressionOperators[expressionOperators.length - 1] as MathOperators
 
         while (
@@ -21,8 +21,5 @@ export class OperatorProcessor implements IOperatorProcessor {
         }
 
         expressionOperators.push(token)
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        stringOperators = ''
     }
 }
