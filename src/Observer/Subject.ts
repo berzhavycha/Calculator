@@ -1,37 +1,37 @@
-import { observerEventsContainer, Callback, ObserverEvents } from '../config/observerEvents'
+import { observerEventsContainer, Callback, ObserverEvents } from '../config/observerEvents';
 
 export interface ISubject {
-    subscribe: <T>(eventName: ObserverEvents, callback: Callback<T>) => void
-    unsubscribe: (eventName: ObserverEvents) => void
-    notify: <T>(eventName: ObserverEvents, argc?: T) => void
+  subscribe: <T>(eventName: ObserverEvents, callback: Callback<T>) => void;
+  unsubscribe: (eventName: ObserverEvents) => void;
+  notify: <T>(eventName: ObserverEvents, argc?: T) => void;
 }
 
 class Subject implements ISubject {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private events: Record<ObserverEvents, Array<Callback<any>>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private events: Record<ObserverEvents, Array<Callback<any>>>;
 
-    constructor() {
-        this.events = observerEventsContainer
-    }
+  constructor() {
+    this.events = observerEventsContainer;
+  }
 
-    subscribe<T>(eventName: ObserverEvents, callback: Callback<T>) {
-        if (!(eventName in this.events)) {
-            this.events[eventName] = []
-        }
-        this.events[eventName].push(callback)
+  subscribe<T>(eventName: ObserverEvents, callback: Callback<T>) {
+    if (!(eventName in this.events)) {
+      this.events[eventName] = [];
     }
+    this.events[eventName].push(callback);
+  }
 
-    unsubscribe(eventName: ObserverEvents) {
-        delete this.events[eventName]
-    }
+  unsubscribe(eventName: ObserverEvents) {
+    delete this.events[eventName];
+  }
 
-    notify<T>(eventName: ObserverEvents, argc?: T) {
-        if (eventName in this.events) {
-            for (const callback of this.events[eventName]) {
-                callback(argc)
-            }
-        }
+  notify<T>(eventName: ObserverEvents, argc?: T) {
+    if (eventName in this.events) {
+      for (const callback of this.events[eventName]) {
+        callback(argc);
+      }
     }
+  }
 }
 
-export default new Subject()
+export default new Subject();
