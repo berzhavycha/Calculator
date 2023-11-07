@@ -1,6 +1,6 @@
 import { ICalculatorModelService } from "../../model/CalculatorModel";
 import { TOKENIZE_REGEX_PATTERN, OperationsType } from "../../config/operations";
-import { Errors, MathOperators, SpecialOperators } from "../../config/constants";
+import { Errors, MathOperators } from "../../config/constants";
 import { IReplacer, TrigonometryReplacer } from "./TrigonometryReplacer";
 import { FactorialReplacer } from "./FactorialReplacer";
 import { isMathOperator } from "../../utils/utils";
@@ -11,13 +11,14 @@ export class RegexCalculation implements ICalculatorModelService {
     private availableOperators: OperationsType
     private operatorReplacers: ReplacerContainer
 
+
     constructor(operations: OperationsType) {
         this.availableOperators = operations
-        this.operatorReplacers = this.initializeOperatorProcessor(operations)
+        this.operatorReplacers = this.initializeOperatorReplacers(operations)
     }
 
-    private initializeOperatorProcessor(operators: OperationsType): ReplacerContainer {
-        const mathOperators = [...Object.keys(operators), SpecialOperators.CLEAR_ALL, SpecialOperators.DOT];
+    private initializeOperatorReplacers(operators: OperationsType): ReplacerContainer {
+        const mathOperators = [...Object.keys(operators)];
         return {
             ...mathOperators.reduce((obj, key) => {
                 if (isMathOperator(key) && this.availableOperators[key].isReplaceable) {
