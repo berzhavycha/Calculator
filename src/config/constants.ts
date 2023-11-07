@@ -9,6 +9,11 @@ export enum MathOperators {
   FACTORIAL = '!',
 }
 
+export enum Errors {
+  INVALID_SYMBOL = 'Invalid symbols in the input expression.',
+  INVALID_EXPRESSION = 'Invalid math expression'
+}
+
 export enum SpecialOperators {
   LEFT_BRACKET = '(',
   RIGHT_BRACKET = ')',
@@ -23,9 +28,11 @@ export enum Associativity {
 
 export enum MathOperationPriority {
   ADD_AND_SUB = 1,
-  MULT_AND_DIVISION,
-  EXPONENTIATION,
-  PARENTHESES,
+  MULT_AND_DIVISION = 2,
+  FACTORIAL = 3,
+  TRIGONOMETRIC = 4, 
+  EXPONENTIATION = 5,
+  PARENTHESES = 6,
 }
 
 export enum OperatorType {

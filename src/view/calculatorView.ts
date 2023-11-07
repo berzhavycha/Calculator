@@ -1,6 +1,7 @@
 import subject from '../Observer/Subject';
 import { SpecialOperators } from '../config/constants';
 import { ObserverEvents } from '../config/observerEvents';
+import { isMathOperator } from '../utils/utils';
 
 class CalculatorView {
   private inputEl = document.querySelector('#expression') as HTMLInputElement;
@@ -33,7 +34,23 @@ class CalculatorView {
     });
 
     this.backspaceBtn.addEventListener('click', () => {
-      this.inputEl.value = this.inputEl.value.slice(0, -1);
+      let inputValue = this.inputEl.value
+      let stringOperator = ''
+      let isFoundOperator = false
+
+      for (let i = inputValue.length - 1; i >= 0; i--) {
+        stringOperator = inputValue[i] + stringOperator
+
+        if (isMathOperator(stringOperator)) {
+          this.inputEl.value = inputValue.slice(0, -stringOperator.length)
+          isFoundOperator = true
+          break
+        }
+      }
+
+      if (!isFoundOperator) {
+        this.inputEl.value = inputValue.slice(0, -1)
+      }
     });
 
     subject.subscribe(ObserverEvents.CALCULATED, this.showResult.bind(this));

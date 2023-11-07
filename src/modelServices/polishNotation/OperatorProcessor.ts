@@ -1,13 +1,12 @@
-import { OperationsType } from '../config/operations';
-import { MathOperators, SpecialOperators } from '../config/constants';
-import { Associativity } from '../config/constants';
+import { OperationsType } from '../../config/operations';
+import { MathOperators, SpecialOperators, Associativity } from '../../config/constants';
 
 export interface IOperatorProcessor {
   process(expressionOperators: string[], output: string[], token: MathOperators | SpecialOperators): void;
 }
 
 export class OperatorProcessor implements IOperatorProcessor {
-  constructor(private availableOperators: OperationsType) {}
+  constructor(private availableOperators: OperationsType) { }
 
   process(expressionOperators: string[], output: string[], token: MathOperators): void {
     while (

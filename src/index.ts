@@ -1,8 +1,8 @@
 import CalculatorView from './view/CalculatorView';
 import CalculatorModel from './model/CalculatorModel';
 import CalculatorController from './controller/CalculatorController';
-import { operations } from './config/operations';
+import { modelServices } from './config/services';
 
 new CalculatorView();
-new CalculatorModel(operations);
+new CalculatorModel(modelServices.regexCalculation);
 new CalculatorController();
