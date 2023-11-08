@@ -12,3 +12,12 @@ export function factorial(num: number): number {
 export function isMathOperator(token: string): token is MathOperators {
   return token in operations;
 }
+
+export function reduceAllSpaces(expression: string): string {
+  return expression.split('').reduce((acc, char) => {
+    if (char !== ' ') {
+      acc += char;
+    }
+    return acc;
+  }, '');
+}

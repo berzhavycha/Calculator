@@ -11,7 +11,8 @@ export enum MathOperators {
 
 export enum Errors {
   INVALID_SYMBOL = 'Invalid symbols in the input expression.',
-  INVALID_EXPRESSION = 'Invalid math expression'
+  INVALID_EXPRESSION = 'Invalid math expression',
+  UNMATCHED_PARENTHESES = 'Unmatched parentheses'
 }
 
 export enum SpecialOperators {

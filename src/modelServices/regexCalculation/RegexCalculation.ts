@@ -1,64 +1,86 @@
 import { ICalculatorModelService } from "../../model/CalculatorModel";
 import { TOKENIZE_REGEX_PATTERN, OperationsType } from "../../config/operations";
-import { Errors, MathOperators } from "../../config/constants";
-import { IReplacer, TrigonometryReplacer } from "./TrigonometryReplacer";
-import { FactorialReplacer } from "./FactorialReplacer";
-import { isMathOperator } from "../../utils/utils";
-
-type ReplacerContainer = Record<MathOperators, IReplacer>
+import { Errors, SpecialOperators } from "../../config/constants";
+import { isMathOperator, reduceAllSpaces } from "../../utils/utils";
 
 export class RegexCalculation implements ICalculatorModelService {
     private availableOperators: OperationsType
-    private operatorReplacers: ReplacerContainer
-
 
     constructor(operations: OperationsType) {
         this.availableOperators = operations
-        this.operatorReplacers = this.initializeOperatorReplacers(operations)
     }
 
-    private initializeOperatorReplacers(operators: OperationsType): ReplacerContainer {
-        const mathOperators = [...Object.keys(operators)];
-        return {
-            ...mathOperators.reduce((obj, key) => {
-                if (isMathOperator(key) && this.availableOperators[key].isReplaceable) {
-                    obj[key] = new TrigonometryReplacer(key);
+    private findOperatorIndex(tokens: string[]): number {
+        let index = -1;
+        let maxPrecedence = -1;
+
+        for (let i = 0; i < tokens.length; i++) {
+            const token = tokens[i];
+            if (isMathOperator(token)) {
+                const currentPrecedence = this.availableOperators[token].priority;
+                if (currentPrecedence > maxPrecedence) {
+                    maxPrecedence = currentPrecedence;
+                    index = i;
                 }
-                return obj;
-            }, {} as ReplacerContainer),
-            [MathOperators.FACTORIAL]: new FactorialReplacer(),
-        };
+            }
+        }
+
+        return index;
     }
 
-    private isValidExpression(expression: string) {
-        return TOKENIZE_REGEX_PATTERN.test(expression);
+    private calculateBinary(tokens: string[]): number {
+        const operatorIndex = this.findOperatorIndex(tokens);
+
+        if (operatorIndex === -1) {
+            if (tokens.length === 1) {
+                return parseFloat(tokens[0]);
+            } else {
+                throw new Error(Errors.INVALID_EXPRESSION);
+            }
+        }
+
+        const operator = tokens[operatorIndex]
+        if (isMathOperator(operator)) {
+            const operatorProcessor = this.availableOperators[operator].processorContructor
+            operatorProcessor.process(tokens, operatorIndex)
+        }
+
+        return this.calculateBinary(tokens);
+    }
+
+    evaluateExpression(tokens: string[]): number {
+        while (tokens.includes(SpecialOperators.LEFT_BRACKET)) {
+            const openParenIndex = tokens.lastIndexOf(SpecialOperators.LEFT_BRACKET);
+            const closeParenIndex = tokens.indexOf(SpecialOperators.RIGHT_BRACKET, openParenIndex);
+
+            if (openParenIndex === -1 || closeParenIndex === -1) {
+                throw new Error(Errors.UNMATCHED_PARENTHESES);
+            }
+
+            const subExpression = tokens.slice(openParenIndex + 1, closeParenIndex);
+            const subResult = this.calculateBinary([...subExpression]);
+            tokens.splice(openParenIndex, closeParenIndex - openParenIndex + 1, subResult.toString());
+        }
+
+        tokens = [this.calculateBinary([...tokens]).toString()];
+
+        console.log(tokens)
+        if (tokens.length !== 1) {
+            throw new Error(Errors.INVALID_EXPRESSION);
+        }
+
+        return parseFloat(tokens[0]);
     }
 
     public evaluate(expression: string): number {
-        if (!this.isValidExpression(expression)) {
-            throw new Error(Errors.INVALID_SYMBOL);
-        }
+        const tokens = expression.match(TOKENIZE_REGEX_PATTERN);
+        const expressionWithoutSpaces = reduceAllSpaces(expression);
 
-        const extendedPattern = new RegExp(`[^${TOKENIZE_REGEX_PATTERN.source}]`, 'g');
-
-        try {
-            let sanitizedExpression = expression.replace(extendedPattern, '');
-
-            Object.keys(this.operatorReplacers).forEach(operator => {
-                if (isMathOperator(operator) && this.availableOperators[operator].isReplaceable) {
-                    const replacer = this.operatorReplacers[operator];
-
-                    if (operator === MathOperators.FACTORIAL && replacer && replacer.replaceFunction) {
-                        sanitizedExpression = replacer.replaceFunction(sanitizedExpression)
-                    } else if (replacer && replacer.replaceFunction) {
-                        sanitizedExpression = sanitizedExpression.replace(new RegExp(operator, 'g'), replacer.replaceFunction());
-                    }
-                }
-            })
-
-            return eval(sanitizedExpression);
-        } catch (error) {
+        if (!tokens || tokens.join('') !== expressionWithoutSpaces) {
             throw new Error(Errors.INVALID_EXPRESSION);
         }
+
+        return this.evaluateExpression(tokens);
     }
 }
+

@@ -4,7 +4,7 @@ import { LeftBracketProcessor } from './LeftBracketsProcessor';
 import { RightBracketProcessor } from './RightBracketsProcessor';
 import { IOperatorProcessor, OperatorProcessor } from './OperatorProcessor';
 import { ICalculatorModelService } from '../../model/CalculatorModel';
-import { isMathOperator } from '../../utils/utils';
+import { isMathOperator, reduceAllSpaces } from '../../utils/utils';
 
 type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
 
@@ -68,21 +68,12 @@ class PolishNotation implements ICalculatorModelService {
         return output;
     }
 
-    private reduceAllSpaces(expression: string): string {
-        return expression.split('').reduce((acc, char) => {
-            if (char !== ' ') {
-                acc += char;
-            }
-            return acc;
-        }, '');
-    }
-
     private tokenize(expression: string): string[] {
         if (expression.trim() === '') {
             return ['0'];
         }
 
-        const expressionWithoutSpaces = this.reduceAllSpaces(expression);
+        const expressionWithoutSpaces = reduceAllSpaces(expression);
         const pattern = TOKENIZE_REGEX_PATTERN;
         const tokens = expressionWithoutSpaces.match(pattern);
 
