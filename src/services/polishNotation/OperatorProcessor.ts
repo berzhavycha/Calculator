@@ -6,7 +6,7 @@ export interface IOperatorProcessor {
 }
 
 export class OperatorProcessor implements IOperatorProcessor {
-  constructor(private availableOperators: OperationsType) { }
+  constructor(private availableOperators: OperationsType) {}
 
   process(expressionOperators: string[], output: string[], token: MathOperators): void {
     while (

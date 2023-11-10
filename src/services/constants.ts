@@ -1,6 +1,6 @@
 export enum calculationMethods {
   POLISH_NOTATION = 'polishNotation',
-  REGEX_CALCULATION = 'regexCalculation'
+  REGEX_CALCULATION = 'regexCalculation',
 }
 
 export enum MathOperators {
@@ -17,7 +17,7 @@ export enum MathOperators {
 export enum Errors {
   INVALID_SYMBOL = 'Invalid symbols in the input expression.',
   INVALID_EXPRESSION = 'Invalid math expression',
-  UNMATCHED_PARENTHESES = 'Unmatched parentheses'
+  UNMATCHED_PARENTHESES = 'Unmatched parentheses',
 }
 
 export enum SpecialOperators {
@@ -44,5 +44,5 @@ export enum MathOperationPriority {
 export enum OperatorType {
   BINARY = 'binary',
   UNARY = 'unary',
-  TRIGONOMETRIC = 'trigonometric'
+  TRIGONOMETRIC = 'trigonometric',
 }

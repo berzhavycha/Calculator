@@ -34,22 +34,22 @@ class CalculatorView {
     });
 
     this.backspaceBtn.addEventListener('click', () => {
-      const inputValue = this.inputEl.value
-      let stringOperator = ''
-      let isFoundOperator = false
+      const inputValue = this.inputEl.value;
+      let stringOperator = '';
+      let isFoundOperator = false;
 
       for (let i = inputValue.length - 1; i >= 0; i--) {
-        stringOperator = inputValue[i] + stringOperator
+        stringOperator = inputValue[i] + stringOperator;
 
         if (isMathOperator(stringOperator)) {
-          this.inputEl.value = inputValue.slice(0, -stringOperator.length)
-          isFoundOperator = true
-          break
+          this.inputEl.value = inputValue.slice(0, -stringOperator.length);
+          isFoundOperator = true;
+          break;
         }
       }
 
       if (!isFoundOperator) {
-        this.inputEl.value = inputValue.slice(0, -1)
+        this.inputEl.value = inputValue.slice(0, -1);
       }
     });
 

@@ -1,5 +1,5 @@
-import { MathOperators } from "../services/constants";
-import config from "../config/operations";
+import { MathOperators } from '../services/constants';
+import config from '../config/operations';
 
 export function factorial(num: number): number {
   if (num === 0 || num === 1) {
@@ -23,13 +23,13 @@ export function reduceAllSpaces(expression: string): string {
 }
 
 export function escapeRegExp(string: string): string {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 export function getTrigonometricExpressionRegex(operatorRegexPattern: string): RegExp {
-  return new RegExp(`${operatorRegexPattern}\\s*(-?\\d+\\.?\\d*)`, 'i')
+  return new RegExp(`${operatorRegexPattern}\\s*(-?\\d+\\.?\\d*)`, 'i');
 }
 
 export function getRegularExpressionRegex(operatorRegexPattern: string): RegExp {
-  return new RegExp(`(-?\\d+\\.?\\d*)\\s*${operatorRegexPattern}\\s*(-?\\d+\\.?\\d*)`)
+  return new RegExp(`(-?\\d+\\.?\\d*)\\s*${operatorRegexPattern}\\s*(-?\\d+\\.?\\d*)`);
 }
