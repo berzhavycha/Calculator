@@ -3,6 +3,7 @@ import { OperationsType } from "../../config/operations"
 import { Errors, MathOperators, SpecialOperators } from "../constants"
 import { isMathOperator, reduceAllSpaces, escapeRegExp } from "../../utils/utils"
 import { TOKENIZE_REGEX_PATTERN } from "../../regex/tokenizeRegex"
+import { PARENTHESES_EXPRESSION } from "../../regex/parenthesesRegex"
 
 export class RegexCalculation implements ICalculatorModelService {
     private availableOperators: OperationsType
@@ -68,19 +69,18 @@ export class RegexCalculation implements ICalculatorModelService {
 
     evaluateExpression(tokens: string[]): number {
         while (tokens.includes(SpecialOperators.LEFT_BRACKET)) {
-            const openParenIndex = tokens.lastIndexOf(SpecialOperators.LEFT_BRACKET);
-            const closeParenIndex = tokens.indexOf(SpecialOperators.RIGHT_BRACKET, openParenIndex);
+            const match = tokens.join('').match(PARENTHESES_EXPRESSION);
 
-            if (openParenIndex === -1 || closeParenIndex === -1) {
+            if (!match) {
                 throw new Error(Errors.UNMATCHED_PARENTHESES);
             }
 
-            const subExpression = tokens.slice(openParenIndex + 1, closeParenIndex);
-            const subResult = this.calculate([...subExpression]);
-            tokens.splice(openParenIndex, closeParenIndex - openParenIndex + 1, subResult.toString());
+            const subExpression = match[0].slice(1, -1);
+            const subResult = this.evaluate(subExpression);
+            tokens = tokens.join('').replace(PARENTHESES_EXPRESSION, subResult.toString()).match(TOKENIZE_REGEX_PATTERN) || [];
         }
 
-        tokens = [this.calculate([...tokens]).toString()];
+        tokens = [this.calculate(tokens).toString()];
 
         if (tokens.length !== 1) {
             throw new Error(Errors.INVALID_EXPRESSION);
