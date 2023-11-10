@@ -74,5 +74,5 @@ const operations: OperationsType = {
 
 export default Object.freeze({
     operations,
-    calculationMethod: calculationMethods.REGEX_CALCULATION
+    calculationMethod: calculationMethods.POLISH_NOTATION
 })

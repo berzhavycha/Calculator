@@ -90,6 +90,10 @@ export class RegexCalculation implements ICalculatorModelService {
     }
 
     public evaluate(expression: string): number {
+        if (expression.trim() === '') {
+            return 0;
+        }
+
         const tokens = expression.match(TOKENIZE_REGEX_PATTERN);
         const expressionWithoutSpaces = reduceAllSpaces(expression);
 
