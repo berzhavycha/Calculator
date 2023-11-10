@@ -1,86 +1,78 @@
-import { FactorialProcessor } from '../modelServices/regexCalculation/FactorialProcessor';
-import { RegularProcessor } from '../modelServices/regexCalculation/RegularProcessor';
-import { TrigonometryProcessor } from '../modelServices/regexCalculation/TrigonometryProcessor';
+import { FactorialProcessor } from '../services/regexCalculation/FactorialProcessor';
+import { RegularProcessor } from '../services/regexCalculation/RegularProcessor';
+import { TrigonometryProcessor } from '../services/regexCalculation/TrigonometryProcessor';
 import { factorial } from '../utils/utils';
-import { MathOperators, MathOperationPriority, OperatorType, SpecialOperators, Associativity } from './constants';
+import { MathOperators, MathOperationPriority, OperatorType, Associativity, calculationMethods } from '../services/constants';
 
 export type IOperation = {
     priority: number;
     calculate: (...operands: number[]) => number;
     type: string;
     associativity?: string;
-    processorContructor: RegularProcessor | FactorialProcessor | TrigonometryProcessor,
+    processorConstructor: RegularProcessor | FactorialProcessor | TrigonometryProcessor,
 };
 
 export type OperationsType = Record<MathOperators, IOperation>;
 
-export const operations: OperationsType = {
+const operations: OperationsType = {
     [MathOperators.PLUS]: {
         priority: MathOperationPriority.ADD_AND_SUB,
         calculate: (a, b) => a + b,
         type: OperatorType.BINARY,
         associativity: Associativity.LEFT,
-        processorContructor: new RegularProcessor()
+        processorConstructor: new RegularProcessor()
     },
     [MathOperators.MINUS]: {
         priority: MathOperationPriority.ADD_AND_SUB,
         calculate: (a, b) => a - b,
         type: OperatorType.BINARY,
         associativity: Associativity.LEFT,
-        processorContructor: new RegularProcessor()
+        processorConstructor: new RegularProcessor()
     },
     [MathOperators.MULTIPLICATION]: {
         priority: MathOperationPriority.MULT_AND_DIVISION,
         calculate: (a, b) => a * b,
         type: OperatorType.BINARY,
         associativity: Associativity.LEFT,
-        processorContructor: new RegularProcessor()
+        processorConstructor: new RegularProcessor()
     },
     [MathOperators.DIVISION]: {
         priority: MathOperationPriority.MULT_AND_DIVISION,
         calculate: (a, b) => a / b,
         type: OperatorType.BINARY,
         associativity: Associativity.LEFT,
-        processorContructor: new RegularProcessor()
+        processorConstructor: new RegularProcessor()
     },
     [MathOperators.COS]: {
         priority: MathOperationPriority.TRIGONOMETRIC,
         calculate: Math.cos,
         type: OperatorType.UNARY,
         associativity: Associativity.LEFT,
-        processorContructor: new TrigonometryProcessor()
+        processorConstructor: new TrigonometryProcessor(),
     },
     [MathOperators.SIN]: {
         priority: MathOperationPriority.TRIGONOMETRIC,
         calculate: Math.sin,
-        type: OperatorType.UNARY,
+        type: OperatorType.TRIGONOMETRIC,
         associativity: Associativity.LEFT,
-        processorContructor: new TrigonometryProcessor()
+        processorConstructor: new TrigonometryProcessor()
     },
     [MathOperators.TAN]: {
         priority: MathOperationPriority.TRIGONOMETRIC,
         calculate: Math.tan,
-        type: OperatorType.UNARY,
+        type: OperatorType.TRIGONOMETRIC,
         associativity: Associativity.LEFT,
-        processorContructor: new TrigonometryProcessor()
+        processorConstructor: new TrigonometryProcessor()
     },
     [MathOperators.FACTORIAL]: {
         priority: MathOperationPriority.FACTORIAL,
         calculate: factorial,
         type: OperatorType.UNARY,
-        processorContructor: new FactorialProcessor()
+        processorConstructor: new FactorialProcessor()
     },
 };
 
-const escapedOperators = [...Object.keys(operations), ...Object.values(SpecialOperators)]
-    .map((operator) => (operator !== '-' ? operator : '\\' + operator))
-    .map((operator) => operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-
-const validOperatorsPattern = escapedOperators.join('|');
-const invalidCharactersPattern = '[^\\d\\s' + validOperatorsPattern + ']';
-export const TOKENIZE_REGEX_PATTERN = new RegExp(
-    `\\d+(\\.\\d+)?|${validOperatorsPattern}|${invalidCharactersPattern}`,
-    'g'
-);
-
-
+export default Object.freeze({
+    operations,
+    calculationMethod: calculationMethods.REGEX_CALCULATION
+})

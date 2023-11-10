@@ -1,6 +1,5 @@
 import { IOperatorProcessor } from './OperatorProcessor';
-import { MathOperators } from '../../config/constants';
-import { SpecialOperators } from '../../config/constants';
+import { MathOperators, SpecialOperators } from '../constants';
 
 export class RightBracketProcessor implements IOperatorProcessor {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

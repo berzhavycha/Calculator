@@ -1,14 +1,14 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from '../../config/constants';
-import { OperationsType, TOKENIZE_REGEX_PATTERN } from '../../config/operations';
+import { OperatorType, MathOperators, SpecialOperators, Errors } from '../constants';
+import { TOKENIZE_REGEX_PATTERN } from '../../regex/tokenizeRegex';
 import { LeftBracketProcessor } from './LeftBracketsProcessor';
 import { RightBracketProcessor } from './RightBracketsProcessor';
 import { IOperatorProcessor, OperatorProcessor } from './OperatorProcessor';
-import { ICalculatorModelService } from '../../model/CalculatorModel';
+import { OperationsType } from '../../config/operations';
 import { isMathOperator, reduceAllSpaces } from '../../utils/utils';
 
 type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
 
-class PolishNotation implements ICalculatorModelService {
+export class PolishNotation {
     private availableOperators: OperationsType;
     private operatorProcessors: OperatorsProcessorType;
 
@@ -31,11 +31,15 @@ class PolishNotation implements ICalculatorModelService {
         };
     }
 
+    private isSpecialOperator(token: string): token is SpecialOperators {
+        return Object.values(SpecialOperators).includes(token as SpecialOperators);
+    }
+
     private executeOperatorProcessor(
         expressionOperators: string[],
         output: string[],
         token: MathOperators | SpecialOperators
-    ) {
+    ): void {
         const opProcessor = this.operatorProcessors[token];
         if (opProcessor) {
             opProcessor.process(expressionOperators, output, token);
@@ -54,7 +58,7 @@ class PolishNotation implements ICalculatorModelService {
 
             if (!isNaN(parseFloat(token))) {
                 output.push(token);
-            } else if (isMathOperator(token) || isMathOperator(token)) {
+            } else if (isMathOperator(token) || this.isSpecialOperator(token)) {
                 this.executeOperatorProcessor(expressionOperators, output, token);
                 stringOperators = '';
             } else if (isMathOperator(stringOperators)) {
@@ -76,6 +80,7 @@ class PolishNotation implements ICalculatorModelService {
         const expressionWithoutSpaces = reduceAllSpaces(expression);
         const pattern = TOKENIZE_REGEX_PATTERN;
         const tokens = expressionWithoutSpaces.match(pattern);
+
 
         if (!tokens || tokens.join('') !== expressionWithoutSpaces) {
             throw new Error(Errors.INVALID_SYMBOL);
@@ -105,14 +110,14 @@ class PolishNotation implements ICalculatorModelService {
         return result;
     }
 
-    private evaluateBinaryOperator(calculate: (a: number, b: number) => number, stack: (number | string)[] = []) {
+    private evaluateBinaryOperator(calculate: (a: number, b: number) => number, stack: (number | string)[] = []): void {
         const a = stack.pop() as number;
         const b = stack.pop() as number;
 
         stack.push(calculate(b, a));
     }
 
-    private evaluateUnaryOperator(calculate: (a: number) => number, stack: (number | string)[] = []) {
+    private evaluateUnaryOperator(calculate: (a: number) => number, stack: (number | string)[] = []): void {
         const a = stack.pop() as number;
         stack.push(calculate(a));
     }
@@ -129,7 +134,7 @@ class PolishNotation implements ICalculatorModelService {
                 const operator = this.availableOperators[token];
                 if (operator.type === OperatorType.BINARY) {
                     this.evaluateBinaryOperator(operator.calculate, stack);
-                } else if (operator.type === OperatorType.UNARY) {
+                } else if (operator.type === OperatorType.UNARY || operator.type === OperatorType.TRIGONOMETRIC) {
                     this.evaluateUnaryOperator(operator.calculate, stack);
                 }
             }
@@ -145,4 +150,3 @@ class PolishNotation implements ICalculatorModelService {
     }
 }
 
-export default PolishNotation;

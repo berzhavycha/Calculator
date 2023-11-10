@@ -1,4 +1,4 @@
-import { ObserverEvents } from '../config/observerEvents';
+import { ObserverEvents } from '../Observer/observerEvents';
 import subject from '../Observer/Subject';
 
 export interface ICalculatorModelService {

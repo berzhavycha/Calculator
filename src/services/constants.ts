@@ -1,3 +1,8 @@
+export enum calculationMethods {
+  POLISH_NOTATION = 'polishNotation',
+  REGEX_CALCULATION = 'regexCalculation'
+}
+
 export enum MathOperators {
   PLUS = '+',
   MINUS = '-',
@@ -31,7 +36,7 @@ export enum MathOperationPriority {
   ADD_AND_SUB = 1,
   MULT_AND_DIVISION = 2,
   FACTORIAL = 3,
-  TRIGONOMETRIC = 4, 
+  TRIGONOMETRIC = 4,
   EXPONENTIATION = 5,
   PARENTHESES = 6,
 }
@@ -39,4 +44,5 @@ export enum MathOperationPriority {
 export enum OperatorType {
   BINARY = 'binary',
   UNARY = 'unary',
+  TRIGONOMETRIC = 'trigonometric'
 }

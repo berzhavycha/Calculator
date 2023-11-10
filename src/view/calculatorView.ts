@@ -1,6 +1,6 @@
 import subject from '../Observer/Subject';
-import { SpecialOperators } from '../config/constants';
-import { ObserverEvents } from '../config/observerEvents';
+import { SpecialOperators } from '../services/constants';
+import { ObserverEvents } from '../Observer/observerEvents';
 import { isMathOperator } from '../utils/utils';
 
 class CalculatorView {
@@ -34,7 +34,7 @@ class CalculatorView {
     });
 
     this.backspaceBtn.addEventListener('click', () => {
-      let inputValue = this.inputEl.value
+      const inputValue = this.inputEl.value
       let stringOperator = ''
       let isFoundOperator = false
 

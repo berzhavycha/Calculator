@@ -1,5 +1,5 @@
-import { MathOperators, SpecialOperators } from "../config/constants";
-import { operations } from "../config/operations";
+import { MathOperators } from "../services/constants";
+import config from "../config/operations";
 
 export function factorial(num: number): number {
   if (num === 0 || num === 1) {
@@ -10,7 +10,7 @@ export function factorial(num: number): number {
 }
 
 export function isMathOperator(token: string): token is MathOperators {
-  return token in operations;
+  return token in config.operations;
 }
 
 export function reduceAllSpaces(expression: string): string {
@@ -20,4 +20,16 @@ export function reduceAllSpaces(expression: string): string {
     }
     return acc;
   }, '');
+}
+
+export function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function getTrigonometricExpressionRegex(operatorRegexPattern: string): RegExp {
+  return new RegExp(`${operatorRegexPattern}\\s*(-?\\d+\\.?\\d*)`, 'i')
+}
+
+export function getRegularExpressionRegex(operatorRegexPattern: string): RegExp {
+  return new RegExp(`(-?\\d+\\.?\\d*)\\s*${operatorRegexPattern}\\s*(-?\\d+\\.?\\d*)`)
 }
