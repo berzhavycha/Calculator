@@ -1,6 +1,6 @@
-import CalculatorView from './view/CalculatorView';
-import CalculatorModel from './model/CalculatorModel';
-import CalculatorController from './controller/CalculatorController';
+import CalculatorView from './view/calculatorView';
+import CalculatorModel from './model/calculatorModel';
+import CalculatorController from './controller/calculatorController';
 import config from './config/operations';
 import { services } from './services/servicesOptions';
 

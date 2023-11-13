@@ -1,9 +1,10 @@
-import { ICalculatorModelService } from '../../model/CalculatorModel';
 import { OperationsType } from '../../config/operations';
-import { Errors, MathOperators, SpecialOperators } from '../constants';
-import { isMathOperator, reduceAllSpaces, escapeRegExp } from '../../utils/utils';
+import { Errors, MathOperators, OperatorType, SpecialOperators } from '../../services/constants';
+import { reduceAllSpaces } from '../../utils/utils';
 import { TOKENIZE_REGEX_PATTERN } from '../../regex/tokenizeRegex';
-import { PARENTHESES_EXPRESSION } from '../../regex/parenthesesRegex';
+import { PARENTHESES_EXPRESSION } from '../../regex/parenthesesRegex'
+import { ICalculatorModelService } from '../../model/calculatorModel';
+import { priorityRegexes } from '../../regex/priorityRegexes';
 
 export class RegexCalculation implements ICalculatorModelService {
   private availableOperators: OperationsType;
@@ -12,34 +13,32 @@ export class RegexCalculation implements ICalculatorModelService {
     this.availableOperators = operations;
   }
 
-  private findhighestPriorityOperator(operatorRegex: RegExp, expression: string): MathOperators | null {
-    let highestPriorityOperator: MathOperators | null = null;
-    let highestPriority = -1;
-    let match: RegExpMatchArray | null;
+  private findHighestPriorityOperatorResult(expression: string) {
+    for (let i = 0; i < priorityRegexes.length; i++) {
+      const matches = expression.match(priorityRegexes[i].regExp);
 
-    while ((match = operatorRegex.exec(expression)) !== null) {
-      const operator = match[0];
-      if (isMathOperator(operator)) {
-        const currentPriority = this.availableOperators[operator].priority;
+      if (matches) {
+        let operatorIndex: number;
 
-        if (currentPriority > highestPriority) {
-          highestPriority = currentPriority;
-          highestPriorityOperator = operator;
+        if (priorityRegexes[i].type === OperatorType.TRIGONOMETRIC) {
+          operatorIndex = 1;
+        } else {
+          operatorIndex = 2;
         }
+
+        return {
+          subExpressionResult: this.availableOperators[matches[operatorIndex] as MathOperators].processorConstructor.process(matches),
+          subExpressionMatch: matches[0]
+        };
       }
     }
 
-    return highestPriorityOperator;
+    return null
   }
 
   private calculate(tokens: string[]): number {
     const expression = tokens.join('');
-    const operatorRegex = new RegExp(Object.keys(this.availableOperators).map(escapeRegExp).join('|'), 'g');
-    let highestPriorityOperator = this.findhighestPriorityOperator(operatorRegex, expression);
-
-    if (highestPriorityOperator === MathOperators.MINUS && expression[0] === MathOperators.MINUS) {
-      highestPriorityOperator = this.findhighestPriorityOperator(operatorRegex, expression.slice(1));
-    }
+    const highestPriorityOperator = this.findHighestPriorityOperatorResult(expression);
 
     if (highestPriorityOperator === null) {
       if (tokens.length === 1) {
@@ -49,11 +48,7 @@ export class RegexCalculation implements ICalculatorModelService {
       }
     }
 
-    const { subExpressionResult, subExpressionRegex } = this.availableOperators[
-      highestPriorityOperator
-    ].processorConstructor.process(expression, highestPriorityOperator);
-
-    const updatedExpression = expression.replace(subExpressionRegex, subExpressionResult.toString());
+    const updatedExpression = expression.replace(highestPriorityOperator.subExpressionMatch, highestPriorityOperator.subExpressionResult.toString());
     const updatedTokens = updatedExpression.match(TOKENIZE_REGEX_PATTERN);
 
     if (!updatedTokens) {
@@ -77,8 +72,7 @@ export class RegexCalculation implements ICalculatorModelService {
 
       const subExpression = match[0].slice(1, -1);
       const subResult = this.evaluate(subExpression);
-      tokens =
-        tokens.join('').replace(PARENTHESES_EXPRESSION, subResult.toString()).match(TOKENIZE_REGEX_PATTERN) || [];
+      tokens = tokens.join('').replace(PARENTHESES_EXPRESSION, subResult.toString()).match(TOKENIZE_REGEX_PATTERN) || [];
     }
 
     tokens = [this.calculate(tokens).toString()];
