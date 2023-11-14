@@ -1,11 +1,10 @@
-import { ObserverEvents } from '../Observer/observerEvents';
-import subject from '../Observer/Subject';
+import subject, { ObserverEvents } from '../Observer/index';
 
 export interface ICalculatorModelService {
   evaluate(expression: string): number;
 }
 
-class CalculatorModel {
+export class CalculatorModel {
   private calculationService: ICalculatorModelService;
 
   constructor(service: ICalculatorModelService) {
@@ -28,5 +27,3 @@ class CalculatorModel {
     return this.calculationService.evaluate(expression);
   }
 }
-
-export default CalculatorModel;

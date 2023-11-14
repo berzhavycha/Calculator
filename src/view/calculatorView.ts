@@ -1,9 +1,8 @@
-import subject from '../Observer/Subject';
-import { SpecialOperators } from '../services/constants';
-import { ObserverEvents } from '../Observer/observerEvents';
-import { isMathOperator } from '../utils/utils';
+import subject, { ObserverEvents } from '../Observer/index';
+import { SpecialOperators } from '../services/index';
+import { isMathOperator } from '../utils/index';
 
-class CalculatorView {
+export class CalculatorView {
   private inputEl = document.querySelector('#expression') as HTMLInputElement;
   private resultEl = document.querySelector('.result') as HTMLDivElement;
   private buttonContainer = document.querySelector('.button-container') as HTMLDivElement;
@@ -66,5 +65,3 @@ class CalculatorView {
     this.errorBlock.innerText = errorMessage;
   }
 }
-
-export default CalculatorView;

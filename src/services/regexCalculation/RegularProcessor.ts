@@ -1,5 +1,5 @@
 import config from '../../config/operations';
-import { MathOperators } from '../constants';
+import { MathOperators } from '../index';
 
 export interface IRegExOperatorProcessor {
   process(matches: RegExpMatchArray): number;
@@ -11,6 +11,6 @@ export class RegularProcessor implements IRegExOperatorProcessor {
     const operand1 = parseFloat(matches[1]);
     const operand2 = parseFloat(matches[3]);
 
-    return config.operations[operator as MathOperators].calculate(operand1, operand2)
+    return config.operations[operator as MathOperators].calculate(operand1, operand2);
   }
 }

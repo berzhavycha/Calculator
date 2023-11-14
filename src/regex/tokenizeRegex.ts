@@ -1,5 +1,5 @@
 import config from '../config/operations';
-import { SpecialOperators } from '../services/constants';
+import { SpecialOperators } from '../services/index';
 
 const escapedOperators = [...Object.keys(config.operations), ...Object.values(SpecialOperators)]
   .map((operator) => (operator !== '-' ? operator : '\\' + operator))

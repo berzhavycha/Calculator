@@ -1,10 +1,10 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from '../constants';
-import { TOKENIZE_REGEX_PATTERN } from '../../regex/tokenizeRegex';
+import { OperatorType, MathOperators, SpecialOperators, Errors } from '../index';
+import { TOKENIZE_REGEX_PATTERN } from '../../regex/index';
 import { LeftBracketProcessor } from './LeftBracketsProcessor';
 import { RightBracketProcessor } from './RightBracketsProcessor';
 import { IOperatorProcessor, OperatorProcessor } from './OperatorProcessor';
 import { OperationsType } from '../../config/operations';
-import { isMathOperator, reduceAllSpaces } from '../../utils/utils';
+import { isMathOperator, reduceAllSpaces } from '../../utils/index';
 
 type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
 

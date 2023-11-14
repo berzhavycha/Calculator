@@ -1,5 +1,4 @@
-import { IOperatorProcessor } from '../polishNotation/OperatorProcessor';
-import { MathOperators } from '../constants';
+import { IOperatorProcessor, MathOperators } from '../index';
 
 export class LeftBracketProcessor implements IOperatorProcessor {
   process(expressionOperators: string[], _output: string[], token: MathOperators): void {

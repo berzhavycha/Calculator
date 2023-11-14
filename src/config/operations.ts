@@ -1,13 +1,13 @@
 import { FactorialProcessor } from '../services/regexCalculation/FactorialProcessor';
 import { RegularProcessor } from '../services/regexCalculation/RegularProcessor';
 import { TrigonometryProcessor } from '../services/regexCalculation/TrigonometryProcessor';
-import { factorial } from '../utils/utils';
+import { factorial } from '../utils/helpFunction';
 import {
   MathOperators,
   MathOperationPriority,
   OperatorType,
   Associativity,
-  calculationMethods,
+  CalculationMethods,
 } from '../services/constants';
 
 export type IOperation = {
@@ -52,7 +52,7 @@ const operations: OperationsType = {
   [MathOperators.COS]: {
     priority: MathOperationPriority.TRIGONOMETRIC,
     calculate: Math.cos,
-    type: OperatorType.UNARY,
+    type: OperatorType.TRIGONOMETRIC,
     associativity: Associativity.LEFT,
     processorConstructor: new TrigonometryProcessor(),
   },
@@ -80,5 +80,5 @@ const operations: OperationsType = {
 
 export default Object.freeze({
   operations,
-  calculationMethod: calculationMethods.REGEX_CALCULATION,
+  CalculationMethod: CalculationMethods.REGEX_CALCULATION,
 });

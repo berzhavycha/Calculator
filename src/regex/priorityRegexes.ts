@@ -1,8 +1,31 @@
-import { MathOperators, OperatorType } from "../services/constants"
+import { OperatorType } from '../services/index';
+import { escapeRegExp, PriorityInfo } from '../utils/index';
 
-export const priorityRegexes = [
-    { type: OperatorType.UNARY, regExp: new RegExp(`(\\d+\\.?\\d*)\\s*(${MathOperators.FACTORIAL})`) },
-    { type: OperatorType.TRIGONOMETRIC, regExp: new RegExp(`(${MathOperators.COS}|${MathOperators.SIN}|${MathOperators.TAN})\\s*(-?\\d+\\.?\\d*)`, 'i') },
-    { type: OperatorType.BINARY, regExp: new RegExp(`(-?\\d+\\.?\\d*)\\s*(${MathOperators.DIVISION}|\\${MathOperators.MULTIPLICATION})\\s*(-?\\d+\\.?\\d*)`, 'i') },
-    { type: OperatorType.BINARY, regExp: new RegExp(`(-?\\d+\\.?\\d*)\\s*(\\+|\\-)\\s*(-?\\d+\\.?\\d*)`) },
-]
+interface PriorityRegex {
+  type: OperatorType;
+  regExp: RegExp;
+}
+
+export function getPrioritizedRegexes(regexArr: PriorityInfo[]): PriorityRegex[] {
+  return regexArr.map((item) => {
+    if (item.type === OperatorType.UNARY) {
+      return {
+        type: item.type,
+        regExp: new RegExp(`(\\d+\\.?\\d*)\\s*(${item.operators.map(escapeRegExp).join('|')})`),
+      };
+    } else if (item.type === OperatorType.TRIGONOMETRIC) {
+      return {
+        type: item.type,
+        regExp: new RegExp(`(${item.operators.map(escapeRegExp).join('|')})\\s*(-?\\d+\\.?\\d*)`, 'i'),
+      };
+    } else {
+      return {
+        type: item.type,
+        regExp: new RegExp(
+          `(-?\\d+\\.?\\d*)\\s*(${item.operators.map(escapeRegExp).join('|')})\\s*(-?\\d+\\.?\\d*)`,
+          'i'
+        ),
+      };
+    }
+  });
+}

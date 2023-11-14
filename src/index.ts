@@ -1,9 +1,9 @@
-import CalculatorView from './view/calculatorView';
-import CalculatorModel from './model/calculatorModel';
-import CalculatorController from './controller/calculatorController';
+import { CalculatorView } from './view/index';
+import { CalculatorModel } from './model/index';
+import { CalculatorController } from './controller/index';
 import config from './config/operations';
-import { services } from './services/servicesOptions';
+import { services } from './services/index';
 
 new CalculatorView();
-new CalculatorModel(services[config.calculationMethod]);
+new CalculatorModel(services[config.CalculationMethod]);
 new CalculatorController();

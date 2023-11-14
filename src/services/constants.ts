@@ -1,4 +1,4 @@
-export enum calculationMethods {
+export enum CalculationMethods {
   POLISH_NOTATION = 'polishNotation',
   REGEX_CALCULATION = 'regexCalculation',
 }
