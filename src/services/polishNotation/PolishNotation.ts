@@ -1,10 +1,8 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from '../index';
-import { TOKENIZE_REGEX_PATTERN } from '../../regex/index';
-import { LeftBracketProcessor } from './LeftBracketsProcessor';
-import { RightBracketProcessor } from './RightBracketsProcessor';
-import { IOperatorProcessor, OperatorProcessor } from './OperatorProcessor';
-import { OperationsType } from '../../config/operations';
-import { isMathOperator, reduceAllSpaces } from '../../utils/index';
+import { OperatorType, MathOperators, SpecialOperators, Errors } from '@services/index';
+import { TOKENIZE_REGEX_PATTERN } from '@regex/index';
+import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from './index';
+import { OperationsType } from '@config/operations';
+import { isMathOperator, reduceAllSpaces } from '@utils/index';
 
 type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
 
@@ -82,7 +80,10 @@ export class PolishNotation {
     const tokens = expressionWithoutSpaces.match(pattern);
 
     if (!tokens || tokens.join('') !== expressionWithoutSpaces) {
-      throw new Error(Errors.INVALID_SYMBOL);
+      const invalidChars = [...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, '')];
+      const uniqueInvalidChars = [...new Set(invalidChars)];
+
+      throw new Error('Invalid symbols: ' + uniqueInvalidChars);
     }
 
     const result: string[] = [];
@@ -122,7 +123,7 @@ export class PolishNotation {
   }
 
   public evaluate(expression: string): number {
-    const tokens = this.tokenize(expression) || [];
+    const tokens = this.tokenize(expression) ?? [];
     const postfixExpression = this.infixToPostfix(tokens);
     const stack: (number | string)[] = [];
 
@@ -133,7 +134,7 @@ export class PolishNotation {
         const operator = this.availableOperators[token];
         if (operator.type === OperatorType.BINARY) {
           this.evaluateBinaryOperator(operator.calculate, stack);
-        } else if (operator.type === OperatorType.UNARY || operator.type === OperatorType.TRIGONOMETRIC) {
+        } else if (operator.type === OperatorType.UNARY_LEFT || operator.type === OperatorType.UNARY_RIGHT) {
           this.evaluateUnaryOperator(operator.calculate, stack);
         }
       }

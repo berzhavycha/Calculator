@@ -1,18 +1,13 @@
-import config from '../config/operations';
-import { SpecialOperators } from '../services/index';
+import config from '@config/operations';
+import { SpecialOperators } from '@services/index';
 
 const escapedOperators = [...Object.keys(config.operations), ...Object.values(SpecialOperators)]
-  .map((operator) => (operator !== '-' ? operator : '\\' + operator))
-  .map((operator) => operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  .map((operator) => operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  .map((operator) => (operator === '-' ? `\\-` : operator));
 
-const validOperatorsPattern = escapedOperators.join('|');
-const invalidCharactersPattern = '[^\\d\\s' + validOperatorsPattern + ']';
+export const validOperatorsPattern = escapedOperators.join('|');
 
 // TOKENIZE_REGEX_PATTERN RegExp consist of 3 parts:
 // - `\\d+(\\.\\d+)?`: Matches numbers
 // - `${validOperatorsPattern}`: Matches valid operators.
-// - `${invalidCharactersPattern}`: Matches invalid characters.
-export const TOKENIZE_REGEX_PATTERN = new RegExp(
-  `\\d+(\\.\\d+)?|${validOperatorsPattern}|${invalidCharactersPattern}`,
-  'g'
-);
+export const TOKENIZE_REGEX_PATTERN = new RegExp(`\\d+(\\.\\d+)?|${validOperatorsPattern}`, 'g');

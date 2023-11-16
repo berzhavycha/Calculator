@@ -1,30 +1,5 @@
-import { MathOperators, OperatorType } from '../services/constants';
-import config, { OperationsType } from '../config/operations';
-
-export function factorial(num: number): number {
-  if (num === 0 || num === 1) {
-    return 1;
-  } else {
-    return num * factorial(num - 1);
-  }
-}
-
-export function isMathOperator(token: string): token is MathOperators {
-  return token in config.operations;
-}
-
-export function reduceAllSpaces(expression: string): string {
-  return expression.split('').reduce((acc, char) => {
-    if (char !== ' ') {
-      acc += char;
-    }
-    return acc;
-  }, '');
-}
-
-export function escapeRegExp(string: string): string {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+import { OperatorType } from '@services/constants';
+import { OperationsType } from '../config/operations';
 
 export interface PriorityInfo {
   priority: number;

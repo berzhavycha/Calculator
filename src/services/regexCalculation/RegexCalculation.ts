@@ -1,19 +1,41 @@
-import { OperationsType } from '../../config/operations';
-import { Errors, MathOperators, OperatorType, SpecialOperators } from '../index';
-import { reduceAllSpaces, getPriorityInfoArray } from '../../utils/index';
-import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '../../regex/index';
-import { ICalculatorModelService } from '../../model/index';
+import { OperationsType } from '@config/operations';
+import { reduceAllSpaces, getPriorityInfoArray, isMathOperator } from '@utils/index';
+import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@regex/index';
+import { ICalculatorModelService } from '@model/index';
+import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor } from './index';
+import { Errors, IRegExOperatorProcessor, MathOperators, OperatorType, SpecialOperators } from '../index';
 
 interface SubExpressionResult {
   subExpressionResult: number;
   subExpressionMatch: string;
 }
 
+type OperatorsProcessorType = Record<MathOperators, IRegExOperatorProcessor>;
+
 export class RegexCalculation implements ICalculatorModelService {
   private availableOperators: OperationsType;
+  private operatorProcessors: OperatorsProcessorType;
 
   constructor(operations: OperationsType) {
     this.availableOperators = operations;
+    this.operatorProcessors = this.initializeOperatorProcessor(this.availableOperators);
+  }
+
+  private initializeOperatorProcessor(operators: OperationsType): OperatorsProcessorType {
+    return {
+      ...Object.keys(operators).reduce((obj, key) => {
+        if (isMathOperator(key)) {
+          if (this.availableOperators[key].type === OperatorType.BINARY) {
+            obj[key] = new BinaryProcessor();
+          } else if (this.availableOperators[key].type === OperatorType.UNARY_LEFT) {
+            obj[key] = new UnaryLeftProcessor();
+          } else {
+            obj[key] = new UnaryRightProcessor();
+          }
+        }
+        return obj;
+      }, {} as OperatorsProcessorType),
+    };
   }
 
   private findHighestPriorityOperatorResult(expression: string): SubExpressionResult | null {
@@ -23,11 +45,10 @@ export class RegexCalculation implements ICalculatorModelService {
       const matches = expression.match(priorityRegex.regExp);
 
       if (matches) {
-        const operatorIndex = priorityRegex.type === OperatorType.TRIGONOMETRIC ? 1 : 2;
+        const operatorIndex = priorityRegex.type === OperatorType.UNARY_RIGHT ? 1 : 2;
 
         return {
-          subExpressionResult:
-            this.availableOperators[matches[operatorIndex] as MathOperators].processorConstructor.process(matches),
+          subExpressionResult: this.operatorProcessors[matches[operatorIndex] as MathOperators].process(matches),
           subExpressionMatch: matches[0],
         };
       }
@@ -67,16 +88,17 @@ export class RegexCalculation implements ICalculatorModelService {
 
   private evaluateExpression(tokens: string[]): number {
     while (tokens.includes(SpecialOperators.LEFT_BRACKET)) {
-      const match = tokens.join('').match(PARENTHESES_EXPRESSION);
+      const matches = tokens.join('').match(PARENTHESES_EXPRESSION);
 
-      if (!match) {
+      if (!matches) {
         throw new Error(Errors.UNMATCHED_PARENTHESES);
       }
 
-      const subExpression = match[0].slice(1, -1);
-      const subResult = this.evaluate(subExpression);
-      tokens =
-        tokens.join('').replace(PARENTHESES_EXPRESSION, subResult.toString()).match(TOKENIZE_REGEX_PATTERN) || [];
+      matches.forEach((match) => {
+        const subExpression = match.slice(1, -1);
+        const subResult = this.evaluate(subExpression);
+        tokens = tokens.join('').replace(match, subResult.toString()).match(TOKENIZE_REGEX_PATTERN) ?? [];
+      });
     }
 
     tokens = [this.calculate(tokens).toString()];
@@ -97,7 +119,10 @@ export class RegexCalculation implements ICalculatorModelService {
     const expressionWithoutSpaces = reduceAllSpaces(expression);
 
     if (!tokens || tokens.join('') !== expressionWithoutSpaces) {
-      throw new Error(Errors.INVALID_EXPRESSION);
+      const invalidChars = [...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, '')];
+      const uniqueInvalidChars = [...new Set(invalidChars)];
+
+      throw new Error('Invalid symbols: ' + uniqueInvalidChars);
     }
 
     return this.evaluateExpression(tokens);

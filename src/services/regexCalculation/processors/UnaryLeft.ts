@@ -1,0 +1,11 @@
+import { MathOperators } from '@services/index';
+import config from '@config/operations';
+import { IRegExOperatorProcessor } from './Binary';
+
+export class UnaryLeftProcessor implements IRegExOperatorProcessor {
+  process(matches: RegExpMatchArray): number {
+    const operand1 = parseFloat(matches[1]);
+
+    return config.operations[MathOperators.FACTORIAL].calculate(operand1);
+  }
+}

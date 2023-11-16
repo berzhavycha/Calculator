@@ -7,6 +7,9 @@
   },
   "description": "",
   "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --watch",
@@ -16,9 +19,11 @@
     "lint": "eslint --ext .js,.ts",
     "prettier-format": "prettier --config .prettierrc ./src/**/*.ts --write"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "envalid": "^8.0.0",
+    "path": "^0.12.7",
+    "process": "^0.11.10"
+  },
   "devDependencies": {
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
@@ -41,10 +46,5 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
-  },
-  "dependencies": {
-    "envalid": "^8.0.0",
-    "path": "^0.12.7",
-    "process": "^0.11.10"
   }
 }

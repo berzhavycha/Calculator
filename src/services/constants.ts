@@ -33,16 +33,15 @@ export enum Associativity {
 }
 
 export enum MathOperationPriority {
-  ADD_AND_SUB = 1,
-  MULT_AND_DIVISION = 2,
-  FACTORIAL = 3,
-  TRIGONOMETRIC = 4,
-  EXPONENTIATION = 5,
-  PARENTHESES = 6,
+  LOW = 1,
+  MEDIUM = 2,
+  HIGH = 3,
+  CRITICAL = 4,
+  TOP = 5,
+  MAXIMUM = 6,
 }
-
 export enum OperatorType {
   BINARY = 'binary',
-  UNARY = 'unary',
-  TRIGONOMETRIC = 'trigonometric',
+  UNARY_LEFT = 'unaryLeft',
+  UNARY_RIGHT = 'unaryRight',
 }

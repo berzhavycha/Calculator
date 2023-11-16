@@ -1,11 +1,11 @@
-import config from '../../config/operations';
-import { MathOperators } from '../index';
+import config from '@config/operations';
+import { MathOperators } from '@services/index';
 
 export interface IRegExOperatorProcessor {
   process(matches: RegExpMatchArray): number;
 }
 
-export class RegularProcessor implements IRegExOperatorProcessor {
+export class BinaryProcessor implements IRegExOperatorProcessor {
   process(matches: RegExpMatchArray): number {
     const operator = matches[2];
     const operand1 = parseFloat(matches[1]);

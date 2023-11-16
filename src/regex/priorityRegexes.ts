@@ -1,5 +1,5 @@
-import { OperatorType } from '../services/index';
-import { escapeRegExp, PriorityInfo } from '../utils/index';
+import { OperatorType } from '@services/index';
+import { escapeRegExp, PriorityInfo } from '@utils/index';
 
 interface PriorityRegex {
   type: OperatorType;
@@ -8,12 +8,12 @@ interface PriorityRegex {
 
 export function getPrioritizedRegexes(regexArr: PriorityInfo[]): PriorityRegex[] {
   return regexArr.map((item) => {
-    if (item.type === OperatorType.UNARY) {
+    if (item.type === OperatorType.UNARY_LEFT) {
       return {
         type: item.type,
         regExp: new RegExp(`(\\d+\\.?\\d*)\\s*(${item.operators.map(escapeRegExp).join('|')})`),
       };
-    } else if (item.type === OperatorType.TRIGONOMETRIC) {
+    } else if (item.type === OperatorType.UNARY_RIGHT) {
       return {
         type: item.type,
         regExp: new RegExp(`(${item.operators.map(escapeRegExp).join('|')})\\s*(-?\\d+\\.?\\d*)`, 'i'),
