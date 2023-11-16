@@ -18,7 +18,6 @@ export class CalculatorView {
   private errorBlock: HTMLDivElement;
   private backspaceBtn: HTMLButtonElement | null;
   private operators: string[];
-  private operatorIndex = 0;
   private buttonsPerRow = 4;
 
   constructor() {
@@ -92,7 +91,6 @@ export class CalculatorView {
 
     if (isOperator) {
       button.classList.add('p-2', 'bg-green-500', 'text-white', 'rounded', 'hover:bg-green-700');
-      this.operatorIndex++;
     } else {
       button.classList.add('p-2', 'bg-blue-500', 'text-white', 'rounded', 'hover:bg-blue-700');
     }
