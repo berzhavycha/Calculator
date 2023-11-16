@@ -2,8 +2,8 @@ import { OperationsType } from '@config';
 import { reduceAllSpaces, getPriorityInfoArray, isMathOperator } from '@utils';
 import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@regex';
 import { ICalculatorModelService } from '@model';
-import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor } from './processors';
-import { Errors, IRegExOperatorProcessor, MathOperators, OperatorType, SpecialOperators } from '../index';
+import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor, IRegExOperatorProcessor } from './processors';
+import { Errors, MathOperators, OperatorType, SpecialOperators } from '../index';
 
 interface SubExpressionResult {
   subExpressionResult: number;
