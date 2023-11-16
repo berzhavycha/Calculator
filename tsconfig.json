@@ -5,26 +5,50 @@
       "@config": [
         "./src/config/operations.ts"
       ],
+      "@config/*": [
+        "./src/config/*"
+      ],
       "@controller": [
         "./src/controller/index.ts"
+      ],
+      "@controller/*": [
+        "./src/controller/*"
       ],
       "@model": [
         "./src/model/index.ts"
       ],
+      "@model/*": [
+        "./src/model/*"
+      ],
       "@observer": [
         "./src/Observer/index.ts"
+      ],
+      "@observer/*": [
+        "./src/Observer/*"
       ],
       "@regex": [
         "./src/regex/index.ts"
       ],
+      "@regex/*": [
+        "./src/regex/*"
+      ],
       "@services": [
         "./src/services/index.ts"
+      ],
+      "@services/*": [
+        "./src/services/*"
       ],
       "@utils": [
         "./src/utils/index.ts"
       ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
       "@view": [
         "./src/view/index.ts"
+      ],
+      "@view/*": [
+        "./src/view/*"
       ],
     },
     /* Visit https://aka.ms/tsconfig to read more about this file */

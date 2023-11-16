@@ -1,6 +1,6 @@
 import { OperatorType, MathOperators, SpecialOperators, Errors } from '@services';
 import { TOKENIZE_REGEX_PATTERN } from '@regex';
-import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from './processors/index';
+import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from './processors';
 import { OperationsType } from '@config';
 import { isMathOperator, reduceAllSpaces } from '@utils';
 
