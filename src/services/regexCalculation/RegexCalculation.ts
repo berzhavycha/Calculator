@@ -1,8 +1,8 @@
-import { OperationsType } from '@config/operations';
-import { reduceAllSpaces, getPriorityInfoArray, isMathOperator } from '@utils/index';
-import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@regex/index';
-import { ICalculatorModelService } from '@model/index';
-import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor } from './index';
+import { OperationsType } from '@config';
+import { reduceAllSpaces, getPriorityInfoArray, isMathOperator } from '@utils';
+import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@regex';
+import { ICalculatorModelService } from '@model';
+import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor } from './processors/index';
 import { Errors, IRegExOperatorProcessor, MathOperators, OperatorType, SpecialOperators } from '../index';
 
 interface SubExpressionResult {

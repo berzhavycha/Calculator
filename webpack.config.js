@@ -29,14 +29,14 @@ module.exports = {
     extensions: [".ts", ".js"],
     alias: {
       process: "process/browser",
-      '@config': path.resolve(__dirname, 'src/config/'),
-      '@controller': path.resolve(__dirname, 'src/controller/'),
-      '@model': path.resolve(__dirname, 'src/model/'),
-      '@observer': path.resolve(__dirname, 'src/Observer/'),
-      '@regex': path.resolve(__dirname, 'src/regex/'),
-      '@services': path.resolve(__dirname, 'src/services/'),
-      '@utils': path.resolve(__dirname, 'src/utils/'),
-      '@view': path.resolve(__dirname, 'src/view/')
+      '@config': path.resolve(__dirname, 'src/config/operations.ts'),
+      '@controller': path.resolve(__dirname, 'src/controller/index.ts'),
+      '@model': path.resolve(__dirname, 'src/model/index.ts'),
+      '@observer': path.resolve(__dirname, 'src/Observer/index.ts'),
+      '@regex': path.resolve(__dirname, 'src/regex/index.ts'),
+      '@services': path.resolve(__dirname, 'src/services/index.ts'),
+      '@utils': path.resolve(__dirname, 'src/utils/index.ts'),
+      '@view': path.resolve(__dirname, 'src/view/index.ts')
     }
   },
   output: {

@@ -1,5 +1,5 @@
-import config from '@config/operations';
-import { SpecialOperators } from '@services/index';
+import config from '@config';
+import { SpecialOperators } from '@services';
 
 const escapedOperators = [...Object.keys(config.operations), ...Object.values(SpecialOperators)]
   .map((operator) => operator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))

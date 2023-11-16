@@ -1,8 +1,16 @@
-import subject, { ObserverEvents } from '@observer/index';
-import { SpecialOperators } from '@services/index';
-import { isMathOperator } from '@utils/index';
-import config from '@config/operations';
-import { calculatorViewConstants } from './index';
+import subject, { ObserverEvents } from '@observer';
+import { SpecialOperators } from '@services';
+import { isMathOperator } from '@utils';
+import config from '@config';
+import {
+  DATA_ATTRIBUTE_BUTTON,
+  ENTER_CALCULATE_BUTTON,
+  INITIAL_BUTTON_PER_ROW,
+  calculatorViewConstants,
+  numberButtonClasses,
+  operatorButtonClasses,
+  rowWrapperClasses,
+} from './index';
 
 interface ButtonData {
   content: string;
@@ -18,7 +26,7 @@ export class CalculatorView {
   private errorBlock: HTMLDivElement;
   private backspaceBtn: HTMLButtonElement | null;
   private operators: string[];
-  private buttonsPerRow = 4;
+  private buttonsPerRow = INITIAL_BUTTON_PER_ROW;
 
   constructor() {
     this.calculatorContainer = document.querySelector('.calculator-container') as HTMLDivElement;
@@ -60,7 +68,7 @@ export class CalculatorView {
   }
 
   private handleInputKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
+    if (event.key === ENTER_CALCULATE_BUTTON) {
       subject.notify(ObserverEvents.EVALUATE_BUTTON_CLICK, this.inputEl.value);
     }
   }
@@ -90,12 +98,16 @@ export class CalculatorView {
     button.style.minWidth = `${calculatorViewConstants.BUTTON_MIN_WIDTH}px`;
 
     if (isOperator) {
-      button.classList.add('p-2', 'bg-green-500', 'text-white', 'rounded', 'hover:bg-green-700');
+      Object.values(operatorButtonClasses).forEach((operatorClass) => {
+        button.classList.add(operatorClass);
+      });
     } else {
-      button.classList.add('p-2', 'bg-blue-500', 'text-white', 'rounded', 'hover:bg-blue-700');
+      Object.values(numberButtonClasses).forEach((numberClass) => {
+        button.classList.add(numberClass);
+      });
     }
 
-    button.setAttribute('data-calc-btn', content);
+    button.setAttribute(DATA_ATTRIBUTE_BUTTON, content);
     button.textContent = content;
 
     return button;
@@ -103,7 +115,7 @@ export class CalculatorView {
 
   private createRowWrapper(): HTMLDivElement {
     const rowWrapper = document.createElement('div');
-    rowWrapper.classList.add('flex', 'mb-4', 'gap-8');
+    rowWrapper.classList.add(rowWrapperClasses.DISPLAY, rowWrapperClasses.MARGIN, rowWrapperClasses.GAP);
     return rowWrapper;
   }
 

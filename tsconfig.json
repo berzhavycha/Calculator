@@ -2,29 +2,29 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@config/*": [
-        "./src/config/*"
+      "@config": [
+        "./src/config/operations.ts"
       ],
-      "@controller/*": [
-        "./src/controller/*"
+      "@controller": [
+        "./src/controller/index.ts"
       ],
-      "@model/*": [
-        "./src/model/*"
+      "@model": [
+        "./src/model/index.ts"
       ],
-      "@observer/*": [
-        "./src/Observer/*"
+      "@observer": [
+        "./src/Observer/index.ts"
       ],
-      "@regex/*": [
-        "./src/regex/*"
+      "@regex": [
+        "./src/regex/index.ts"
       ],
-      "@services/*": [
-        "./src/services/*"
+      "@services": [
+        "./src/services/index.ts"
       ],
-      "@utils/*": [
-        "./src/utils/*"
+      "@utils": [
+        "./src/utils/index.ts"
       ],
-      "@view/*": [
-        "./src/view/*"
+      "@view": [
+        "./src/view/index.ts"
       ],
     },
     /* Visit https://aka.ms/tsconfig to read more about this file */

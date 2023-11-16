@@ -1,4 +1,4 @@
-import subject, { ObserverEvents } from '@observer/index';
+import subject, { ObserverEvents } from '@observer';
 
 export interface ICalculatorModelService {
   evaluate(expression: string): number;

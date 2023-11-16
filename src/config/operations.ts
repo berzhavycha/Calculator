@@ -1,11 +1,5 @@
-import { factorial } from '@utils/factorial';
-import {
-  MathOperators,
-  MathOperationPriority,
-  OperatorType,
-  Associativity,
-  CalculationMethods,
-} from '@services/constants';
+import { factorial } from '@utils';
+import { MathOperators, MathOperationPriority, OperatorType, Associativity, CalculationMethods } from '@services';
 
 export type IOperation = {
   priority: number;

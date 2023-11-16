@@ -1,8 +1,8 @@
-import { CalculatorView } from '@view/index';
-import { CalculatorModel } from '@model/index';
-import { CalculatorController } from '@controller/index';
-import config from '@config/operations';
-import { services } from '@services/index';
+import { CalculatorView } from '@view';
+import { CalculatorModel } from '@model';
+import { CalculatorController } from '@controller';
+import config from '@config';
+import { services } from '@services';
 
 new CalculatorView();
 new CalculatorModel(services[config.CalculationMethod]);

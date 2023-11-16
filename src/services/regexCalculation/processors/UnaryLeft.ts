@@ -1,5 +1,5 @@
-import { MathOperators } from '@services/index';
-import config from '@config/operations';
+import { MathOperators } from '@services';
+import config from '@config';
 import { IRegExOperatorProcessor } from './Binary';
 
 export class UnaryLeftProcessor implements IRegExOperatorProcessor {

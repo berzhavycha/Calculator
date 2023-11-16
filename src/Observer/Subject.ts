@@ -1,4 +1,4 @@
-import { observerEventsContainer, Callback, ObserverEvents } from '@observer/observerEvents';
+import { observerEventsContainer, Callback, ObserverEvents } from './observerEvents';
 
 export interface ISubject {
   subscribe: <T>(eventName: ObserverEvents, callback: Callback<T>) => void;

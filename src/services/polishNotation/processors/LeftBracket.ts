@@ -1,4 +1,4 @@
-import { MathOperators } from '@services/index';
+import { MathOperators } from '@services';
 import { IOperatorProcessor } from './Operator';
 
 export class LeftBracketProcessor implements IOperatorProcessor {

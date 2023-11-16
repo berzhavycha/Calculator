@@ -1,5 +1,5 @@
-import { OperatorType } from '@services/constants';
-import { OperationsType } from '../config/operations';
+import { OperatorType } from '@services';
+import { OperationsType } from '@config';
 
 export interface PriorityInfo {
   priority: number;
