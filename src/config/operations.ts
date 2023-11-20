@@ -62,5 +62,5 @@ const operations: OperationsType = {
 
 export default Object.freeze({
   operations,
-  CalculationMethod: CalculationMethods.REGEX_CALCULATION,
+  CalculationMethod: CalculationMethods.POLISH_NOTATION,
 });

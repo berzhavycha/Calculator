@@ -2,17 +2,6 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
-  plugins: [
-    new webpack.ProvidePlugin({
-      process: "process",
-    }),
-    new webpack.EnvironmentPlugin({
-      FOURSQUARE_PLACES_API_BASE_URL:
-        "https://api.foursquare.com/v3/places/search",
-      FOURSQUARE_PLACES_API_KEY:
-        "fsq3C1EEWYk0pgVweHJQ0mELQHwD+jCkfg5zE4y5LV5T/x0=",
-    }),
-  ],
   entry: "./src/index.ts",
   module: {
     rules: [
@@ -32,7 +21,7 @@ module.exports = {
       '@config': path.resolve(__dirname, 'src/config/operations.ts'),
       '@controller': path.resolve(__dirname, 'src/controller/'),
       '@model': path.resolve(__dirname, 'src/model/'),
-      '@observer': path.resolve(__dirname, 'src/Observer/'),
+      '@observer': path.resolve(__dirname, 'src/observer/'),
       '@regex': path.resolve(__dirname, 'src/regex/'),
       '@services': path.resolve(__dirname, 'src/services/'),
       '@utils': path.resolve(__dirname, 'src/utils/'),

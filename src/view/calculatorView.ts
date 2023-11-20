@@ -17,7 +17,17 @@ interface ButtonData {
   isOperator: boolean;
 }
 
-export class CalculatorView {
+interface IView {
+  handleButtonClick(event: Event): void,
+  handleEvaluateButtonClick(): void,
+  handleInputKeyDown(event: KeyboardEvent): void,
+  handleBackspaceButtonClick(): void,
+  renderButtons(): void,
+  showResult(result: number): void,
+  showError(errorMessage: string): void
+}
+
+export class CalculatorView implements IView {
   private calculatorContainer: HTMLDivElement;
   private inputEl: HTMLInputElement;
   private resultEl: HTMLDivElement;
@@ -27,6 +37,10 @@ export class CalculatorView {
   private backspaceBtn: HTMLButtonElement | null;
   private operators: string[];
   private buttonsPerRow = INITIAL_BUTTON_PER_ROW;
+  private currentRow: HTMLDivElement = this.createRowWrapper()
+  private buttonCounter: number = 0
+  private operatorIndex: number = 0
+  private isRowCompleted: boolean = false
 
   constructor() {
     this.calculatorContainer = document.querySelector('.calculator-container') as HTMLDivElement;
@@ -53,7 +67,7 @@ export class CalculatorView {
     this.backspaceBtn?.addEventListener('click', this.handleBackspaceButtonClick.bind(this));
   }
 
-  private handleButtonClick(event: Event) {
+  public handleButtonClick(event: Event): void {
     const target = event.target as HTMLButtonElement;
     if (target && target.dataset.calcBtn === SpecialOperators.CLEAR_ALL) {
       this.inputEl.value = '';
@@ -63,17 +77,17 @@ export class CalculatorView {
     }
   }
 
-  private handleEvaluateButtonClick() {
+  public handleEvaluateButtonClick(): void {
     subject.notify(ObserverEvents.EVALUATE_BUTTON_CLICK, this.inputEl.value);
   }
 
-  private handleInputKeyDown(event: KeyboardEvent) {
+  public handleInputKeyDown(event: KeyboardEvent): void {
     if (event.key === ENTER_CALCULATE_BUTTON) {
       subject.notify(ObserverEvents.EVALUATE_BUTTON_CLICK, this.inputEl.value);
     }
   }
 
-  private handleBackspaceButtonClick() {
+  public handleBackspaceButtonClick(): void {
     const inputValue = this.inputEl.value;
     let stringOperator = '';
     let isFoundOperator = false;
@@ -119,7 +133,70 @@ export class CalculatorView {
     return rowWrapper;
   }
 
-  private renderButtons(): void {
+  private adjustCalculatorWidth(increaseWidthBy: number): void {
+    this.calculatorContainer.style.width = `${parseFloat(this.calculatorContainer.style.width) + increaseWidthBy}px`;
+  }
+
+  private createAndAddButton(content: string, isOperator: boolean): void {
+    const button = this.createButton({ content, isOperator });
+    this.addButtonToRow(button);
+  }
+
+  private addButtonToRow(button: HTMLButtonElement): void {
+    if (!this.currentRow) {
+      this.currentRow = this.createRowWrapper();
+    }
+    this.currentRow.appendChild(button);
+    this.buttonCounter++;
+  }
+
+  private addRowToContainer(): void {
+    if (this.currentRow) {
+      this.buttonContainer.appendChild(this.currentRow);
+      this.currentRow = this.createRowWrapper();
+    }
+  }
+
+  private renderNumericButtons(): void {
+    for (let i = calculatorViewConstants.MIN_BUTTON_VALUE; i <= calculatorViewConstants.MAX_BUTTON_VALUE; i++) {
+      this.createAndAddButton(`${i}`, false);
+
+      if (
+        i % calculatorViewConstants.NUMBERS_COLUMNS_AMOUNT === 0 &&
+        this.operatorIndex < this.operators.length
+      ) {
+        for (let j = this.buttonCounter; j < this.buttonsPerRow; j++) {
+          this.createAndAddButton(`${this.operators[this.operatorIndex]}`, true);
+          this.operatorIndex++;
+        }
+        this.isRowCompleted = true;
+      }
+
+      if (this.isRowCompleted) {
+        this.addRowToContainer();
+        this.isRowCompleted = false;
+        this.buttonCounter = 0;
+      }
+    }
+  }
+
+  private renderZeroAndOperators(): void {
+    const zeroButton = this.createButton({ content: '0', isOperator: false });
+    this.addButtonToRow(zeroButton);
+    this.buttonCounter = 1;
+
+    while (this.operatorIndex < this.operators.length) {
+      if (this.buttonCounter % this.buttonsPerRow === 0) {
+        this.addRowToContainer();
+      }
+
+      this.createAndAddButton(`${this.operators[this.operatorIndex]}`, true);
+      this.operatorIndex++;
+    }
+
+  }
+
+  public renderButtons(): void {
     this.buttonContainer.innerHTML = '';
 
     const isRowLevelReached =
@@ -128,80 +205,26 @@ export class CalculatorView {
 
     if (isRowLevelReached) {
       this.buttonsPerRow++;
-      this.calculatorContainer.style.width = `${
-        parseFloat(this.calculatorContainer.style.width) + calculatorViewConstants.BUTTON_WIDTH
-      }px`;
+      this.adjustCalculatorWidth(calculatorViewConstants.BUTTON_WIDTH);
       return this.renderButtons();
     }
 
-    let buttonCounter = 0;
-    let operatorIndex = 0;
-    let currentRow: HTMLDivElement | null = this.createRowWrapper();
-    let isRowCompleted = false;
+    this.renderNumericButtons();
+    this.renderZeroAndOperators();
+    this.addRowToContainer();
 
-    const addButtonToRow = (button: HTMLButtonElement) => {
-      if (!currentRow) {
-        currentRow = this.createRowWrapper();
-      }
-      currentRow.appendChild(button);
-      buttonCounter++;
-    };
-
-    const addRowToContainer = () => {
-      if (currentRow) {
-        this.buttonContainer.appendChild(currentRow);
-        currentRow = this.createRowWrapper();
-      }
-    };
-
-    for (let i = calculatorViewConstants.MIN_BUTTON_VALUE; i <= calculatorViewConstants.MAX_BUTTON_VALUE; i++) {
-      const button = this.createButton({ content: `${i}`, isOperator: false });
-      addButtonToRow(button);
-
-      if (i % calculatorViewConstants.NUMBERS_COLUMNS_AMOUNT === 0 && operatorIndex < this.operators.length) {
-        for (let j = buttonCounter; j < this.buttonsPerRow; j++) {
-          const operatorButton = this.createButton({ content: `${this.operators[operatorIndex]}`, isOperator: true });
-          addButtonToRow(operatorButton);
-          operatorIndex++;
-        }
-        isRowCompleted = true;
-      }
-
-      if (isRowCompleted) {
-        addRowToContainer();
-        isRowCompleted = false;
-        buttonCounter = 0;
-      }
+    if (this.isRowCompleted) {
+      this.currentRow = this.createRowWrapper();
+      this.isRowCompleted = false;
     }
-
-    if (isRowCompleted) {
-      currentRow = this.createRowWrapper();
-      isRowCompleted = false;
-    }
-
-    const zeroButton = this.createButton({ content: `0`, isOperator: false });
-    addButtonToRow(zeroButton);
-
-    buttonCounter = 1;
-    while (operatorIndex < this.operators.length) {
-      if (buttonCounter % this.buttonsPerRow === 0) {
-        addRowToContainer();
-      }
-
-      const operatorButton = this.createButton({ content: `${this.operators[operatorIndex]}`, isOperator: true });
-      addButtonToRow(operatorButton);
-      operatorIndex++;
-    }
-
-    addRowToContainer();
   }
 
-  private showResult(result: number) {
+  public showResult(result: number): void {
     this.errorBlock.innerText = '';
     this.resultEl.innerText = result.toString();
   }
 
-  private showError(errorMessage: string) {
+  public showError(errorMessage: string): void {
     this.errorBlock.innerText = errorMessage;
   }
 }

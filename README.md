@@ -43,14 +43,19 @@ Before you start developing for calculator, make sure you have the following too
 2. Git
 
 ### File Structure
+```
 ├───public
 └───src
     ├───config
     ├───controller
     ├───model
-    ├───Observer
+    ├───observer
+    ├───regex
+    ├───services
     ├───utils
-    └───view
+    ├───view
+    └───index.ts
+```
 
 ### Build
 \$ npm run build:watch
