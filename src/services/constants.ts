@@ -8,10 +8,11 @@ export enum MathOperators {
   MINUS = '-',
   MULTIPLICATION = '*',
   DIVISION = '/',
-  COS = 'cos',
   SIN = 'sin',
+  COS = 'cos',
   TAN = 'tan',
   FACTORIAL = '!',
+  MODULATION = '%',
 }
 
 export enum Errors {
@@ -21,10 +22,10 @@ export enum Errors {
 }
 
 export enum SpecialOperators {
-  LEFT_BRACKET = '(',
-  RIGHT_BRACKET = ')',
   DOT = '.',
   CLEAR_ALL = 'C',
+  LEFT_BRACKET = '(',
+  RIGHT_BRACKET = ')',
 }
 
 export enum Associativity {
@@ -40,6 +41,7 @@ export enum MathOperationPriority {
   TOP = 5,
   MAXIMUM = 6,
 }
+
 export enum OperatorType {
   BINARY = 'binary',
   UNARY_LEFT = 'unaryLeft',

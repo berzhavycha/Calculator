@@ -57,9 +57,17 @@ export class RegexCalculation implements ICalculatorModelService {
     return null;
   }
 
+  private handleNegativeExpression(expression: string[]) {
+    if (expression[0] === MathOperators.MINUS) {
+      expression.splice(0, 2, expression[0] + expression[1]);
+    }
+  }
+
   private calculate(tokens: string[]): number {
     const expression = tokens.join('');
     const highestPriorityOperator = this.findHighestPriorityOperatorResult(expression);
+
+    this.handleNegativeExpression(tokens);
 
     if (!highestPriorityOperator) {
       if (tokens.length === 1) {
@@ -79,9 +87,7 @@ export class RegexCalculation implements ICalculatorModelService {
       throw new Error(Errors.INVALID_EXPRESSION);
     }
 
-    if (updatedTokens[0] === MathOperators.MINUS) {
-      updatedTokens.splice(0, 2, updatedTokens[0] + updatedTokens[1]);
-    }
+    this.handleNegativeExpression(updatedTokens);
 
     return this.calculate(updatedTokens);
   }

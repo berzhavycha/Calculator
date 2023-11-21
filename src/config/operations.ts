@@ -58,9 +58,15 @@ const operations: OperationsType = {
     calculate: factorial,
     type: OperatorType.UNARY_LEFT,
   },
+  [MathOperators.MODULATION]: {
+    priority: MathOperationPriority.MEDIUM,
+    calculate: (a, b) => a % b,
+    type: OperatorType.BINARY,
+    associativity: Associativity.LEFT,
+  },
 };
 
 export default Object.freeze({
   operations,
-  CalculationMethod: CalculationMethods.POLISH_NOTATION,
+  CalculationMethod: CalculationMethods.REGEX_CALCULATION,
 });
