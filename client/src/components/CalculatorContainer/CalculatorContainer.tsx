@@ -9,6 +9,7 @@ export const CalculatorContainer: React.FC = () => {
     const { updateLocalStorage } = useLocalStorage()
     const getExpressionResult = useGetExpressionResult()
 
+
     const adjustCalculatorWidth = (increaseWidthBy: number): void => {
         const container = calculatorContainerRef.current;
         if (container) {

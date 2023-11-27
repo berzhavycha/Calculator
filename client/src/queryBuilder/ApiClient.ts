@@ -46,5 +46,4 @@ class ApiClient {
 
 }
 
-
-export const queryBuilder = new ApiClient('http://localhost:5173')
+export const queryBuilder = new ApiClient(import.meta.env.VITE_BASE_API_URL)

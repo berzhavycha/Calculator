@@ -20,5 +20,8 @@ export default defineConfig({
       '@queryBuilder': path.resolve(__dirname, './src/queryBuilder/'),
       '@utils': path.resolve(__dirname, './src/utils/'),
     }
-  }
+  },
+  // define: {
+  //   'process.env.BASE_API_URL': JSON.stringify(process.env.BASE_API_URL)
+  // },
 });
