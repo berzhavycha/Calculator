@@ -1,0 +1,38 @@
+const path = require('path');
+
+module.exports = {
+    target: 'node',
+    mode: 'production',
+    entry: path.resolve(__dirname, 'src', 'server'),
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: 'index.js',
+    },
+    resolve: {
+        extensions: [".ts", ".js"],
+        alias: {
+            process: "process/browser",
+            '@config': path.resolve(__dirname, 'src/config/operations.ts'),
+            '@calculator': path.resolve(__dirname, 'src/calculator/'),
+            '@database': path.resolve(__dirname, 'src/database/'),
+            '@models': path.resolve(__dirname, 'src/models/'),
+            '@modules': path.resolve(__dirname, 'src/modules/'),
+            '@regex': path.resolve(__dirname, 'src/regex/'),
+            '@services': path.resolve(__dirname, 'src/services/'),
+            '@utils': path.resolve(__dirname, 'src/utils/'),
+        }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(ts|js)?$/,
+                exclude: /node_modules/,
+                include: path.resolve(__dirname, 'src'),
+                use: 'ts-loader',
+            },
+        ],
+    },
+    stats: {
+        errorDetails: true,
+    },
+};

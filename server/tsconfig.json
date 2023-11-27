@@ -1,0 +1,66 @@
+{
+    "ts-node": {
+        "require": [
+            "tsconfig-paths/register"
+        ]
+    },
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@config": [
+                "./src/config/operations.ts"
+            ],
+            "@config/*": [
+                "./src/config/*"
+            ],
+            "@calculator": [
+                "./src/calculator/index.ts"
+            ],
+            "@calculator/*": [
+                "./src/calculator/*"
+            ],
+            "@models": [
+                "./src/models/index.ts"
+            ],
+            "@models/*": [
+                "./src/models/*"
+            ],
+            "@database": [
+                "./src/database/index.ts"
+            ],
+            "@database/*": [
+                "./src/database/*"
+            ],
+            "@regex": [
+                "./src/regex/index.ts"
+            ],
+            "@regex/*": [
+                "./src/regex/*"
+            ],
+            "@services": [
+                "./src/services/index.ts"
+            ],
+            "@services/*": [
+                "./src/services/*"
+            ],
+            "@utils": [
+                "./src/utils/index.ts"
+            ],
+            "@utils/*": [
+                "./src/utils/*"
+            ],
+        },
+        "target": "es2017",
+        "module": "commonjs",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "./src/**/*",
+        "./tests/**/*",
+        "../shared/config"
+    ]
+}
