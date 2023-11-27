@@ -3,10 +3,10 @@ import { Request, Response, Express } from "express";
 import { IDatabase } from "@database";
 import { Calculation } from "@models";
 import { calculatorModel } from "@calculator";
-
+import config from '@config'
 
 export class MongoDatabase implements IDatabase {
-    
+
     public connect(app: Express, url: string) {
         const PORT = process.env.PORT || 5001;
 
