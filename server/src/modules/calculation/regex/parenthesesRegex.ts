@@ -1,4 +1,4 @@
-import { SpecialOperators } from '@services/calculationMethods';
+import { SpecialOperators } from '@modules/calculation';
 
 // PARENTHESES_EXPRESSION consists of 3 parts:
 //   - \( : matches an open parenthesis

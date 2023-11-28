@@ -1,5 +1,5 @@
 import { OperationsType } from '@config';
-import { MathOperators, SpecialOperators, Associativity } from '@services';
+import { MathOperators, SpecialOperators, Associativity } from '../../constants';
 
 export interface IOperatorProcessor {
   process(expressionOperators: string[], output: string[], token: MathOperators | SpecialOperators): void;

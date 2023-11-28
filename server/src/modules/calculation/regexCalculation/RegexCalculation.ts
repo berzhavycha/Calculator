@@ -1,7 +1,7 @@
-import { ICalculatorModelService } from '@calculator';
 import { OperationsType } from '@config';
-import { reduceAllSpaces, getPriorityInfoArray, isMathOperator } from '@utils';
-import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@regex';
+import { reduceAllSpaces, getPriorityInfoArray } from '@utils';
+import { isMathOperator } from '../isMathOperator';
+import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@modules/calculation/regex';
 import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor, IRegExOperatorProcessor } from './processors';
 import { Errors, MathOperators, OperatorType, SpecialOperators } from '../index';
 
@@ -11,6 +11,10 @@ interface SubExpressionResult {
 }
 
 type OperatorsProcessorType = Record<MathOperators, IRegExOperatorProcessor>;
+
+interface ICalculatorModelService {
+  evaluate(expression: string): number
+}
 
 export class RegexCalculation implements ICalculatorModelService {
   private availableOperators: OperationsType;

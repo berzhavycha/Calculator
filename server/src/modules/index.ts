@@ -1,11 +1,14 @@
-import calculation from './calculation/index'
+import {calculationRestMethods} from './calculation'
 import operations from './operations'
+
 
 export default {
     get: [
         ...operations.get
     ],
     post: [
-        ...calculation.post
+        ...calculationRestMethods.post
     ]
 }
+
+export * from './calculation'

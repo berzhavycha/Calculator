@@ -13,8 +13,7 @@ module.exports = {
         alias: {
             process: "process/browser",
             '@config': path.resolve(__dirname, 'src/config/operations.ts'),
-            '@calculator': path.resolve(__dirname, 'src/calculator/'),
-            '@database': path.resolve(__dirname, 'src/database/'),
+            '@database': path.resolve(__dirname, 'src/database/index.ts'),
             '@models': path.resolve(__dirname, 'src/models/'),
             '@modules': path.resolve(__dirname, 'src/modules/'),
             '@regex': path.resolve(__dirname, 'src/regex/'),

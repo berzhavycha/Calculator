@@ -1,4 +1,4 @@
-import { OperatorType } from '@services';
+import { OperatorType } from '@modules';
 import { OperationsType } from '@config';
 
 export interface PriorityInfo {

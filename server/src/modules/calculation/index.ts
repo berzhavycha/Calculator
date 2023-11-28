@@ -1,7 +1,23 @@
-import { databaseModel } from "@database"
+import { currentDatabase } from '@database';
 
-export default {
+
+interface IRest {
+    post: { route: string; controller: (req: Request, res: Response) => Promise<void> }[];
+
+}
+
+export const calculationRestMethods = {
     post: [
-        { route: '/calculations', controller: databaseModel.postCalculation }
+        { route: '/operations', controller: currentDatabase.postCalculation }
     ]
 }
+
+export * from './constants'
+
+export * from './methodOptions'
+
+export * from './polishNotation/PolishNotation'
+
+export * from './regexCalculation/RegexCalculation'
+
+export * from './regex'
