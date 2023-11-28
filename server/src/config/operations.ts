@@ -1,5 +1,5 @@
-import { MathOperators, MathOperationPriority, OperatorType, Associativity, CalculationMethods } from '@modules/calculation/constants';
-import { DataBases } from '@database/constants';
+import { MathOperators, MathOperationPriority, OperatorType, Associativity, CalculationMethods } from '@modules/calculation';
+import { DataBases } from '@database';
 import { factorial } from './factorial';
 
 export type IOperation = {

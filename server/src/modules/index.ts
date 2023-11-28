@@ -1,14 +1,3 @@
-import {calculationRestMethods} from './calculation'
-import operations from './operations'
+export * from './modulesIndex'
+export * from './calculation';
 
-
-export default {
-    get: [
-        ...operations.get
-    ],
-    post: [
-        ...calculationRestMethods.post
-    ]
-}
-
-export * from './calculation'

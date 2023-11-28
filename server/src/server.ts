@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv'
-import modules from '@modules'
+import { modules } from '@modules'
 import bodyParser from 'body-parser';
 import 'module-alias/register';
 import { currentDatabase } from '@database';
