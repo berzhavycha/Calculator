@@ -1,19 +1,17 @@
-import { calculationRestMethods, IMethod } from './calculation';
 import { operationsRestMethods } from './operations/restIndex';
+import { calculationRestMethods, IMethod } from './calculation';
 
 interface IModules {
     get: IMethod[];
     post: IMethod[];
 }
 
-const getMethods: IMethod[] = operationsRestMethods.get || [];
-const postMethods: IMethod[] = calculationRestMethods.post || [];
 
 export const modules: IModules = {
     get: [
-        ...getMethods
+        ...operationsRestMethods.get
     ],
     post: [
-        ...postMethods
+        ...calculationRestMethods.post
     ]
 };

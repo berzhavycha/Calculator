@@ -1,4 +1,4 @@
-import { MathOperators } from '@modules/calculation';
+import { MathOperators } from '@modules/calculation/calculatorMethods';
 import { escapeRegExp } from '@utils';
 
 export const OPERATIONS_WITH_MINUS_PATTERN = new RegExp(

@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv'
-import { modules } from '@modules'
 import bodyParser from 'body-parser';
 import 'module-alias/register';
-import { currentDatabase } from '@database';
+import { currentDatabaseService } from '@database';
+import { modules } from '@modules'
 
 const app = express();
 
@@ -19,4 +19,8 @@ modules.post.forEach(({ route, controller }) => {
     app.post(route, controller)
 });
 
-currentDatabase.connect(app, process.env.MONGODB_URL as string)
+const PORT = process.env.PORT || 5001;
+
+currentDatabaseService.connect(process.env.MONGODB_URL as string).then(() => {
+    app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
+})
