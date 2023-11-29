@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useOperations, useCurrentExpression } from '@context';
-import { useGetButtonMatrix, IButtonData } from '@hooks';
+import { useGetButtonMatrix, IButtonData } from './hooks';
 import {
     BACKSPACE,
     buttonClasses,

@@ -9,7 +9,8 @@ interface IModules {
 
 export const modules: IModules = {
     get: [
-        ...operationsRestMethods.get
+        ...operationsRestMethods.get,
+        ...calculationRestMethods.get,
     ],
     post: [
         ...calculationRestMethods.post

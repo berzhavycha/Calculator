@@ -10,6 +10,7 @@ export const useGetExpressionResult = () => {
             setResult(data.result);
         } catch (error) {
             if (error instanceof Error) {
+                setResult('')
                 setErrorMessage(error.message)
             }
         }

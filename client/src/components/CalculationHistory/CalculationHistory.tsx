@@ -1,10 +1,10 @@
 import React from "react";
 import { useCurrentExpression } from "@context";
-import { useLocalStorage } from "@hooks";
+import { useFetchExpressions } from "./hooks";
 
 export const CalculationHistory: React.FC = () => {
     const { expression, setExpression } = useCurrentExpression()
-    const { lastCalculations } = useLocalStorage()
+    const expressions = useFetchExpressions();
 
     const handleExpressionClick = (event: React.MouseEvent<HTMLParagraphElement>): void => {
         const clickedExpression = event.currentTarget.innerText;
@@ -13,9 +13,9 @@ export const CalculationHistory: React.FC = () => {
 
     return (
         <div className="bg-gray-100 mb-6 p-2 pb-0.5 rounded-md shadow-md">
-            {lastCalculations.length > 0 ? (
+            {expressions.length > 0 ? (
                 <ul>
-                    {lastCalculations.map((calculation, index) => (
+                    {expressions.map((calculation, index) => (
                         <li
                             key={index}
                             className="mb-2 p-1 pr-2 bg-white rounded-md shadow-md hover:bg-gray-100 text-xs cursor-pointer"

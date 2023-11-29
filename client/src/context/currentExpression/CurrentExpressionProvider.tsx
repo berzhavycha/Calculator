@@ -19,11 +19,11 @@ const useCurrentExpression = (): ICurrentExpression => {
     return context;
 };
 
-interface ICurrentExpressionProviderProps {
+export interface IProviderProps {
     children: ReactNode;
 }
 
-const CurrentExpressionProvider: React.FC<ICurrentExpressionProviderProps> = ({ children }) => {
+const CurrentExpressionProvider: React.FC<IProviderProps> = ({ children }) => {
     const [expression, setExpression] = useState<string>('');
     const [result, setResult] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');

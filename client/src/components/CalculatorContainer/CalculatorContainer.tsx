@@ -1,12 +1,9 @@
 import React, { useRef } from 'react';
 import { CalculatorButtons, InputExpression, ResultExpression, CalculationHistory } from '@components';
-import { useCurrentExpression } from '@context';
-import { useLocalStorage, useGetExpressionResult } from '@hooks';
+import { useGetExpressionResult } from './hooks';
 
 export const CalculatorContainer: React.FC = () => {
-    const { result, expression } = useCurrentExpression()
     const calculatorContainerRef = useRef<HTMLDivElement>(null);
-    const { updateLocalStorage } = useLocalStorage()
     const getExpressionResult = useGetExpressionResult()
 
 
@@ -20,7 +17,6 @@ export const CalculatorContainer: React.FC = () => {
 
     const getResultAndUpdateLocalStorage = async () => {
         await getExpressionResult()
-        updateLocalStorage(expression, result)
     }
 
     return (

@@ -1,10 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, { SortOrder } from 'mongoose';
 import { Calculation } from "@models";
 import { calculationProcessor } from '@modules';
 
+interface ExpressionResult {
+    expression: string;
+}
+
 interface IDatabase {
     connect(url: string): void,
-    postCalculation(expression: string): Promise<number | undefined>
+    postCalculation(expression: string): Promise<number | undefined>,
+    getExpressionByParam(limit: number, sortOrder: SortOrder): Promise<ExpressionResult[]>
 }
 
 export class MongoDatabase implements IDatabase {
@@ -14,7 +19,10 @@ export class MongoDatabase implements IDatabase {
             .then(() => {
                 console.log('Connected to MongoDB')
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                throw error;
+            });
     }
 
     public async postCalculation(expression: string): Promise<number | undefined> {
@@ -30,9 +38,25 @@ export class MongoDatabase implements IDatabase {
                 await newCalculation.save();
             }
 
-            return result
+            return result;
         } catch (error) {
-            throw error
+            throw error;
+        }
+    }
+
+    public async getExpressionByParam(limit: number, sortOrder: SortOrder): Promise<ExpressionResult[]> {
+        try {
+            const sortCriteria: Record<string, SortOrder> = { _id: sortOrder };
+            const lastExpressions = await Calculation.find()
+                .sort(sortCriteria)
+                .limit(limit);
+
+
+            return lastExpressions.map((expression) => ({
+                expression: expression.expression,
+            }));
+        } catch (error) {
+            throw error;
         }
     }
 }

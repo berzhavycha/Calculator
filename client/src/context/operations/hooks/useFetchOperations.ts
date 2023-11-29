@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react';
 import { queryBuilder } from '@queryBuilder';
-
-export type IOperation = {
-    priority: number;
-    calculate: (...operands: number[]) => number;
-    type: string;
-    associativity?: string;
-};
-
-export type OperationsType = Record<string, IOperation>;
+import { OperationsType } from '../OperationsProvider';
 
 export const useFetchOperations = (): OperationsType => {
     const [operations, setOperations] = useState<OperationsType>({});

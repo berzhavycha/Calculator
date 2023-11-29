@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { postCalculationController } from './controllers/postCalculation';
+import { getExpressionByParam } from './controllers/getExpressionsByParam';
 
 export interface IMethod {
     route: string;
@@ -12,7 +13,9 @@ export interface IRestMethods {
 }
 
 export const calculationRestMethods: IRestMethods = {
-    get: [],
+    get: [
+        { route: '/calculations', controller: getExpressionByParam }
+    ],
     post: [
         { route: '/calculations', controller: postCalculationController }
     ]

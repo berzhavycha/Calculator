@@ -1,4 +1,4 @@
-export * from './CalculationHistory/CalculationHistory'
+export * from './CalculationHistory'
 export * from './CalculatorButtons/CalculatorButtons'
 export * from './CalculatorContainer/CalculatorContainer'
 export * from './InputExpression/InputExpression'
