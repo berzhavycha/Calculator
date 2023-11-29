@@ -1,3 +1,3 @@
 export * from "./escapeRegExp";
-export * from "./getPriorityInfoArray";
+export * from "../modules/calculation/calculatorMethods/getPriorityInfoArray";
 export * from "./reduceAllSpaces";
