@@ -1,2 +1,2 @@
-export * from './calculatorMethods'
-export * from './restIndex'
+export * from "./calculatorMethods";
+export * from "./restIndex";

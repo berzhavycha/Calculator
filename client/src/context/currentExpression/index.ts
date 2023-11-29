@@ -1,1 +1,1 @@
-export * from './CurrentExpressionProvider'
+export * from "./CurrentExpressionProvider";

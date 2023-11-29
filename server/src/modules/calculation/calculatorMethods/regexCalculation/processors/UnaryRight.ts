@@ -1,6 +1,6 @@
-import config from '@config';
-import { MathOperators } from '../../constants';
-import { IRegExOperatorProcessor } from './Binary';
+import config from "@config";
+import { MathOperators } from "../../constants";
+import { IRegExOperatorProcessor } from "./Binary";
 
 export class UnaryRightProcessor implements IRegExOperatorProcessor {
   process(matches: RegExpMatchArray): number {

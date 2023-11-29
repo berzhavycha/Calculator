@@ -1,1 +1,1 @@
-export * from './useGetExpressionResult'
+export * from "./useGetExpressionResult";

@@ -1,1 +1,1 @@
-export * from './useGetButtonsMatrix'
+export * from "./useGetButtonsMatrix";

@@ -1,2 +1,2 @@
-export * from './hooks'
-export * from './CalculationHistory'
+export * from "./hooks";
+export * from "./CalculationHistory";

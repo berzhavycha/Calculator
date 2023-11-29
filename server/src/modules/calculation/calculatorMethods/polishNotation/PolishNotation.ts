@@ -1,11 +1,24 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from '../constants';
-import { TOKENIZE_REGEX_PATTERN } from '../regex';
-import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from './processors';
-import { isMathOperator } from '../isMathOperator';
-import { OperationsType } from '@config';
-import { reduceAllSpaces } from '@utils';
+import {
+  OperatorType,
+  MathOperators,
+  SpecialOperators,
+  Errors,
+} from "../constants";
+import { TOKENIZE_REGEX_PATTERN } from "../regex";
+import {
+  LeftBracketProcessor,
+  RightBracketProcessor,
+  IOperatorProcessor,
+  OperatorProcessor,
+} from "./processors";
+import { isMathOperator } from "../isMathOperator";
+import { OperationsType } from "@config";
+import { reduceAllSpaces } from "@utils";
 
-type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
+type OperatorsProcessorType = Record<
+  MathOperators | SpecialOperators,
+  IOperatorProcessor
+>;
 
 export class PolishNotation {
   private availableOperators: OperationsType;
@@ -16,8 +29,14 @@ export class PolishNotation {
     this.operatorProcessors = this.initializeOperatorProcessor(operators);
   }
 
-  private initializeOperatorProcessor(operators: OperationsType): OperatorsProcessorType {
-    const mathOperators = [...Object.keys(operators), SpecialOperators.CLEAR_ALL, SpecialOperators.DOT];
+  private initializeOperatorProcessor(
+    operators: OperationsType,
+  ): OperatorsProcessorType {
+    const mathOperators = [
+      ...Object.keys(operators),
+      SpecialOperators.CLEAR_ALL,
+      SpecialOperators.DOT,
+    ];
     return {
       ...mathOperators.reduce((obj, key) => {
         if (isMathOperator(key)) {
@@ -37,20 +56,20 @@ export class PolishNotation {
   private executeOperatorProcessor(
     expressionOperators: string[],
     output: string[],
-    token: MathOperators | SpecialOperators
+    token: MathOperators | SpecialOperators,
   ): void {
     const opProcessor = this.operatorProcessors[token];
     if (opProcessor) {
       opProcessor.process(expressionOperators, output, token);
     } else {
-      throw new Error('There is no processor for this token!');
+      throw new Error("There is no processor for this token!");
     }
   }
 
   private infixToPostfix(expression: string[]): string[] {
     const output: string[] = [];
     const expressionOperators: string[] = [];
-    let stringOperators: string = '';
+    let stringOperators: string = "";
 
     expression.forEach((token) => {
       stringOperators += token;
@@ -59,10 +78,14 @@ export class PolishNotation {
         output.push(token);
       } else if (isMathOperator(token) || this.isSpecialOperator(token)) {
         this.executeOperatorProcessor(expressionOperators, output, token);
-        stringOperators = '';
+        stringOperators = "";
       } else if (isMathOperator(stringOperators)) {
-        this.executeOperatorProcessor(expressionOperators, output, stringOperators);
-        stringOperators = '';
+        this.executeOperatorProcessor(
+          expressionOperators,
+          output,
+          stringOperators,
+        );
+        stringOperators = "";
       }
     });
 
@@ -72,19 +95,21 @@ export class PolishNotation {
   }
 
   private tokenize(expression: string): string[] {
-    if (expression.trim() === '') {
-      return ['0'];
+    if (expression.trim() === "") {
+      return ["0"];
     }
 
     const expressionWithoutSpaces = reduceAllSpaces(expression);
     const pattern = TOKENIZE_REGEX_PATTERN;
     const tokens = expressionWithoutSpaces.match(pattern);
 
-    if (!tokens || tokens.join('') !== expressionWithoutSpaces) {
-      const invalidChars = [...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, '')];
+    if (!tokens || tokens.join("") !== expressionWithoutSpaces) {
+      const invalidChars = [
+        ...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, ""),
+      ];
       const uniqueInvalidChars = [...new Set(invalidChars)];
 
-      throw new Error('Invalid symbols: ' + uniqueInvalidChars);
+      throw new Error("Invalid symbols: " + uniqueInvalidChars);
     }
 
     const result: string[] = [];
@@ -94,7 +119,9 @@ export class PolishNotation {
 
       if (
         token === MathOperators.MINUS &&
-        (!prevToken || prevToken === SpecialOperators.LEFT_BRACKET || isMathOperator(prevToken))
+        (!prevToken ||
+          prevToken === SpecialOperators.LEFT_BRACKET ||
+          isMathOperator(prevToken))
       ) {
         const nextToken = tokens[i + 1];
         if (nextToken && !isNaN(parseFloat(nextToken))) {
@@ -111,14 +138,20 @@ export class PolishNotation {
     return result;
   }
 
-  private evaluateBinaryOperator(calculate: (a: number, b: number) => number, stack: (number | string)[] = []): void {
+  private evaluateBinaryOperator(
+    calculate: (a: number, b: number) => number,
+    stack: (number | string)[] = [],
+  ): void {
     const a = stack.pop() as number;
     const b = stack.pop() as number;
 
     stack.push(calculate(b, a));
   }
 
-  private evaluateUnaryOperator(calculate: (a: number) => number, stack: (number | string)[] = []): void {
+  private evaluateUnaryOperator(
+    calculate: (a: number) => number,
+    stack: (number | string)[] = [],
+  ): void {
     const a = stack.pop() as number;
     stack.push(calculate(a));
   }
@@ -135,7 +168,10 @@ export class PolishNotation {
         const operator = this.availableOperators[token];
         if (operator.type === OperatorType.BINARY) {
           this.evaluateBinaryOperator(operator.calculate, stack);
-        } else if (operator.type === OperatorType.UNARY_LEFT || operator.type === OperatorType.UNARY_RIGHT) {
+        } else if (
+          operator.type === OperatorType.UNARY_LEFT ||
+          operator.type === OperatorType.UNARY_RIGHT
+        ) {
           this.evaluateUnaryOperator(operator.calculate, stack);
         }
       }

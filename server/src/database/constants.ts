@@ -1,3 +1,3 @@
 export enum DataBases {
-    MONGO_DB = 'mongoDB'
+  MONGO_DB = "mongoDB",
 }

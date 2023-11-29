@@ -1,3 +1,3 @@
-export * from './LeftBracket';
-export * from './Operator';
-export * from './RightBracket';
+export * from "./LeftBracket";
+export * from "./Operator";
+export * from "./RightBracket";

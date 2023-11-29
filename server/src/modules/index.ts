@@ -1,3 +1,2 @@
-export * from './calculation';
-export * from './modulesIndex'
-
+export * from "./calculation";
+export * from "./modulesIndex";
