@@ -31,6 +31,7 @@ export const useFetchExpressions = (): ICalculation[] => {
         setExpressions([]);
       }
     };
+    
     fetchOperations();
   }, [result]);
 

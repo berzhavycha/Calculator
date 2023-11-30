@@ -17,7 +17,6 @@ export default defineConfig({
       '@context': path.resolve(__dirname, './src/context/'),
       '@hooks': path.resolve(__dirname, './src/hooks/'),
       '@queryBuilder': path.resolve(__dirname, './src/queryBuilder/'),
-      '@utils': path.resolve(__dirname, './src/utils/'),
     }
   },
   // define: {
