@@ -9,7 +9,6 @@ export default defineConfig({
     proxy: {
       "/operations": "http://localhost:5000/",
       "/calculations": "http://localhost:5000/",
-      "/history": "http://localhost:5000/"
     },
   },
   resolve: {

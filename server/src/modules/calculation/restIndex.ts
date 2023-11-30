@@ -1,5 +1,5 @@
-import { currentDatabase } from '@database';
 import { Request, Response } from 'express';
+import { postCalculationController } from './controllers/postCalculation';
 
 export interface IMethod {
     route: string;
@@ -7,12 +7,13 @@ export interface IMethod {
 }
 
 export interface IRestMethods {
-    get?: IMethod[]
-    post?: IMethod[];
+    get: IMethod[]
+    post: IMethod[];
 }
 
 export const calculationRestMethods: IRestMethods = {
+    get: [],
     post: [
-        { route: '/operations', controller: currentDatabase.postCalculation }
+        { route: '/calculations', controller: postCalculationController }
     ]
 }

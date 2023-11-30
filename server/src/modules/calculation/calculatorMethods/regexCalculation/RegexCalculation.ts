@@ -1,9 +1,9 @@
-import { OperationsType } from '@config';
 import { reduceAllSpaces, getPriorityInfoArray } from '@utils';
 import { isMathOperator } from '../isMathOperator';
 import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from '@modules';
 import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor, IRegExOperatorProcessor } from './processors';
 import { Errors, MathOperators, OperatorType, SpecialOperators } from '../index';
+import { OperationsType } from '@config';
 
 interface SubExpressionResult {
   subExpressionResult: number;
