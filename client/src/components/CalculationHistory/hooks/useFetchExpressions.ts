@@ -14,9 +14,7 @@ export const useFetchExpressions = (): ICalculation[] => {
     const fetchOperations = async () => {
       try {
         const data = await queryBuilder.makeRequest(
-          `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${
-            import.meta.env.VITE_EXPRESSION_ORDER
-          }`,
+          `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${import.meta.env.VITE_EXPRESSION_ORDER}`,
           "GET",
         );
         setExpressions(data);

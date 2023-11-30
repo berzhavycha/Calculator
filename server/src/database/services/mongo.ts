@@ -9,10 +9,7 @@ interface ExpressionResult {
 interface IDatabase {
   connect(url: string): void;
   postCalculation(expression: string): Promise<number | undefined>;
-  getExpressionByParam(
-    limit: number,
-    sortOrder: SortOrder,
-  ): Promise<ExpressionResult[]>;
+  getExpressionByParam(limit: number, sortOrder: SortOrder): Promise<ExpressionResult[]>;
 }
 
 export class MongoDatabase implements IDatabase {
@@ -28,9 +25,7 @@ export class MongoDatabase implements IDatabase {
       });
   }
 
-  public async postCalculation(
-    expression: string,
-  ): Promise<number | undefined> {
+  public async postCalculation(expression: string): Promise<number | undefined> {
     try {
       let result;
       const cachedCalculation = await Calculation.findOne({ expression });
@@ -49,15 +44,10 @@ export class MongoDatabase implements IDatabase {
     }
   }
 
-  public async getExpressionByParam(
-    limit: number,
-    sortOrder: SortOrder,
-  ): Promise<ExpressionResult[]> {
+  public async getExpressionByParam(limit: number, sortOrder: SortOrder): Promise<ExpressionResult[]> {
     try {
       const sortCriteria: Record<string, SortOrder> = { _id: sortOrder };
-      const lastExpressions = await Calculation.find()
-        .sort(sortCriteria)
-        .limit(limit);
+      const lastExpressions = await Calculation.find().sort(sortCriteria).limit(limit);
 
       return lastExpressions.map((expression) => ({
         expression: expression.expression,

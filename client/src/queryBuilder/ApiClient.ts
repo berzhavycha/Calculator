@@ -13,11 +13,12 @@ class ApiClient {
     this.headers = headers;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async makeRequest(
     endpoint: string,
     method = "GET",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body?: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     const url = `${this.baseURL}/${endpoint}`;
 
@@ -44,9 +45,7 @@ class ApiClient {
 
       return data;
     } catch (error) {
-      throw new Error(
-        error instanceof Error ? error.message : "Failed to perform request",
-      );
+      throw new Error(error instanceof Error ? error.message : "Failed to perform request");
     }
   }
 }

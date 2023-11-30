@@ -19,10 +19,7 @@ export const useGetButtonMatrix = (
   lastButtonRef: React.RefObject<HTMLButtonElement>,
   adjustWidth: (increaseWidthBy: number) => void,
 ): IButtonData[][] => {
-  const [specialOperators] = useState([
-    ...Object.values(SpecialOperators),
-    BACKSPACE,
-  ]);
+  const [specialOperators] = useState([...Object.values(SpecialOperators), BACKSPACE]);
   const [buttonMatrix, setButtonMatrix] = useState<IButtonData[][]>([]);
   const [operationsLoaded, setOperationsLoaded] = useState(false);
   const operations = useOperations();
@@ -44,9 +41,7 @@ export const useGetButtonMatrix = (
       let isRowCompleted = false;
 
       const generateSpecialOperators = () => {
-        const filteredSpecialOperators = specialOperators.filter(
-          (op) => op !== ".",
-        );
+        const filteredSpecialOperators = specialOperators.filter((op) => op !== ".");
         for (let i = 0; i < filteredSpecialOperators.length; i++) {
           if (buttonCounter % INITIAL_BUTTON_PER_ROW === 0) {
             rowArrayContainer.push(currentRowContainer);
@@ -68,20 +63,13 @@ export const useGetButtonMatrix = (
       const generateNumericButtons = () => {
         const basicOperators = operators.slice(0, 4);
 
-        for (
-          let i = calculatorViewConstants.MIN_BUTTON_VALUE;
-          i <= calculatorViewConstants.MAX_BUTTON_VALUE;
-          i++
-        ) {
+        for (let i = calculatorViewConstants.MIN_BUTTON_VALUE; i <= calculatorViewConstants.MAX_BUTTON_VALUE; i++) {
           currentRowContainer.push({
             content: `${i}`,
             type: ButtonType.NUMERIC,
           });
 
-          if (
-            i % calculatorViewConstants.NUMBERS_COLUMNS_AMOUNT === 0 &&
-            operatorIndex < basicOperators.length
-          ) {
+          if (i % calculatorViewConstants.NUMBERS_COLUMNS_AMOUNT === 0 && operatorIndex < basicOperators.length) {
             currentRowContainer.push({
               content: `${basicOperators[operatorIndex]}`,
               type: ButtonType.OPERATOR,
@@ -134,17 +122,13 @@ export const useGetButtonMatrix = (
           if (index >= rowArrayContainer.length) {
             index = 0;
           } else {
-            const isLastButton =
-              operator === remainingOperators[remainingOperators.length - 1];
-            const isRowIncomplete =
-              buttonCounter % INITIAL_BUTTON_PER_ROW !== 0;
+            const isLastButton = operator === remainingOperators[remainingOperators.length - 1];
+            const isRowIncomplete = buttonCounter % INITIAL_BUTTON_PER_ROW !== 0;
 
             if (isLastButton && isRowIncomplete && lastButtonRef.current) {
-              const lastButtonCoords =
-                lastButtonRef.current.getBoundingClientRect();
+              const lastButtonCoords = lastButtonRef.current.getBoundingClientRect();
               console.log(lastButtonCoords);
-              const amountOfRowsLeft =
-                calculatorViewConstants.THRESHOLD_ROW_LEVEL - index + 3;
+              const amountOfRowsLeft = calculatorViewConstants.THRESHOLD_ROW_LEVEL - index + 3;
               const height =
                 amountOfRowsLeft * lastButtonCoords.height +
                 calculatorViewConstants.GAP +
@@ -157,10 +141,7 @@ export const useGetButtonMatrix = (
               lastButtonRef.current.style.width = `${lastButtonCoords.width}px`;
 
               if (index === 1) {
-                adjustWidth(
-                  calculatorViewConstants.BUTTON_MIN_WIDTH +
-                    calculatorViewConstants.GAP * 2,
-                );
+                adjustWidth(calculatorViewConstants.BUTTON_MIN_WIDTH + calculatorViewConstants.GAP * 2);
               }
             }
           }

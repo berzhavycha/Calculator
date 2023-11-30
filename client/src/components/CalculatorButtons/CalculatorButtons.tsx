@@ -9,10 +9,7 @@ interface ICalculatorButtonsProps {
   getResult: () => void;
 }
 
-export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
-  adjustWidth,
-  getResult,
-}) => {
+export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({ adjustWidth, getResult }) => {
   const { expression, setExpression } = useCurrentExpression();
   const operations = useOperations();
   const lastButtonRef = useRef<HTMLButtonElement>(null);
@@ -43,10 +40,7 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
   const handleClick = (button: IButtonData): void => {
     if (button.type === ButtonType.EVALUATE) {
       getResult();
-    } else if (
-      button.type === ButtonType.SPECIAL_OPERATOR &&
-      button.content === BACKSPACE
-    ) {
+    } else if (button.type === ButtonType.SPECIAL_OPERATOR && button.content === BACKSPACE) {
       handleBackspaceButtonClick();
     } else {
       setExpression(expression + button.content);
@@ -59,9 +53,7 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
         return (
           <div className="flex mb-4 gap-8" key={idx}>
             {row.map((button) => {
-              const buttonStyles = Object.values(
-                buttonClasses[button.type],
-              ).join(" ");
+              const buttonStyles = Object.values(buttonClasses[button.type]).join(" ");
 
               return (
                 <button
