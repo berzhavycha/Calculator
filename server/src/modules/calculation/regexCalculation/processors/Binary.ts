@@ -1,5 +1,5 @@
 import config from '@config';
-import { MathOperators } from '@services';
+import { MathOperators } from '../../constants';
 
 export interface IRegExOperatorProcessor {
   process(matches: RegExpMatchArray): number;

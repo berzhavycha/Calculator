@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
 import { Request, Response, Express } from "express";
-import { IDatabase } from "@database";
 import { Calculation } from "@models";
-import { calculatorModel } from "@calculator";
-import config from '@config'
+import { calculationProcessor } from '@modules';
+
+interface IDatabase {
+    connect(app: Express, url: string): void,
+    postCalculation(req: Request, res: Response): void
+}
 
 export class MongoDatabase implements IDatabase {
 
@@ -29,7 +32,7 @@ export class MongoDatabase implements IDatabase {
                 result = cachedCalculation.result;
                 res.setHeader('Content-Type', 'application/json').status(200).json({ result });
             } else {
-                result = calculatorModel.evaluate(expression);
+                result = calculationProcessor.evaluate(expression);
                 const newCalculation = new Calculation({ expression, result });
                 await newCalculation.save();
                 res.setHeader('Content-Type', 'application/json').status(200).json({ result: newCalculation.result });

@@ -1,4 +1,4 @@
-import { OperatorType } from '@services';
+import { OperatorType } from '@modules';
 import { escapeRegExp, PriorityInfo } from '@utils';
 
 interface PriorityRegex {

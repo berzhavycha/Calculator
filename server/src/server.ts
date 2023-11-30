@@ -1,11 +1,9 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv'
-import mongoose from 'mongoose';
-import modules from './modules/index'
+import { modules } from '@modules'
 import bodyParser from 'body-parser';
 import 'module-alias/register';
-import config from '@config';
-import { databaseModel } from '@database';
+import { currentDatabase } from '@database';
 
 const app = express();
 
@@ -21,4 +19,4 @@ modules.post.forEach(({ route, controller }) => {
     app.post(route, controller)
 });
 
-databaseModel.connect(app, process.env.MONGODB_URL as string)
+currentDatabase.connect(app, process.env.MONGODB_URL as string)

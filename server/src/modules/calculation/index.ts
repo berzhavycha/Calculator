@@ -1,7 +1,7 @@
-import { databaseModel } from "@database"
-
-export default {
-    post: [
-        { route: '/calculations', controller: databaseModel.postCalculation }
-    ]
-}
+export * from './constants'
+export * from './restIndex'
+export * from './regex'
+export * from './methodOptions'
+export * from './polishNotation/PolishNotation'
+export * from './regexCalculation/RegexCalculation'
+export * from './isMathOperator'

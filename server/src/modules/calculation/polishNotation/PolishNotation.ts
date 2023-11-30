@@ -1,8 +1,9 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from '@services/calculationMethods';
-import { TOKENIZE_REGEX_PATTERN } from '@regex';
+import { OperatorType, MathOperators, SpecialOperators, Errors } from '../constants';
+import { TOKENIZE_REGEX_PATTERN } from '../regex';
 import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from './processors';
+import { isMathOperator } from '../isMathOperator';
 import { OperationsType } from '@config';
-import { isMathOperator, reduceAllSpaces } from '@utils';
+import { reduceAllSpaces } from '@utils';
 
 type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
 

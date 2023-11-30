@@ -1,11 +1,3 @@
-import calculation from './calculation/index'
-import operations from './operations'
+export * from './modulesIndex'
+export * from './calculation';
 
-export default {
-    get: [
-        ...operations.get
-    ],
-    post: [
-        ...calculation.post
-    ]
-}
