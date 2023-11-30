@@ -1,11 +1,8 @@
-import './App.css'
-import { CalculatorContainer } from '@components'
+import "./App.css";
+import { CalculatorContainer } from "@components";
 
-function App() {
-
-  return (
-    <CalculatorContainer />
-  )
+function App(): JSX.Element {
+  return <CalculatorContainer />;
 }
 
-export default App
+export default App;

@@ -1,36 +1,36 @@
 export enum CalculationMethods {
-  POLISH_NOTATION = 'polishNotation',
-  REGEX_CALCULATION = 'regexCalculation',
+  POLISH_NOTATION = "polishNotation",
+  REGEX_CALCULATION = "regexCalculation",
 }
 
 export enum MathOperators {
-  PLUS = '+',
-  MINUS = '-',
-  MULTIPLICATION = '*',
-  DIVISION = '/',
-  SIN = 'sin',
-  COS = 'cos',
-  TAN = 'tan',
-  FACTORIAL = '!',
-  MODULATION = '%',
+  PLUS = "+",
+  MINUS = "-",
+  MULTIPLICATION = "*",
+  DIVISION = "/",
+  SIN = "sin",
+  COS = "cos",
+  TAN = "tan",
+  FACTORIAL = "!",
+  MODULATION = "%",
 }
 
 export enum Errors {
-  INVALID_SYMBOL = 'Invalid symbols in the input expression.',
-  INVALID_EXPRESSION = 'Invalid math expression',
-  UNMATCHED_PARENTHESES = 'Unmatched parentheses',
+  INVALID_SYMBOL = "Invalid symbols in the input expression.",
+  INVALID_EXPRESSION = "Invalid math expression",
+  UNMATCHED_PARENTHESES = "Unmatched parentheses",
 }
 
 export enum SpecialOperators {
-  DOT = '.',
-  CLEAR_ALL = 'C',
-  LEFT_BRACKET = '(',
-  RIGHT_BRACKET = ')',
+  DOT = ".",
+  CLEAR_ALL = "C",
+  LEFT_BRACKET = "(",
+  RIGHT_BRACKET = ")",
 }
 
 export enum Associativity {
-  LEFT = 'left',
-  RIGHT = 'right',
+  LEFT = "left",
+  RIGHT = "right",
 }
 
 export enum MathOperationPriority {
@@ -43,7 +43,7 @@ export enum MathOperationPriority {
 }
 
 export enum OperatorType {
-  BINARY = 'binary',
-  UNARY_LEFT = 'unaryLeft',
-  UNARY_RIGHT = 'unaryRight',
+  BINARY = "binary",
+  UNARY_LEFT = "unaryLeft",
+  UNARY_RIGHT = "unaryRight",
 }

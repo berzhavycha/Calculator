@@ -1,5 +1,12 @@
-import { factorial, MathOperators, MathOperationPriority, OperatorType, Associativity, CalculationMethods } from '@modules/calculation/calculatorMethods';
-import { DataBases } from '@database';
+import {
+  factorial,
+  MathOperators,
+  MathOperationPriority,
+  OperatorType,
+  Associativity,
+  CalculationMethods,
+} from "@modules/calculation/calculatorMethods";
+import { DataBases } from "@database";
 
 export type IOperation = {
   priority: number;
@@ -69,5 +76,5 @@ const operations: OperationsType = {
 export default Object.freeze({
   operations,
   calculationMethod: CalculationMethods.REGEX_CALCULATION,
-  database: DataBases.MONGO_DB
+  database: DataBases.MONGO_DB,
 });

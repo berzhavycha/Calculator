@@ -1,3 +1,3 @@
-export * from './escapeRegExp';
-export * from './getPriorityInfoArray';
-export * from './reduceAllSpaces';
+export * from "./escapeRegExp";
+export * from "./getPriorityInfoArray";
+export * from "./reduceAllSpaces";

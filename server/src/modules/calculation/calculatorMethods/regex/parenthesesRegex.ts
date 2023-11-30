@@ -1,4 +1,4 @@
-import { SpecialOperators } from '@modules/calculation/calculatorMethods';
+import { SpecialOperators } from "@modules/calculation/calculatorMethods";
 
 // PARENTHESES_EXPRESSION consists of 3 parts:
 //   - \( : matches an open parenthesis
@@ -7,5 +7,5 @@ import { SpecialOperators } from '@modules/calculation/calculatorMethods';
 // export const PARENTHESES_EXPRESSION = /(\([^()]*\))/g;
 export const PARENTHESES_EXPRESSION = new RegExp(
   `${SpecialOperators.LEFT_BRACKET}\\([^()]*\\)${SpecialOperators.RIGHT_BRACKET}`,
-  'g'
+  "g",
 );

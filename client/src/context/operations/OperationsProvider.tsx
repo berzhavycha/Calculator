@@ -1,16 +1,14 @@
-import React, { createContext, useContext } from 'react';
-import { useFetchOperations } from '@hooks';
+import React, { createContext, useContext } from "react";
+import { useFetchOperations } from "./hooks";
+import { IProviderProps } from "../currentExpression/CurrentExpressionProvider";
 
 export type IOperation = {
   priority: number;
+  // eslint-disable-next-line no-unused-vars
   calculate: (...operands: number[]) => number;
   type: string;
   associativity?: string;
 };
-
-interface OperationsProviderProps {
-  children: React.ReactNode;
-}
 
 export type OperationsType = Record<string, IOperation>;
 
@@ -20,8 +18,8 @@ const useOperations = (): OperationsType => {
   return useContext(OperationsContext);
 };
 
-const OperationsProvider: React.FC<OperationsProviderProps> = ({ children }) => {
-  const operations = useFetchOperations()
+const OperationsProvider: React.FC<IProviderProps> = ({ children }) => {
+  const operations = useFetchOperations();
 
   return (
     <OperationsContext.Provider value={operations}>

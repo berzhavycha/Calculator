@@ -1,5 +1,5 @@
-import { OperatorType } from '@modules';
-import { OperationsType } from '@config';
+import { OperatorType } from "@modules";
+import { OperationsType } from "@config";
 
 export interface PriorityInfo {
   priority: number;
@@ -7,10 +7,14 @@ export interface PriorityInfo {
   type: OperatorType;
 }
 
-export function getPriorityInfoArray(operations: OperationsType): PriorityInfo[] {
+export function getPriorityInfoArray(
+  operations: OperationsType,
+): PriorityInfo[] {
   return Object.entries(operations)
     .reduce((priorityArr: PriorityInfo[], [operator, operatorInfo]) => {
-      const existingIndex = priorityArr.findIndex((item) => item.priority === operatorInfo.priority);
+      const existingIndex = priorityArr.findIndex(
+        (item) => item.priority === operatorInfo.priority,
+      );
       if (existingIndex !== -1) {
         priorityArr[existingIndex].operators.push(operator);
       } else {
