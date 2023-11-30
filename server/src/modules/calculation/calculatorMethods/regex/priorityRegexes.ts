@@ -1,5 +1,5 @@
-import { OperatorType } from "@modules";
-import { escapeRegExp, PriorityInfo } from "@utils";
+import { OperatorType, PriorityInfo } from "@modules";
+import { escapeRegExp } from "@utils";
 
 interface PriorityRegex {
   type: OperatorType;
