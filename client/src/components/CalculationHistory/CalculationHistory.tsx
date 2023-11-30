@@ -6,9 +6,7 @@ export const CalculationHistory: React.FC = () => {
   const { expression, setExpression } = useCurrentExpression();
   const expressions = useFetchExpressions();
 
-  const handleExpressionClick = (
-    event: React.MouseEvent<HTMLParagraphElement>,
-  ): void => {
+  const handleExpressionClick = (event: React.MouseEvent<HTMLParagraphElement>): void => {
     const clickedExpression = event.currentTarget.innerText;
     setExpression(expression + clickedExpression);
   };
@@ -22,10 +20,7 @@ export const CalculationHistory: React.FC = () => {
               key={index}
               className="mb-2 p-1 pr-2 bg-white rounded-md shadow-md hover:bg-gray-100 text-xs cursor-pointer"
             >
-              <p
-                onClick={handleExpressionClick}
-                className="text-blue-500 font-bold text-right"
-              >
+              <p onClick={handleExpressionClick} className="text-blue-500 font-bold text-right">
                 {calculation.expression}
               </p>
             </li>

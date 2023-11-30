@@ -1,24 +1,11 @@
-import {
-  OperatorType,
-  MathOperators,
-  SpecialOperators,
-  Errors,
-} from "../constants";
+import { OperatorType, MathOperators, SpecialOperators, Errors } from "../constants";
 import { TOKENIZE_REGEX_PATTERN } from "../regex";
-import {
-  LeftBracketProcessor,
-  RightBracketProcessor,
-  IOperatorProcessor,
-  OperatorProcessor,
-} from "./processors";
+import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from "./processors";
 import { isMathOperator } from "../isMathOperator";
 import { OperationsType } from "@config";
 import { reduceAllSpaces } from "@utils";
 
-type OperatorsProcessorType = Record<
-  MathOperators | SpecialOperators,
-  IOperatorProcessor
->;
+type OperatorsProcessorType = Record<MathOperators | SpecialOperators, IOperatorProcessor>;
 
 export class PolishNotation {
   private availableOperators: OperationsType;
@@ -29,14 +16,8 @@ export class PolishNotation {
     this.operatorProcessors = this.initializeOperatorProcessor(operators);
   }
 
-  private initializeOperatorProcessor(
-    operators: OperationsType,
-  ): OperatorsProcessorType {
-    const mathOperators = [
-      ...Object.keys(operators),
-      SpecialOperators.CLEAR_ALL,
-      SpecialOperators.DOT,
-    ];
+  private initializeOperatorProcessor(operators: OperationsType): OperatorsProcessorType {
+    const mathOperators = [...Object.keys(operators), SpecialOperators.CLEAR_ALL, SpecialOperators.DOT];
     return {
       ...mathOperators.reduce((obj, key) => {
         if (isMathOperator(key)) {
@@ -80,11 +61,7 @@ export class PolishNotation {
         this.executeOperatorProcessor(expressionOperators, output, token);
         stringOperators = "";
       } else if (isMathOperator(stringOperators)) {
-        this.executeOperatorProcessor(
-          expressionOperators,
-          output,
-          stringOperators,
-        );
+        this.executeOperatorProcessor(expressionOperators, output, stringOperators);
         stringOperators = "";
       }
     });
@@ -104,9 +81,7 @@ export class PolishNotation {
     const tokens = expressionWithoutSpaces.match(pattern);
 
     if (!tokens || tokens.join("") !== expressionWithoutSpaces) {
-      const invalidChars = [
-        ...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, ""),
-      ];
+      const invalidChars = [...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, "")];
       const uniqueInvalidChars = [...new Set(invalidChars)];
 
       throw new Error("Invalid symbols: " + uniqueInvalidChars);
@@ -119,9 +94,7 @@ export class PolishNotation {
 
       if (
         token === MathOperators.MINUS &&
-        (!prevToken ||
-          prevToken === SpecialOperators.LEFT_BRACKET ||
-          isMathOperator(prevToken))
+        (!prevToken || prevToken === SpecialOperators.LEFT_BRACKET || isMathOperator(prevToken))
       ) {
         const nextToken = tokens[i + 1];
         if (nextToken && !isNaN(parseFloat(nextToken))) {
@@ -138,20 +111,14 @@ export class PolishNotation {
     return result;
   }
 
-  private evaluateBinaryOperator(
-    calculate: (a: number, b: number) => number,
-    stack: (number | string)[] = [],
-  ): void {
+  private evaluateBinaryOperator(calculate: (a: number, b: number) => number, stack: (number | string)[] = []): void {
     const a = stack.pop() as number;
     const b = stack.pop() as number;
 
     stack.push(calculate(b, a));
   }
 
-  private evaluateUnaryOperator(
-    calculate: (a: number) => number,
-    stack: (number | string)[] = [],
-  ): void {
+  private evaluateUnaryOperator(calculate: (a: number) => number, stack: (number | string)[] = []): void {
     const a = stack.pop() as number;
     stack.push(calculate(a));
   }
@@ -168,10 +135,7 @@ export class PolishNotation {
         const operator = this.availableOperators[token];
         if (operator.type === OperatorType.BINARY) {
           this.evaluateBinaryOperator(operator.calculate, stack);
-        } else if (
-          operator.type === OperatorType.UNARY_LEFT ||
-          operator.type === OperatorType.UNARY_RIGHT
-        ) {
+        } else if (operator.type === OperatorType.UNARY_LEFT || operator.type === OperatorType.UNARY_RIGHT) {
           this.evaluateUnaryOperator(operator.calculate, stack);
         }
       }

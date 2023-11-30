@@ -21,11 +21,7 @@ const useOperations = (): OperationsType => {
 const OperationsProvider: React.FC<IProviderProps> = ({ children }) => {
   const operations = useFetchOperations();
 
-  return (
-    <OperationsContext.Provider value={operations}>
-      {children}
-    </OperationsContext.Provider>
-  );
+  return <OperationsContext.Provider value={operations}>{children}</OperationsContext.Provider>;
 };
 
 export { OperationsProvider, OperationsContext, useOperations };

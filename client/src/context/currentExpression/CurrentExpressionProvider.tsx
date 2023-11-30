@@ -9,16 +9,12 @@ export interface ICurrentExpression {
   setErrorMessage: (message: string) => void;
 }
 
-const CurrentExpressionContext = createContext<ICurrentExpression | undefined>(
-  undefined,
-);
+const CurrentExpressionContext = createContext<ICurrentExpression | undefined>(undefined);
 
 const useCurrentExpression = (): ICurrentExpression => {
   const context = useContext(CurrentExpressionContext);
   if (!context) {
-    throw new Error(
-      "useCurrentExpression must be used within a CurrentExpressionProvider",
-    );
+    throw new Error("useCurrentExpression must be used within a CurrentExpressionProvider");
   }
   return context;
 };
@@ -41,15 +37,7 @@ const CurrentExpressionProvider: React.FC<IProviderProps> = ({ children }) => {
     setErrorMessage,
   };
 
-  return (
-    <CurrentExpressionContext.Provider value={contextValue}>
-      {children}
-    </CurrentExpressionContext.Provider>
-  );
+  return <CurrentExpressionContext.Provider value={contextValue}>{children}</CurrentExpressionContext.Provider>;
 };
 
-export {
-  CurrentExpressionProvider,
-  CurrentExpressionContext,
-  useCurrentExpression,
-};
+export { CurrentExpressionProvider, CurrentExpressionContext, useCurrentExpression };

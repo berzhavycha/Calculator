@@ -22,9 +22,5 @@ modules.post.forEach(({ route, controller }) => {
 const PORT = process.env.PORT || 5001;
 
 currentDatabaseService.connect(process.env.MONGODB_URL as string).then(() => {
-  app.listen(PORT, () =>
-    console.log(
-      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
-    ),
-  );
+  app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
 });

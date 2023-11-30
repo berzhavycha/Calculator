@@ -11,9 +11,6 @@ export class BinaryProcessor implements IRegExOperatorProcessor {
     const operand1 = parseFloat(matches[1]);
     const operand2 = parseFloat(matches[3]);
 
-    return config.operations[operator as MathOperators].calculate(
-      operand1,
-      operand2,
-    );
+    return config.operations[operator as MathOperators].calculate(operand1, operand2);
   }
 }

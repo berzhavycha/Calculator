@@ -45,9 +45,7 @@ class ApiClient {
 
       return data;
     } catch (error) {
-      throw new Error(
-        error instanceof Error ? error.message : "Failed to perform request",
-      );
+      throw new Error(error instanceof Error ? error.message : "Failed to perform request");
     }
   }
 }

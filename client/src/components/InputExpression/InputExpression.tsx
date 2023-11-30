@@ -6,9 +6,7 @@ interface IInputExpressionProps {
   getResult: () => void;
 }
 
-export const InputExpression: React.FC<IInputExpressionProps> = ({
-  getResult,
-}) => {
+export const InputExpression: React.FC<IInputExpressionProps> = ({ getResult }) => {
   const { expression, setExpression } = useCurrentExpression();
 
   const onKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
