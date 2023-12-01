@@ -5,13 +5,18 @@ export interface ICalculation {
   expression: string;
 }
 
+interface IResponse {
+  expression: string,
+  result: string
+}
+
 export const useFetchExpressions = (expression: string, result: string): ICalculation[] => {
   const [expressions, setExpressions] = useState<ICalculation[]>([]);
 
   useEffect(() => {
     const fetchOperations = async () => {
       try {
-        const data = await queryBuilder.makeRequest(
+        const data = await queryBuilder.makeRequest<IResponse[]>(
           `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${import.meta.env.VITE_EXPRESSION_ORDER}`,
           "GET",
         );

@@ -1,6 +1,5 @@
 import React, { createContext, useContext } from "react";
 import { useFetchOperations } from "./hooks";
-import { IProviderProps } from "../currentExpression/CurrentExpressionProvider";
 
 export type IOperation = {
   priority: number;
@@ -11,6 +10,10 @@ export type IOperation = {
 };
 
 export type OperationsType = Record<string, IOperation>;
+
+interface IProviderProps {
+  children: React.ReactNode
+}
 
 const OperationsContext = createContext<OperationsType>({});
 

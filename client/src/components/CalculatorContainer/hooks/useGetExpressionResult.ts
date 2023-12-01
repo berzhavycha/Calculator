@@ -9,13 +9,17 @@ interface IExpressionResultState {
   setErrorMessage: (errorMessage: string) => void
 }
 
+interface IResponse {
+  result: string
+}
+
 export const useGetExpressionResult = ({ expression, setResult, setErrorMessage }: IExpressionResultState): returnType => {
 
   const getExpressionResult = async (): Promise<void> => {
     try {
-      const data = await queryBuilder.makeRequest("calculations", "POST", {
+      const data = await queryBuilder.makeRequest<IResponse>("calculations", "POST", JSON.stringify({
         expression,
-      });
+      }));
       setResult(data.result);
     } catch (error) {
       if (error instanceof Error) {

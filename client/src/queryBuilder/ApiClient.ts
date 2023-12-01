@@ -15,13 +15,11 @@ class ApiClient {
     this.headers = headers;
   }
 
-  async makeRequest(
+  async makeRequest<T>(
     endpoint: string,
     method = "GET",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): Promise<any> {
+    body?: RequestOptions['body'],
+  ): Promise<T> {
     const url = `${this.baseURL}/${endpoint}`;
 
     const requestOptions: RequestOptions = {
@@ -33,7 +31,7 @@ class ApiClient {
     };
 
     if (body) {
-      requestOptions.body = JSON.stringify(body);
+      requestOptions.body = body;
     }
 
     try {
