@@ -14,17 +14,13 @@ export const CalculatorContainer: React.FC = () => {
     }
   };
 
-  const getResultAndUpdateLocalStorage = async () => {
-    await getExpressionResult();
-  };
-
   return (
     <div className="bg-gray-100 h-screen flex items-center justify-center">
       <div ref={calculatorContainerRef} className="bg-white pt-8 pr-8 pl-8 pb-4 rounded shadow-md">
         <CalculationHistory />
-        <InputExpression getResult={getResultAndUpdateLocalStorage} />
+        <InputExpression getResult={getExpressionResult} />
         <ResultExpression />
-        <CalculatorButtons adjustWidth={adjustCalculatorWidth} getResult={getResultAndUpdateLocalStorage} />
+        <CalculatorButtons adjustWidth={adjustCalculatorWidth} getResult={getExpressionResult} />
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { BASE_API_URL } from "@global";
+
 interface RequestOptions {
   method: string;
   headers: Record<string, string>;
@@ -50,4 +52,4 @@ class ApiClient {
   }
 }
 
-export const queryBuilder = new ApiClient(import.meta.env.VITE_BASE_API_URL);
+export const queryBuilder = new ApiClient(BASE_API_URL);
