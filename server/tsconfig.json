@@ -13,12 +13,6 @@
             "@config/*": [
                 "./src/config/*"
             ],
-            "@models": [
-                "./src/models/index.ts"
-            ],
-            "@models/*": [
-                "./src/models/*"
-            ],
             "@modules": [
                 "./src/modules/index.ts"
             ],
