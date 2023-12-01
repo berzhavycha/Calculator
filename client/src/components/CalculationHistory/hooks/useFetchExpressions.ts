@@ -8,7 +8,7 @@ export interface ICalculation {
 
 export const useFetchExpressions = (): ICalculation[] => {
   const [expressions, setExpressions] = useState<ICalculation[]>([]);
-  const { result } = useCurrentExpression();
+  const { result, expression } = useCurrentExpression();
 
   useEffect(() => {
     const fetchOperations = async () => {
@@ -17,12 +17,20 @@ export const useFetchExpressions = (): ICalculation[] => {
           `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${import.meta.env.VITE_EXPRESSION_ORDER}`,
           "GET",
         );
-        setExpressions(data);
+
+        const isCurrentExpressionInState =
+          expressions.find((item) => item.expression === expression) ||
+          data.find((item: ICalculation) => item.expression === expression);
+
+        if (result && !isCurrentExpressionInState) {
+          setExpressions((prev) => [...prev.slice(0, 4), { expression }].reverse());
+        } else {
+          setExpressions(data);
+        }
       } catch (error) {
         setExpressions([]);
       }
     };
-
     fetchOperations();
   }, [result]);
 
