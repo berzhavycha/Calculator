@@ -17,7 +17,8 @@ export interface IButtonData {
 
 export const useGetButtonMatrix = (
   lastButtonRef: React.RefObject<HTMLButtonElement>,
-  adjustWidth: (increaseWidthBy: number) => void,
+  // eslint-disable-next-line no-unused-vars
+  resizeContainer: (increaseWidthBy: number) => void,
 ): IButtonData[][] => {
   const [specialOperators] = useState([...Object.values(SpecialOperators), BACKSPACE]);
   const [buttonMatrix, setButtonMatrix] = useState<IButtonData[][]>([]);
@@ -141,7 +142,7 @@ export const useGetButtonMatrix = (
               lastButtonRef.current.style.width = `${lastButtonCoords.width}px`;
 
               if (index === 1) {
-                adjustWidth(calculatorViewConstants.BUTTON_MIN_WIDTH + calculatorViewConstants.GAP * 2);
+                resizeContainer(calculatorViewConstants.BUTTON_MIN_WIDTH + calculatorViewConstants.GAP * 2);
               }
             }
           }

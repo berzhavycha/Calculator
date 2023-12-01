@@ -1,17 +1,16 @@
 import React from "react";
-import { useCurrentExpression } from "@context";
 import { ENTER_CALCULATE_BUTTON } from "@components";
 
 interface IInputExpressionProps {
-  getResult: () => void;
+  expression: string,
+  setExpression: (expression: string) => void,
+  onEnter: () => void;
 }
 
-export const InputExpression: React.FC<IInputExpressionProps> = ({ getResult }) => {
-  const { expression, setExpression } = useCurrentExpression();
-
+export const InputExpression: React.FC<IInputExpressionProps> = ({ expression, setExpression, onEnter }) => {
   const onKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ENTER_CALCULATE_BUTTON) {
-      getResult();
+      await onEnter();
     }
   };
 

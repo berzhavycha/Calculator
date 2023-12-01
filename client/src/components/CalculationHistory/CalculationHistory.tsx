@@ -1,14 +1,19 @@
 import React from "react";
-import { useCurrentExpression } from "@context";
 import { useFetchExpressions } from "./hooks";
 
-export const CalculationHistory: React.FC = () => {
-  const { expression, setExpression } = useCurrentExpression();
-  const expressions = useFetchExpressions();
+interface ICalculatorHistoryProps {
+  expression: string,
+  result: string
+  // eslint-disable-next-line no-unused-vars
+  onChoosingExpression: (expression: string) => void
+}
+
+export const CalculationHistory: React.FC<ICalculatorHistoryProps> = ({expression, result, onChoosingExpression}) => {
+  const expressions = useFetchExpressions(expression, result);
 
   const handleExpressionClick = (event: React.MouseEvent<HTMLParagraphElement>): void => {
     const clickedExpression = event.currentTarget.innerText;
-    setExpression(expression + clickedExpression);
+    onChoosingExpression(expression + clickedExpression);
   };
 
   return (

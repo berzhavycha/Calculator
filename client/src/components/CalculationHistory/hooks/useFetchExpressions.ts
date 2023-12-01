@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { queryBuilder } from "@queryBuilder";
-import { useCurrentExpression } from "@context";
 
 export interface ICalculation {
   expression: string;
 }
 
-export const useFetchExpressions = (): ICalculation[] => {
+export const useFetchExpressions = (expression: string, result: string): ICalculation[] => {
   const [expressions, setExpressions] = useState<ICalculation[]>([]);
-  const { result, expression } = useCurrentExpression();
 
   useEffect(() => {
     const fetchOperations = async () => {

@@ -1,10 +1,15 @@
-import { useCurrentExpression } from "@context";
 import { queryBuilder } from "@queryBuilder";
 
 type returnType = () => Promise<void>;
 
-export const useGetExpressionResult = (): returnType => {
-  const { expression, setResult, setErrorMessage } = useCurrentExpression();
+interface IExpressionResultState {
+  expression: string,
+  setResult: (result: string) => void,
+  // eslint-disable-next-line no-unused-vars
+  setErrorMessage: (errorMessage: string) => void
+}
+
+export const useGetExpressionResult = ({ expression, setResult, setErrorMessage }: IExpressionResultState): returnType => {
 
   const getExpressionResult = async (): Promise<void> => {
     try {
