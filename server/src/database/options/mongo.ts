@@ -2,15 +2,15 @@ import mongoose, { SortOrder } from "mongoose";
 import { Calculation } from "@modules";
 
 interface IExpression {
-  expression: string,
-  result: number,
+  expression: string;
+  result: number;
 }
 
 interface IDatabase {
   connect(url: string): void;
-  createAndSaveNewEntry(expression: string, result: number): Promise<void>
-  findOne(expression: string): Promise<IExpression | null>
-  findSortedExpressions(limit: number, sortOrder: number): Promise<IExpression[]>
+  createAndSaveNewEntry(expression: string, result: number): Promise<void>;
+  findOne(expression: string): Promise<IExpression | null>;
+  findSortedExpressions(limit: number, sortOrder: number): Promise<IExpression[]>;
 }
 
 export class MongoDatabase implements IDatabase {
@@ -33,13 +33,13 @@ export class MongoDatabase implements IDatabase {
 
   public async findOne(expression: string): Promise<IExpression | null> {
     const cachedCalculation: IExpression | null = await Calculation.findOne({ expression });
-    return cachedCalculation
+    return cachedCalculation;
   }
 
   public async findSortedExpressions(limit: number, sortOrder: number): Promise<IExpression[]> {
-    const sortCriteria: Record<string, SortOrder> = { _id: sortOrder as SortOrder};
+    const sortCriteria: Record<string, SortOrder> = { _id: sortOrder as SortOrder };
     const lastExpressions: IExpression[] = await Calculation.find().sort(sortCriteria).limit(limit);
 
-    return lastExpressions
+    return lastExpressions;
   }
 }
