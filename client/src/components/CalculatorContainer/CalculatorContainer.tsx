@@ -21,7 +21,12 @@ export const CalculatorContainer: React.FC = () => {
   return (
     <div className="bg-gray-100 h-screen flex items-center justify-center">
       <div ref={calculatorContainerRef} className="bg-white pt-8 pr-8 pl-8 pb-4 rounded shadow-md">
-        <CalculationHistory expression={expression} result={result} onChoosingExpression={setExpression} />
+        <CalculationHistory
+          expression={expression}
+          result={result}
+          contentKey={"expression"}
+          onChoosingExpression={setExpression}
+        />
         <InputExpression expression={expression} setExpression={setExpression} onEnter={getExpressionResult} />
         <ResultExpression result={result} errorMessage={errorMessage} />
         <CalculatorButtons

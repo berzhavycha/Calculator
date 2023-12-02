@@ -1,36 +1,30 @@
 import React from "react";
-import { useFetchExpressions } from "./hooks";
+import { List } from "@components";
+import { useFetchExpressions } from "@components";
 
-interface ICalculatorHistoryProps {
+interface ICalculationHistoryProps {
   expression: string;
   result: string;
-  // eslint-disable-next-line no-unused-vars
+  contentKey: "expression";
   onChoosingExpression: (expression: string) => void;
 }
 
-export const CalculationHistory: React.FC<ICalculatorHistoryProps> = ({ expression, result, onChoosingExpression }) => {
+export const CalculationHistory: React.FC<ICalculationHistoryProps> = ({
+  expression,
+  result,
+  contentKey,
+  onChoosingExpression,
+}) => {
   const expressions = useFetchExpressions(expression, result);
 
-  const handleExpressionClick = (event: React.MouseEvent<HTMLParagraphElement>): void => {
-    const clickedExpression = event.currentTarget.innerText;
-    onChoosingExpression(expression + clickedExpression);
+  const handleExpressionClick = (content: string): void => {
+    onChoosingExpression(content);
   };
 
   return (
     <div className="bg-gray-100 mb-6 p-2 pb-0.5 rounded-md shadow-md">
       {expressions.length > 0 ? (
-        <ul>
-          {expressions.map((calculation, index) => (
-            <li
-              key={index}
-              className="mb-2 p-1 pr-2 bg-white rounded-md shadow-md hover:bg-gray-100 text-xs cursor-pointer"
-            >
-              <p onClick={handleExpressionClick} className="text-blue-500 font-bold text-right">
-                {calculation.expression}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <List items={expressions} contentKey={contentKey} onItemClick={handleExpressionClick} />
       ) : (
         <p className="text-right pr-2">No last calculations found</p>
       )}
