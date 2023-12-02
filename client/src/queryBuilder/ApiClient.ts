@@ -32,7 +32,7 @@ class ApiClient {
 
     try {
       const response = await fetch(url, requestOptions);
-
+      
       const data = await response.json();
 
       if (!response.ok) {
