@@ -4,16 +4,15 @@ import { useGetButtonMatrix, IButtonData } from "./hooks";
 import { BACKSPACE, buttonClasses, ButtonType } from "@components";
 
 interface ICalculatorButtonsProps {
-  // eslint-disable-next-line no-unused-vars
   expression: string;
-  setExpression: (expression: string) => void;
+  onButtonClick: (expression: string) => void;
   resizeContainer: (increaseWidthBy: number) => void;
   onEvaluate: () => void;
 }
 
 export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
   expression,
-  setExpression,
+  onButtonClick,
   resizeContainer,
   onEvaluate,
 }) => {
@@ -29,9 +28,9 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
 
     if (foundOperator) {
       const operatorLength = foundOperator.length;
-      setExpression(inputValue.slice(0, inputValue.length - operatorLength));
+      onButtonClick(inputValue.slice(0, inputValue.length - operatorLength));
     } else {
-      setExpression(inputValue.slice(0, -1));
+      onButtonClick(inputValue.slice(0, -1));
     }
   };
 
@@ -41,7 +40,7 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
     } else if (button.type === ButtonType.SPECIAL_OPERATOR && button.content === BACKSPACE) {
       handleBackspaceButtonClick();
     } else {
-      setExpression(expression + button.content);
+      onButtonClick(expression + button.content);
     }
   };
 

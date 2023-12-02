@@ -16,7 +16,6 @@ export interface IButtonData {
 
 export const useGetButtonMatrix = (
   lastButtonRef: React.RefObject<HTMLButtonElement>,
-  // eslint-disable-next-line no-unused-vars
   resizeContainer: (increaseWidthBy: number) => void,
 ): IButtonData[][] => {
   const [buttonMatrix, setButtonMatrix] = useState<IButtonData[][]>([]);

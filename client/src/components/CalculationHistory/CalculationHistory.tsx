@@ -1,24 +1,23 @@
 import React from "react";
-import { List } from "@components";
-import { useFetchExpressions } from "@components";
+import { List, useFetchExpressions } from "@components";
 
 interface ICalculationHistoryProps {
   expression: string;
   result: string;
   contentKey: "expression";
-  onChoosingExpression: (expression: string) => void;
+  onChoosingListItem: (expression: string) => void;
 }
 
 export const CalculationHistory: React.FC<ICalculationHistoryProps> = ({
   expression,
   result,
   contentKey,
-  onChoosingExpression,
+  onChoosingListItem,
 }) => {
   const expressions = useFetchExpressions(expression, result);
 
   const handleExpressionClick = (content: string): void => {
-    onChoosingExpression(content);
+    onChoosingListItem(content);
   };
 
   return (
