@@ -2,8 +2,8 @@ import React from "react";
 import { ENTER_CALCULATE_BUTTON } from "@components";
 
 interface IInputExpressionProps {
-  expression: string,
-  setExpression: (expression: string) => void,
+  expression: string;
+  setExpression: (expression: string) => void;
   onEnter: () => void;
 }
 

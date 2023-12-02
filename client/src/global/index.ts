@@ -1,1 +1,1 @@
-export * from './environmentVars'
+export * from "./environmentVars";

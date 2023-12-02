@@ -6,8 +6,8 @@ export interface ICalculation {
 }
 
 interface IResponse {
-  expression: string,
-  result: string
+  expression: string;
+  result: string;
 }
 
 export const useFetchExpressions = (expression: string, result: string): ICalculation[] => {

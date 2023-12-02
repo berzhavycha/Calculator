@@ -15,11 +15,7 @@ class ApiClient {
     this.headers = headers;
   }
 
-  async makeRequest<T>(
-    endpoint: string,
-    method = "GET",
-    body?: RequestOptions['body'],
-  ): Promise<T> {
+  async makeRequest<T>(endpoint: string, method = "GET", body?: RequestOptions["body"]): Promise<T> {
     const url = `${this.baseURL}/${endpoint}`;
 
     const requestOptions: RequestOptions = {

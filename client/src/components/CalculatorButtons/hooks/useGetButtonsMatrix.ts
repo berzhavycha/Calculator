@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useOperations } from "@context";
-import { generateNumericButtons, generateRemainingOperators, generateSpecialOperators, generateZeroAndOperators } from "@components";
 import {
-  SpecialOperators,
-  BACKSPACE,
-  ButtonType,
+  generateNumericButtons,
+  generateRemainingOperators,
+  generateSpecialOperators,
+  generateZeroAndOperators,
 } from "@components";
-
+import { SpecialOperators, BACKSPACE, ButtonType } from "@components";
 
 export interface IButtonData {
   content: string;
@@ -20,17 +20,17 @@ export const useGetButtonMatrix = (
   resizeContainer: (increaseWidthBy: number) => void,
 ): IButtonData[][] => {
   const [buttonMatrix, setButtonMatrix] = useState<IButtonData[][]>([]);
-  const fetchedOperations = useOperations()
+  const fetchedOperations = useOperations();
 
   useEffect(() => {
     const rowArrayContainer: IButtonData[][] = [];
     let currentRowContainer: IButtonData[] = [];
-    const operations = Object.keys(fetchedOperations)
-    const specialOperators = [...Object.values(SpecialOperators), BACKSPACE]
+    const operations = Object.keys(fetchedOperations);
+    const specialOperators = [...Object.values(SpecialOperators), BACKSPACE];
 
     const generateCalculatorButtonsMatrix = (): void => {
       generateSpecialOperators(rowArrayContainer, currentRowContainer, specialOperators);
-      currentRowContainer = []
+      currentRowContainer = [];
 
       const numericRes = generateNumericButtons(rowArrayContainer, operations);
       generateZeroAndOperators(currentRowContainer, operations, numericRes.operatorIndex);

@@ -12,7 +12,7 @@ export type IOperation = {
 export type OperationsType = Record<string, IOperation>;
 
 interface IProviderProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const OperationsContext = createContext<OperationsType>({});

@@ -4,6 +4,6 @@ import { OperationsProvider } from "@context";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <OperationsProvider>
-      <App />
+    <App />
   </OperationsProvider>,
 );

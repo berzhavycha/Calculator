@@ -5,13 +5,18 @@ import { BACKSPACE, buttonClasses, ButtonType } from "@components";
 
 interface ICalculatorButtonsProps {
   // eslint-disable-next-line no-unused-vars
-  expression: string,
-  setExpression: (expression: string) => void
+  expression: string;
+  setExpression: (expression: string) => void;
   resizeContainer: (increaseWidthBy: number) => void;
   onEvaluate: () => void;
 }
 
-export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({ expression, setExpression, resizeContainer, onEvaluate }) => {
+export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
+  expression,
+  setExpression,
+  resizeContainer,
+  onEvaluate,
+}) => {
   const operations = useOperations();
   const lastButtonRef = useRef<HTMLButtonElement>(null);
   const buttonMatrix = useGetButtonMatrix(lastButtonRef, resizeContainer);
@@ -19,11 +24,9 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({ expressio
   const handleBackspaceButtonClick = (): void => {
     const inputValue = expression.trim();
     const operators = Object.keys(operations);
-  
-    const foundOperator = operators.find((currentOperator) =>
-      inputValue.endsWith(currentOperator)
-    );
-  
+
+    const foundOperator = operators.find((currentOperator) => inputValue.endsWith(currentOperator));
+
     if (foundOperator) {
       const operatorLength = foundOperator.length;
       setExpression(inputValue.slice(0, inputValue.length - operatorLength));
@@ -32,7 +35,6 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({ expressio
     }
   };
 
-  
   const handleClick = (button: IButtonData): void => {
     if (button.type === ButtonType.EVALUATE) {
       onEvaluate();
