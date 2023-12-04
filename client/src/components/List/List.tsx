@@ -12,10 +12,12 @@ export const List = <T, K extends keyof T>({ items, contentKey, onItemClick }: I
   };
 
   return (
-    <ul>
-      {items.map((item, index) => (
-        <ListItem key={index} content={String(item[contentKey])} onItemClick={handleItemClick} />
-      ))}
-    </ul>
+    <div className="bg-gray-100 mb-6 p-2 pb-0.5 rounded-md shadow-md">
+      <ul>
+        {items.map((item, index) => (
+          <ListItem key={index} content={String(item[contentKey])} onItemClick={handleItemClick} />
+        ))}
+      </ul>
+    </div>
   );
 };

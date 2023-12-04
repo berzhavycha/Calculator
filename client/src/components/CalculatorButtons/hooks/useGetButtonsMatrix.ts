@@ -47,6 +47,7 @@ export const useGetButtonMatrix = (
 
     setButtonMatrix(rowArrayContainer);
     generateCalculatorButtonsMatrix();
+    
   }, [fetchedOperations, lastButtonRef, resizeContainer]);
 
   return buttonMatrix;

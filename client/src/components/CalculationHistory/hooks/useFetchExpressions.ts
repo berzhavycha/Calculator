@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { queryBuilder } from "@queryBuilder";
+import { EXPRESSION_LIMIT, EXPRESSION_ORDER } from "@global";
 
 export interface ICalculation {
   expression: string;
@@ -17,7 +18,7 @@ export const useFetchExpressions = (expression: string, result: string): ICalcul
     const fetchOperations = async () => {
       try {
         const data = await queryBuilder.makeRequest<IResponse[]>(
-          `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${import.meta.env.VITE_EXPRESSION_ORDER}`,
+          `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
           "GET",
         );
 

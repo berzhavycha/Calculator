@@ -8,6 +8,7 @@ interface IInputExpressionProps {
 }
 
 export const InputExpression: React.FC<IInputExpressionProps> = ({ expression, onExpressionChange, onEnter }) => {
+  
   const onKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ENTER_CALCULATE_BUTTON) {
       await onEnter();

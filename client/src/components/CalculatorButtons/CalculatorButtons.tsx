@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { useOperations } from "@context";
 import { useGetButtonMatrix, IButtonData } from "./hooks";
-import { BACKSPACE, buttonClasses, ButtonType } from "@components";
+import { BACKSPACE, ButtonType } from "@components";
+import { ButtonMatrix } from "@components";
 
 interface ICalculatorButtonsProps {
   expression: string;
@@ -45,28 +46,6 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
   };
 
   return (
-    <div className="button-container flex flex-col items-end">
-      {buttonMatrix.map((row, idx) => {
-        return (
-          <div className="flex mb-4 gap-8" key={idx}>
-            {row.map((button) => {
-              const buttonStyles = Object.values(buttonClasses[button.type]).join(" ");
-
-              return (
-                <button
-                  key={button.content}
-                  ref={button.isLastButton ? lastButtonRef : null}
-                  className={`${buttonStyles}`}
-                  data-calc-btn={button.content}
-                  onClick={() => handleClick(button)}
-                >
-                  {button.content}
-                </button>
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
+    <ButtonMatrix buttonMatrix={buttonMatrix} lastButtonRef={lastButtonRef} onButtonClick={handleClick} />
   );
 };
