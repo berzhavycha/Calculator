@@ -2,7 +2,6 @@ import React, { useCallback, useRef, useState } from "react";
 import { CalculatorButtons, InputExpression, ResultExpression, CalculationHistory } from "@components";
 import { useGetExpressionResult } from "./hooks";
 
-
 export const CalculatorContainer: React.FC = () => {
   const [expression, setExpression] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -33,7 +32,7 @@ export const CalculatorContainer: React.FC = () => {
         <CalculatorButtons
           expression={expression}
           onButtonClick={setExpression}
-          resizeContainer={adjustCalculatorWidth}
+          resizeCalculatorContainer={adjustCalculatorWidth}
           onEvaluate={getExpressionResult}
         />
       </div>

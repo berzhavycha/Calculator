@@ -7,19 +7,19 @@ import { ButtonMatrix } from "@components";
 interface ICalculatorButtonsProps {
   expression: string;
   onButtonClick: (expression: string) => void;
-  resizeContainer: (increaseWidthBy: number) => void;
+  resizeCalculatorContainer: (increaseWidthBy: number) => void;
   onEvaluate: () => void;
 }
 
 export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
   expression,
   onButtonClick,
-  resizeContainer,
+  resizeCalculatorContainer,
   onEvaluate,
 }) => {
   const operations = useOperations();
   const lastButtonRef = useRef<HTMLButtonElement>(null);
-  const buttonMatrix = useGetButtonMatrix(lastButtonRef, resizeContainer);
+  const buttonMatrix = useGetButtonMatrix(lastButtonRef, resizeCalculatorContainer);
 
   const handleBackspaceButtonClick = (): void => {
     const inputValue = expression.trim();
@@ -45,7 +45,5 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
     }
   };
 
-  return (
-    <ButtonMatrix buttonMatrix={buttonMatrix} lastButtonRef={lastButtonRef} onButtonClick={handleClick} />
-  );
+  return <ButtonMatrix buttonMatrix={buttonMatrix} lastButtonRef={lastButtonRef} onButtonClick={handleClick} />;
 };

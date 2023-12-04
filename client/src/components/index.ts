@@ -4,5 +4,5 @@ export * from "./CalculatorContainer";
 export * from "./InputExpression";
 export * from "./ResultExpression";
 export * from "./List";
-export * from './ButtonMatrix'
+export * from "./ButtonMatrix";
 export * from "./constants";

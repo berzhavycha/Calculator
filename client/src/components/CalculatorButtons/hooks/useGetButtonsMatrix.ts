@@ -5,8 +5,10 @@ import {
   generateRemainingOperators,
   generateSpecialOperators,
   generateZeroAndOperators,
+  SpecialOperators,
+  BACKSPACE,
+  ButtonType,
 } from "@components";
-import { SpecialOperators, BACKSPACE, ButtonType } from "@components";
 
 export interface IButtonData {
   content: string;
@@ -16,7 +18,7 @@ export interface IButtonData {
 
 export const useGetButtonMatrix = (
   lastButtonRef: React.RefObject<HTMLButtonElement>,
-  resizeContainer: (increaseWidthBy: number) => void,
+  resizeCalculatorContainer: (increaseWidthBy: number) => void,
 ): IButtonData[][] => {
   const [buttonMatrix, setButtonMatrix] = useState<IButtonData[][]>([]);
   const fetchedOperations = useOperations();
@@ -42,13 +44,12 @@ export const useGetButtonMatrix = (
         numericRes.isRowCompleted = false;
       }
 
-      generateRemainingOperators(rowArrayContainer, operations, lastButtonRef, resizeContainer);
+      generateRemainingOperators(rowArrayContainer, operations, lastButtonRef, resizeCalculatorContainer);
     };
 
     setButtonMatrix(rowArrayContainer);
     generateCalculatorButtonsMatrix();
-    
-  }, [fetchedOperations, lastButtonRef, resizeContainer]);
+  }, [fetchedOperations, lastButtonRef, resizeCalculatorContainer]);
 
   return buttonMatrix;
 };
