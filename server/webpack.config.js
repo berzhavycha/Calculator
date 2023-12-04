@@ -14,11 +14,9 @@ module.exports = {
             process: "process/browser",
             '@config': path.resolve(__dirname, 'src/config/operations.ts'),
             '@database': path.resolve(__dirname, 'src/database/index.ts'),
-            '@models': path.resolve(__dirname, 'src/models/'),
             '@modules': path.resolve(__dirname, 'src/modules/'),
-            '@regex': path.resolve(__dirname, 'src/regex/'),
-            '@services': path.resolve(__dirname, 'src/services/'),
             '@utils': path.resolve(__dirname, 'src/utils/'),
+            '@global': path.resolve(__dirname, 'src/global/'),
         }
     },
     module: {

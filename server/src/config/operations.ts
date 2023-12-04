@@ -1,12 +1,12 @@
 import {
-  factorial,
   MathOperators,
   MathOperationPriority,
   OperatorType,
   Associativity,
   CalculationMethods,
-} from "@modules/calculation/calculatorMethods";
-import { DataBases } from "@database";
+} from "@modules/calculation/calculatorMethods/constants";
+import { factorial } from "@modules/calculation/calculatorMethods/factorial";
+import { DataBases } from "@database/constants";
 
 export type IOperation = {
   priority: number;

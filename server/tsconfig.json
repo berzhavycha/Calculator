@@ -13,12 +13,6 @@
             "@config/*": [
                 "./src/config/*"
             ],
-            "@models": [
-                "./src/models/index.ts"
-            ],
-            "@models/*": [
-                "./src/models/*"
-            ],
             "@modules": [
                 "./src/modules/index.ts"
             ],
@@ -42,6 +36,12 @@
             ],
             "@utils/*": [
                 "./src/utils/*"
+            ],
+            "@global": [
+                "./src/global/index.ts"
+            ],
+            "@global/*": [
+                "./src/global/*"
             ],
         },
         "target": "es2017",
