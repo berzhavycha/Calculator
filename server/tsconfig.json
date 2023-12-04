@@ -37,6 +37,12 @@
             "@utils/*": [
                 "./src/utils/*"
             ],
+            "@global": [
+                "./src/global/index.ts"
+            ],
+            "@global/*": [
+                "./src/global/*"
+            ],
         },
         "target": "es2017",
         "module": "commonjs",
