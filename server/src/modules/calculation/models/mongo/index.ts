@@ -1,1 +1,1 @@
-export * from './mongoModel'
+export * from './model'
