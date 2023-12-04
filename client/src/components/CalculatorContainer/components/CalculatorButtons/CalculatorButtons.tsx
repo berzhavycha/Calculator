@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
 import { useOperations } from "@context";
 import { useGetButtonMatrix, IButtonData } from "./hooks";
-import { BACKSPACE, ButtonType } from "@components";
-import { ButtonMatrix } from "@components";
+import { BACKSPACE, ButtonType, ButtonMatrix } from "@components";
 
 interface ICalculatorButtonsProps {
   expression: string;
