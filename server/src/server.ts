@@ -1,9 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import "module-alias/register";
+import { PORT, MONGODB_URL } from "@global";
 import { currentDatabase } from "@database";
 import { modules } from "@modules";
-import { PORT, MONGODB_URL } from "@global";
 
 const app = express();
 

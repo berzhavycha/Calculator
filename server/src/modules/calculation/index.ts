@@ -1,3 +1,3 @@
 export * from "./calculatorMethods";
-export * from "./restIndex";
 export * from "./models";
+export * from "./restIndex";
