@@ -1,7 +1,5 @@
-import { DEFAULT_SORT_FIELD } from './../../constants';
 import { SortOrder } from "mongoose";
 import { Calculation } from "./schemas/Calculation";
-import { DEFAULT_SORT_ORDER } from "@modules/calculation/constants";
 
 interface IExpression {
   expression: string;
@@ -37,18 +35,22 @@ export class MongoCalculationModel implements ICalculationModel {
   }
 
   public async findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]> {
+    let resultExpressions: IExpression[]
+
     const sortCriteria: { [key: string]: SortOrder } = {};
 
     if (sortField && sortOrder) {
       sortCriteria[sortField] = sortOrder as SortOrder;
-    } else {
-      sortCriteria[DEFAULT_SORT_FIELD] = DEFAULT_SORT_ORDER;
-    }
 
-    const resultExpressions = await Calculation.find({})
-      .sort(sortCriteria)
-      .limit(limit)
-      .exec();
+      resultExpressions = await Calculation.find({})
+        .sort(sortCriteria)
+        .limit(limit)
+        .exec();
+    } else {
+      resultExpressions = await Calculation.find({})
+        .limit(limit)
+        .exec();
+    }
 
     return resultExpressions;
   }
