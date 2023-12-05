@@ -17,7 +17,5 @@ export const generateZeroAndOperators = (
     updatedCurrentRowContainer.push({content, type});
   });
 
-  
-
   return updatedCurrentRowContainer;
 };

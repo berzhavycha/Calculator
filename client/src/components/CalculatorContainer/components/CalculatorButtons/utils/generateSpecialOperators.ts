@@ -1,4 +1,4 @@
-import { ButtonType, INITIAL_BUTTON_PER_ROW} from "@components";
+import { ButtonType, INITIAL_BUTTON_PER_ROW, SpecialOperators} from "@components";
 import { IButtonData } from "../hooks";
 
 export const generateSpecialOperators = (
@@ -9,9 +9,9 @@ export const generateSpecialOperators = (
   let buttonCounter = 1;
   const updatedRowArrayContainer: IButtonData[][] = [...rowArrayContainer];
   let updatedCurrentRowContainer: IButtonData[] = [...currentRowContainer];
-  const filteredSpecialOperators = specialOperators.filter((op) => op !== ".");
+  const filteredSpecialOperators = specialOperators.filter((op) => op !== SpecialOperators.DOT);
 
-  for (let i = 0; i < filteredSpecialOperators.length; i++) {
+  for(const operator of filteredSpecialOperators){
     if (buttonCounter % INITIAL_BUTTON_PER_ROW === 0) {
       updatedRowArrayContainer.push(updatedCurrentRowContainer);
       updatedCurrentRowContainer = [];
@@ -19,10 +19,11 @@ export const generateSpecialOperators = (
     }
 
     updatedCurrentRowContainer.push({
-      content: filteredSpecialOperators[i],
+      content: operator,
       type: ButtonType.SPECIAL_OPERATOR,
     });
   }
+
 
   updatedRowArrayContainer.push(updatedCurrentRowContainer);
 
