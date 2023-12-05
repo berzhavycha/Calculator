@@ -9,7 +9,7 @@ const CalculationSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  timestamp: {
+  last_request_at: {
     type: Date,
     default: Date.now,
   },

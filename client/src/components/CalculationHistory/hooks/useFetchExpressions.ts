@@ -8,7 +8,7 @@ export interface ICalculation {
 
 export const useFetchExpressions = (): ICalculation[] => {
   const [expressions, setExpressions] = useState<ICalculation[]>([]);
-  const { result, expression } = useCurrentExpression();
+  const { result } = useCurrentExpression();
 
   useEffect(() => {
     const fetchOperations = async () => {
@@ -18,15 +18,7 @@ export const useFetchExpressions = (): ICalculation[] => {
           "GET",
         );
 
-        const isCurrentExpressionInState =
-          expressions.find((item) => item.expression === expression) ||
-          data.find((item: ICalculation) => item.expression === expression);
-
-        if (result && !isCurrentExpressionInState) {
-          setExpressions((prev) => [...prev.slice(0, 4), { expression }].reverse());
-        } else {
-          setExpressions(data);
-        }
+        setExpressions(data);
       } catch (error) {
         setExpressions([]);
       }

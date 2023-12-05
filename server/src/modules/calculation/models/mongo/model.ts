@@ -23,14 +23,26 @@ export class MongoCalculationModel implements ICalculationModel {
     return cachedCalculation;
   }
 
+  public async updateLastRequestTime(expression: string): Promise<void> {
+    const cachedCalculation = await Calculation.findOne({ expression });
+
+    if (cachedCalculation) {
+      cachedCalculation.last_request_at = new Date();
+      await cachedCalculation.save();
+    }
+  }
+
   public async findMany(limit: number, sortOrder?: number): Promise<IExpression[]> {
     let resultExpressions: IExpression[]
 
-    if(sortOrder){
-        const sortCriteria: Record<string, SortOrder> = { _id: sortOrder as SortOrder };
-        resultExpressions = await Calculation.find().sort(sortCriteria).limit(limit);
-    }else{
-        resultExpressions = await Calculation.find().limit(limit);
+    if (sortOrder) {
+      const sortCriteria: SortOrder = sortOrder as SortOrder;
+      resultExpressions = await Calculation.find({})
+        .sort({ last_request_at: sortCriteria })
+        .limit(limit)
+        .exec();
+    } else {
+      resultExpressions = await Calculation.find().limit(limit);
     }
 
     return resultExpressions;
