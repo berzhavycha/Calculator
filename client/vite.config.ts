@@ -5,22 +5,13 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      "/operations": "http://localhost:5000/",
-      "/calculations": "http://localhost:5000/",
-    },
-  },
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, './src/components/'),
       '@context': path.resolve(__dirname, './src/context/'),
       '@hooks': path.resolve(__dirname, './src/hooks/'),
       '@queryBuilder': path.resolve(__dirname, './src/queryBuilder/'),
-      '@utils': path.resolve(__dirname, './src/utils/'),
+      '@global': path.resolve(__dirname, './src/global/'),
     }
   },
-  // define: {
-  //   'process.env.BASE_API_URL': JSON.stringify(process.env.BASE_API_URL)
-  // },
 });

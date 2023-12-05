@@ -108,3 +108,18 @@ export enum MathOperators {
   FACTORIAL = "!",
   MODULATION = "%",
 }
+
+export const zeroAndOperatorsLine = [
+  {
+    content: `${SpecialOperators.DOT}`,
+    type: ButtonType.NUMERIC,
+  },
+  {
+    content: `${0}`,
+    type: ButtonType.NUMERIC
+  },
+  {
+    content: `${EVALUATE}`,
+    type: ButtonType.EVALUATE,
+  }
+]

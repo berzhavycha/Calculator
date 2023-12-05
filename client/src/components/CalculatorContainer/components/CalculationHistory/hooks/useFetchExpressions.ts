@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import { queryBuilder } from "@queryBuilder";
-import { useCurrentExpression } from "@context";
+import { EXPRESSION_LIMIT, EXPRESSION_ORDER } from "@global";
 
 export interface ICalculation {
   expression: string;
 }
 
-export const useFetchExpressions = (): ICalculation[] => {
+interface IResponse {
+  expression: string;
+  result: string;
+}
+
+export const useFetchExpressions = (expression: string, result: string): ICalculation[] => {
   const [expressions, setExpressions] = useState<ICalculation[]>([]);
-  const { result, expression } = useCurrentExpression();
 
   useEffect(() => {
     const fetchOperations = async () => {
       try {
-        const data = await queryBuilder.makeRequest(
-          `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${import.meta.env.VITE_EXPRESSION_ORDER}`,
+        const data = await queryBuilder.makeRequest<IResponse[]>(
+          `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
           "GET",
         );
 
