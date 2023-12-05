@@ -2,13 +2,11 @@ import { ButtonType, INITIAL_BUTTON_PER_ROW, SpecialOperators} from "@components
 import { IButtonData } from "../hooks";
 
 export const generateSpecialOperators = (
-  rowArrayContainer: IButtonData[][],
-  currentRowContainer: IButtonData[],
   specialOperators: string[],
 ): IButtonData[][] => {
   let buttonCounter = 1;
-  const updatedRowArrayContainer: IButtonData[][] = [...rowArrayContainer];
-  let updatedCurrentRowContainer: IButtonData[] = [...currentRowContainer];
+  const updatedRowArrayContainer: IButtonData[][] = [];
+  let updatedCurrentRowContainer: IButtonData[] = [];
   const filteredSpecialOperators = specialOperators.filter((op) => op !== SpecialOperators.DOT);
 
   for(const operator of filteredSpecialOperators){

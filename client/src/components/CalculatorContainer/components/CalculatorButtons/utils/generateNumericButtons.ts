@@ -8,13 +8,12 @@ type IGenerateNumberButtonsReturn = {
 };
 
 export const generateNumericButtons = (
-  rowArrayContainer: IButtonData[][],
   operations: string[],
 ): IGenerateNumberButtonsReturn => {
   const basicOperators = operations.slice(0, 4);
   let operatorIndex = 0;
   let isRowCompleted = false;
-  const updatedRowArrayContainer: IButtonData[][] = [...rowArrayContainer];
+  const updatedRowArrayContainer: IButtonData[][] = [];
   let currentRowContainer = [];
 
   for (let i = calculatorViewConstants.MIN_BUTTON_VALUE; i <= calculatorViewConstants.MAX_BUTTON_VALUE; i++) {

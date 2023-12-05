@@ -32,13 +32,13 @@ export const useGetButtonMatrix = (
       const operations = Object.keys(fetchedOperations);
       const specialOperators = [...Object.values(SpecialOperators), BACKSPACE];
 
-      rowArrayContainer = generateSpecialOperators(rowArrayContainer, currentRowContainer, specialOperators);
+      rowArrayContainer.push(...generateSpecialOperators(specialOperators))
       currentRowContainer = [];
 
-      const numericRes = generateNumericButtons(rowArrayContainer, operations);
-      rowArrayContainer = numericRes.updatedRowArrayContainer
-      currentRowContainer = generateZeroAndOperators(currentRowContainer, operations, numericRes.operatorIndex);
+      const numericRes = generateNumericButtons(operations);
+      rowArrayContainer.push(...numericRes.updatedRowArrayContainer)
 
+      currentRowContainer.push(...generateZeroAndOperators(operations, numericRes.operatorIndex))
       rowArrayContainer.push(currentRowContainer);
       currentRowContainer = [];
 
@@ -47,7 +47,7 @@ export const useGetButtonMatrix = (
         numericRes.isRowCompleted = false;
       }
 
-      rowArrayContainer = generateRemainingOperators(rowArrayContainer, operations, lastButtonRef, resizeCalculatorContainer);
+      rowArrayContainer = generateRemainingOperators(rowArrayContainer, operations, lastButtonRef, resizeCalculatorContainer)
 
       return rowArrayContainer
     };

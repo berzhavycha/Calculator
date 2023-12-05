@@ -1,5 +1,5 @@
 import { ButtonType, INITIAL_BUTTON_PER_ROW, calculatorViewConstants } from "@components";
-import {IButtonData} from '../hooks'
+import { IButtonData } from '../hooks'
 
 export const generateRemainingOperators = (
   rowArrayContainer: IButtonData[][],
@@ -11,7 +11,7 @@ export const generateRemainingOperators = (
   const remainingOperators = operations.slice(4);
   let index = 0;
   const buttonCounter = 1;
-  const updatedRowArrayContainer = [...rowArrayContainer]
+  const updatedRowArrayContainer: IButtonData[][] = [...rowArrayContainer]
 
   remainingOperators.forEach((operator, idx) => {
     updatedRowArrayContainer[index].unshift({
