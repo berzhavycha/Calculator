@@ -37,7 +37,6 @@ export class MongoCalculationModel implements ICalculationModel {
     }
   }
 
-
   public async findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]> {
     let resultExpressions: IExpression[];
 
