@@ -8,6 +8,7 @@ interface IExpression {
 
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
+  updateLastRequestTime(expression: string): Promise<void>;
   findOne(expression: string): Promise<IExpression | null>;
   findMany(limit: number, sortOrder?: number): Promise<IExpression[]>;
 }
