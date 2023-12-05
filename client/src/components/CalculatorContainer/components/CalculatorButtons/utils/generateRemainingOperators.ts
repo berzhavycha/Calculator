@@ -1,24 +1,27 @@
-import { ButtonType, IButtonData, INITIAL_BUTTON_PER_ROW, calculatorViewConstants } from "@components";
+import { ButtonType, INITIAL_BUTTON_PER_ROW, calculatorViewConstants } from "@components";
+import {IButtonData} from '../hooks'
 
 export const generateRemainingOperators = (
   rowArrayContainer: IButtonData[][],
   operations: string[],
   lastButtonRef: React.RefObject<HTMLButtonElement>,
   resizeContainer: (increaseWidthBy: number) => void,
-): void => {
+): IButtonData[][] => {
+
   const remainingOperators = operations.slice(4);
   let index = 0;
   const buttonCounter = 1;
+  const updatedRowArrayContainer = [...rowArrayContainer]
 
   remainingOperators.forEach((operator, idx) => {
-    rowArrayContainer[index].unshift({
+    updatedRowArrayContainer[index].unshift({
       content: `${operator}`,
       type: ButtonType.OPERATOR,
       isLastButton: idx === remainingOperators.length - 1,
     });
     index++;
 
-    if (index >= rowArrayContainer.length) {
+    if (index >= updatedRowArrayContainer.length) {
       index = 0;
     } else {
       const isLastButton = operator === remainingOperators[remainingOperators.length - 1];
@@ -43,4 +46,6 @@ export const generateRemainingOperators = (
       }
     }
   });
+
+  return updatedRowArrayContainer
 };

@@ -1,4 +1,5 @@
-import { IButtonData, buttonClasses } from "@components";
+import { buttonClasses } from "@components";
+import { IButtonData } from "@components/CalculatorContainer/components/CalculatorButtons/hooks";
 
 interface IButtonMatrixProps {
   buttonMatrix: IButtonData[][];

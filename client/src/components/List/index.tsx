@@ -1,4 +1,4 @@
-import { ListItem } from "@components";
+import { ListItem } from "./components";
 
 interface IListProps<T, K extends keyof T> {
   items: T[];

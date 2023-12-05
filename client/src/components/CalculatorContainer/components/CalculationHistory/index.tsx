@@ -1,5 +1,6 @@
 import React from "react";
-import { List, useFetchExpressions } from "@components";
+import { useFetchExpressions } from './hooks/useFetchExpressions';
+import { List } from "@components";
 
 interface ICalculationHistoryProps {
   expression: string;
@@ -8,7 +9,7 @@ interface ICalculationHistoryProps {
   onChoosingListItem: (expression: string) => void;
 }
 
-export const CalculationHistory: React.FC<ICalculationHistoryProps> = ({
+export const CalculationHistory: React.FC<ICalculationHistoryProps> = React.memo(({
   expression,
   result,
   contentKey,
@@ -29,4 +30,4 @@ export const CalculationHistory: React.FC<ICalculationHistoryProps> = ({
       )}
     </>
   );
-};
+});

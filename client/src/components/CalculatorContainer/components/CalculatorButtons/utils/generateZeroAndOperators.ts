@@ -1,23 +1,23 @@
-import { SpecialOperators, ButtonType, IButtonData, EVALUATE } from "@components";
+import { ButtonType, zeroAndOperatorsLine } from "@components";
+import {IButtonData} from '../hooks'
 
 export const generateZeroAndOperators = (
   currentRowContainer: IButtonData[],
   operations: string[],
   operatorIndex: number,
-): void => {
-  currentRowContainer.push({
-    content: `${SpecialOperators.DOT}`,
-    type: ButtonType.NUMERIC,
-  });
+): IButtonData[] => {
+  const updatedCurrentRowContainer = [...currentRowContainer];
 
-  currentRowContainer.push({ content: `${0}`, type: ButtonType.NUMERIC });
-  currentRowContainer.push({
-    content: `${EVALUATE}`,
-    type: ButtonType.EVALUATE,
-  });
-
-  currentRowContainer.push({
+  const currentLine = [...zeroAndOperatorsLine, {
     content: `${operations[operatorIndex]}`,
     type: ButtonType.OPERATOR,
+  }];
+
+  currentLine.forEach(({ content, type }) => {
+    updatedCurrentRowContainer.push({content, type});
   });
+
+  
+
+  return updatedCurrentRowContainer;
 };

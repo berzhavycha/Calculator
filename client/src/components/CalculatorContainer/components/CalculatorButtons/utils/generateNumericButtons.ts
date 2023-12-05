@@ -3,6 +3,7 @@ import { calculatorViewConstants, IButtonData, ButtonType } from "@components";
 type IGenerateNumberButtonsReturn = {
   operatorIndex: number;
   isRowCompleted: boolean;
+  updatedRowArrayContainer: IButtonData[][];
 };
 
 export const generateNumericButtons = (
@@ -12,6 +13,7 @@ export const generateNumericButtons = (
   const basicOperators = operations.slice(0, 4);
   let operatorIndex = 0;
   let isRowCompleted = false;
+  const updatedRowArrayContainer: IButtonData[][] = [...rowArrayContainer];
   let currentRowContainer = [];
 
   for (let i = calculatorViewConstants.MIN_BUTTON_VALUE; i <= calculatorViewConstants.MAX_BUTTON_VALUE; i++) {
@@ -30,11 +32,11 @@ export const generateNumericButtons = (
     }
 
     if (isRowCompleted) {
-      rowArrayContainer.push(currentRowContainer);
+      updatedRowArrayContainer.push([...currentRowContainer]); 
       currentRowContainer = [];
       isRowCompleted = false;
     }
   }
 
-  return { operatorIndex, isRowCompleted };
+  return { operatorIndex, isRowCompleted, updatedRowArrayContainer };
 };

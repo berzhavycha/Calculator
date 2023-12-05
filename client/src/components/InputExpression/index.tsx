@@ -7,10 +7,10 @@ interface IInputExpressionProps {
   onEnter: () => void;
 }
 
-export const InputExpression: React.FC<IInputExpressionProps> = ({ expression, onExpressionChange, onEnter }) => {
+export const InputExpression: React.FC<IInputExpressionProps> = React.memo(({ expression, onExpressionChange, onEnter }) => {
   const onKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ENTER_CALCULATE_BUTTON) {
-      await onEnter();
+      onEnter();
     }
   };
 
@@ -23,4 +23,4 @@ export const InputExpression: React.FC<IInputExpressionProps> = ({ expression, o
       type="text"
     />
   );
-};
+});

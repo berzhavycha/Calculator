@@ -10,7 +10,7 @@ interface ICalculatorButtonsProps {
   onEvaluate: () => void;
 }
 
-export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
+export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = React.memo(({
   expression,
   onButtonClick,
   resizeCalculatorContainer,
@@ -45,4 +45,4 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = ({
   };
 
   return <ButtonMatrix buttonMatrix={buttonMatrix} lastButtonRef={lastButtonRef} onButtonClick={handleClick} />;
-};
+});

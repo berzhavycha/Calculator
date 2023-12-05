@@ -4,22 +4,26 @@ export const generateSpecialOperators = (
   rowArrayContainer: IButtonData[][],
   currentRowContainer: IButtonData[],
   specialOperators: string[],
-): void => {
+): IButtonData[][] => {
   let buttonCounter = 1;
-
+  const updatedRowArrayContainer: IButtonData[][] = [...rowArrayContainer];
+  let updatedCurrentRowContainer: IButtonData[] = [...currentRowContainer];
   const filteredSpecialOperators = specialOperators.filter((op) => op !== ".");
+
   for (let i = 0; i < filteredSpecialOperators.length; i++) {
     if (buttonCounter % INITIAL_BUTTON_PER_ROW === 0) {
-      rowArrayContainer.push(currentRowContainer);
-      currentRowContainer = [];
+      updatedRowArrayContainer.push(updatedCurrentRowContainer);
+      updatedCurrentRowContainer = [];
       buttonCounter++;
     }
 
-    currentRowContainer.push({
+    updatedCurrentRowContainer.push({
       content: filteredSpecialOperators[i],
       type: ButtonType.SPECIAL_OPERATOR,
     });
   }
 
-  rowArrayContainer.push(currentRowContainer);
+  updatedRowArrayContainer.push(updatedCurrentRowContainer);
+
+  return updatedRowArrayContainer;
 };

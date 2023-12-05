@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
-import { CalculatorButtons, InputExpression, ResultExpression, CalculationHistory } from "@components";
+import { InputExpression } from "@components";
 import { useGetExpressionResult } from "./hooks";
+import { CalculatorButtons, ResultExpression, CalculationHistory } from './components'
 
 export const CalculatorContainer: React.FC = () => {
   const [expression, setExpression] = useState<string>("");

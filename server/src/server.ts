@@ -11,6 +11,14 @@ dotenv.config({ path: "./.env" });
 
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+
 modules.get.forEach(({ route, controller }) => {
   app.get(route, controller);
 });
@@ -19,7 +27,7 @@ modules.post.forEach(({ route, controller }) => {
   app.post(route, controller);
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 4001;
 
 currentDatabaseService.connect(process.env.MONGODB_URL as string).then(() => {
   app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));

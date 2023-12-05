@@ -3,7 +3,6 @@ import { useFetchOperations } from "./hooks";
 
 export type IOperation = {
   priority: number;
-  // eslint-disable-next-line no-unused-vars
   calculate: (...operands: number[]) => number;
   type: string;
   associativity?: string;

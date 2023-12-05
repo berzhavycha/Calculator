@@ -4,7 +4,9 @@ import {
   generateNumericButtons,
   generateRemainingOperators,
   generateSpecialOperators,
-  generateZeroAndOperators,
+  generateZeroAndOperators
+} from '../utils'
+import {
   SpecialOperators,
   BACKSPACE,
   ButtonType,
@@ -24,17 +26,18 @@ export const useGetButtonMatrix = (
   const fetchedOperations = useOperations();
 
   useEffect(() => {
-    const rowArrayContainer: IButtonData[][] = [];
-    let currentRowContainer: IButtonData[] = [];
-    const operations = Object.keys(fetchedOperations);
-    const specialOperators = [...Object.values(SpecialOperators), BACKSPACE];
+    const generateCalculatorButtonsMatrix = (): IButtonData[][] => {
+      let rowArrayContainer: IButtonData[][] = [];
+      let currentRowContainer: IButtonData[] = [];
+      const operations = Object.keys(fetchedOperations);
+      const specialOperators = [...Object.values(SpecialOperators), BACKSPACE];
 
-    const generateCalculatorButtonsMatrix = (): void => {
-      generateSpecialOperators(rowArrayContainer, currentRowContainer, specialOperators);
+      rowArrayContainer = generateSpecialOperators(rowArrayContainer, currentRowContainer, specialOperators);
       currentRowContainer = [];
 
       const numericRes = generateNumericButtons(rowArrayContainer, operations);
-      generateZeroAndOperators(currentRowContainer, operations, numericRes.operatorIndex);
+      rowArrayContainer = numericRes.updatedRowArrayContainer
+      currentRowContainer = generateZeroAndOperators(currentRowContainer, operations, numericRes.operatorIndex);
 
       rowArrayContainer.push(currentRowContainer);
       currentRowContainer = [];
@@ -44,11 +47,12 @@ export const useGetButtonMatrix = (
         numericRes.isRowCompleted = false;
       }
 
-      generateRemainingOperators(rowArrayContainer, operations, lastButtonRef, resizeCalculatorContainer);
+      rowArrayContainer = generateRemainingOperators(rowArrayContainer, operations, lastButtonRef, resizeCalculatorContainer);
+
+      return rowArrayContainer
     };
 
-    setButtonMatrix(rowArrayContainer);
-    generateCalculatorButtonsMatrix();
+    setButtonMatrix(generateCalculatorButtonsMatrix());
   }, [fetchedOperations, lastButtonRef, resizeCalculatorContainer]);
 
   return buttonMatrix;
