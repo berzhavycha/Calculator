@@ -1,4 +1,5 @@
-import { calculatorViewConstants, IButtonData, ButtonType } from "@components";
+import { calculatorViewConstants, ButtonType } from "@components";
+import {IButtonData} from '../hooks'
 
 type IGenerateNumberButtonsReturn = {
   operatorIndex: number;

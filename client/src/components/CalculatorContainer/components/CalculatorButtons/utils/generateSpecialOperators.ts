@@ -1,4 +1,5 @@
-import { ButtonType, INITIAL_BUTTON_PER_ROW, IButtonData } from "@components";
+import { ButtonType, INITIAL_BUTTON_PER_ROW} from "@components";
+import { IButtonData } from "../hooks";
 
 export const generateSpecialOperators = (
   rowArrayContainer: IButtonData[][],
