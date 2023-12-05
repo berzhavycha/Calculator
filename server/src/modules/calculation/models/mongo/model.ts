@@ -12,7 +12,7 @@ interface IExpression {
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
   updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
-  findOne(expression: string): Promise<IExpression | null>;
+  findOne(query: Partial<IExpression>): Promise<IExpression | null>;
   findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]>;
 }
 
@@ -22,33 +22,34 @@ export class MongoCalculationModel implements ICalculationModel {
     await newCalculation.save();
   }
 
-  public async findOne(expression: string): Promise<IExpression | null> {
-    const cachedCalculation: IExpression | null = await Calculation.findOne({ expression });
+  public async findOne(query: Partial<IExpression>): Promise<IExpression | null> {
+    const cachedCalculation: IExpression | null = await Calculation.findOne(query);
     return cachedCalculation;
   }
 
   public async updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void> {
     const cachedCalculation = await Calculation.findOne(query);
-  
+
     if (cachedCalculation) {
       Object.assign(cachedCalculation, update);
       await cachedCalculation.save();
     }
   }
+
   public async findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]> {
     const sortCriteria: { [key: string]: SortOrder } = {};
-  
+
     if (sortField && sortOrder) {
       sortCriteria[sortField] = sortOrder as SortOrder;
     } else {
-      sortCriteria[DEFAULT_SORT_FIELD] = DEFAULT_SORT_ORDER; 
+      sortCriteria[DEFAULT_SORT_FIELD] = DEFAULT_SORT_ORDER;
     }
-  
+
     const resultExpressions = await Calculation.find({})
-        .sort(sortCriteria)
-        .limit(limit)
-        .exec();
-  
+      .sort(sortCriteria)
+      .limit(limit)
+      .exec();
+
     return resultExpressions;
   }
 }
