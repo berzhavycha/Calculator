@@ -1,24 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { queryBuilder } from "@queryBuilder";
-import { useCurrentExpression } from "@context";
-import { Dispatch, SetStateAction } from "react";
+import { EXPRESSION_LIMIT, EXPRESSION_ORDER } from "@global";
 
 export interface ICalculation {
   expression: string;
   result: string
 }
 
+interface IResponse {
+  expression: string;
+  result: string;
+}
+
 type SetLastExpressions = Dispatch<SetStateAction<ICalculation[]>>;
 
-export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHistoryItemClicked: boolean): void => {
-  const { expression, result } = useCurrentExpression();
-
+export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHistoryItemClicked: boolean, expression: string, result: string): void => {
   useEffect(() => {
     const fetchOperations = async () => {
       try {
-        const data: ICalculation[] = await queryBuilder.makeRequest(
-          `calculations?limit=${import.meta.env.VITE_EXPRESSION_LIMIT}&order=${import.meta.env.VITE_EXPRESSION_ORDER}`,
-          "GET"
+
+        const data = await queryBuilder.makeRequest<IResponse[]>(
+          `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
+          "GET",
         );
 
         setLastExpressions([...data].reverse());

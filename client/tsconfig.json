@@ -26,6 +26,12 @@
       "@hooks/*": [
         "./src/hooks/*"
       ],
+      "@global": [
+        "./src/global/index.ts"
+      ],
+      "@global/*": [
+        "./src/global/*"
+      ],
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

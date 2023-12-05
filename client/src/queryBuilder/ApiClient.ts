@@ -1,3 +1,5 @@
+import { BASE_API_URL } from "@global";
+
 interface RequestOptions {
   method: string;
   headers: Record<string, string>;
@@ -13,13 +15,7 @@ class ApiClient {
     this.headers = headers;
   }
 
-  async makeRequest(
-    endpoint: string,
-    method = "GET",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): Promise<any> {
+  async makeRequest<T>(endpoint: string, method = "GET", body?: RequestOptions["body"]): Promise<T> {
     const url = `${this.baseURL}/${endpoint}`;
 
     const requestOptions: RequestOptions = {
@@ -31,7 +27,7 @@ class ApiClient {
     };
 
     if (body) {
-      requestOptions.body = JSON.stringify(body);
+      requestOptions.body = body;
     }
 
     try {
@@ -40,7 +36,7 @@ class ApiClient {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to perform request");
+        throw new Error(data.message);
       }
 
       return data;
@@ -50,4 +46,4 @@ class ApiClient {
   }
 }
 
-export const queryBuilder = new ApiClient(import.meta.env.VITE_BASE_API_URL);
+export const queryBuilder = new ApiClient(BASE_API_URL);
