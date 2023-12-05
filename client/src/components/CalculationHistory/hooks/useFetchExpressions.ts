@@ -18,7 +18,7 @@ export const useFetchExpressions = (): ICalculation[] => {
           "GET",
         );
 
-        setExpressions(data);
+        setExpressions(data)
       } catch (error) {
         setExpressions([]);
       }

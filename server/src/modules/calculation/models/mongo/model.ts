@@ -1,16 +1,19 @@
+import { DEFAULT_SORT_FIELD } from './../../constants';
 import { SortOrder } from "mongoose";
 import { Calculation } from "./schemas/Calculation";
+import { DEFAULT_SORT_ORDER } from "@modules/calculation/constants";
 
 interface IExpression {
   expression: string;
   result: number;
+  last_request_at: Date;
 }
 
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
-  updateLastRequestTime(expression: string): Promise<void>;
+  updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
   findOne(expression: string): Promise<IExpression | null>;
-  findMany(limit: number, sortOrder?: number): Promise<IExpression[]>;
+  findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]>;
 }
 
 export class MongoCalculationModel implements ICalculationModel {
@@ -24,28 +27,28 @@ export class MongoCalculationModel implements ICalculationModel {
     return cachedCalculation;
   }
 
-  public async updateLastRequestTime(expression: string): Promise<void> {
-    const cachedCalculation = await Calculation.findOne({ expression });
-
+  public async updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void> {
+    const cachedCalculation = await Calculation.findOne(query);
+  
     if (cachedCalculation) {
-      cachedCalculation.last_request_at = new Date();
+      Object.assign(cachedCalculation, update);
       await cachedCalculation.save();
     }
   }
-
-  public async findMany(limit: number, sortOrder?: number): Promise<IExpression[]> {
-    let resultExpressions: IExpression[]
-
-    if (sortOrder) {
-      const sortCriteria: SortOrder = sortOrder as SortOrder;
-      resultExpressions = await Calculation.find({})
-        .sort({ last_request_at: sortCriteria })
+  public async findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]> {
+    const sortCriteria: { [key: string]: SortOrder } = {};
+  
+    if (sortField && sortOrder) {
+      sortCriteria[sortField] = sortOrder as SortOrder;
+    } else {
+      sortCriteria[DEFAULT_SORT_FIELD] = DEFAULT_SORT_ORDER; 
+    }
+  
+    const resultExpressions = await Calculation.find({})
+        .sort(sortCriteria)
         .limit(limit)
         .exec();
-    } else {
-      resultExpressions = await Calculation.find().limit(limit);
-    }
-
+  
     return resultExpressions;
   }
 }
