@@ -8,7 +8,7 @@ export const getExpressionByParam = async (req: Request, res: Response): Promise
     const limit = parseInt(req.query.limit as string) ?? DEFAULT_LIMIT_NUMBER;
     const sortOrder = req.query.order as Sort ?? ASC;
 
-    if (!limit || isNaN(limit)) {
+    if (isNaN(limit)) {
       res.status(400).json({ error: "Invalid or missing 'limit' parameter" });
       return;
     }
