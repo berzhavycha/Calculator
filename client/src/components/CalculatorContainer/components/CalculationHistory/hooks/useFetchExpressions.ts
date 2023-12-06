@@ -24,7 +24,7 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
           "GET",
         );
 
-        setLastExpressions([...data]);
+        setLastExpressions([...data].reverse());
       } catch (error) {
         setLastExpressions([]);
       }
