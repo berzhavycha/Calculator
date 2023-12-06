@@ -10,6 +10,7 @@ interface IExpression {
 export type Sort = typeof ASC | typeof DESC
 type SortCriteria = { [key: string]: Sort };
 
+
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
   updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
@@ -49,6 +50,8 @@ export class MongoCalculationModel implements ICalculationModel {
         .sort(sortCriteria)
         .limit(limit)
         .exec();
+
+      resultExpressions = resultExpressions.reverse()
     } else {
       resultExpressions = await Calculation.find({})
         .limit(limit)
