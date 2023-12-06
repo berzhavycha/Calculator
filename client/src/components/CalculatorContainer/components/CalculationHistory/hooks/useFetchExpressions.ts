@@ -35,6 +35,18 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
   useEffect(() => {
     if (result && !isHistoryItemClicked) {
       setLastExpressions((prevExpressions: ICalculation[]) => {
+        const expressionIndex = prevExpressions.findIndex(item => item.expression === expression)
+
+        if (expressionIndex !== -1) {
+
+          const lastExpressionsCopy = [...prevExpressions]
+
+          lastExpressionsCopy.splice(expressionIndex, 1)
+          lastExpressionsCopy.push({ expression, result })
+
+          return lastExpressionsCopy
+        }
+
         const updatedExpressions: ICalculation[] = [
           ...prevExpressions.slice(1, import.meta.env.VITE_EXPRESSION_LIMIT),
           { expression, result },
