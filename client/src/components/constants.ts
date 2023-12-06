@@ -70,6 +70,7 @@ export enum ButtonType {
   OPERATOR = "operator",
   SPECIAL_OPERATOR = "specialOperator",
   EVALUATE = "evaluate",
+  CLEAR_ALL = 'clearAll'
 }
 
 type IButtonClasses = {
@@ -88,6 +89,7 @@ export const buttonClasses: IButtonClasses = {
   operator: operatorButtonClasses,
   specialOperator: specialOperatorButtonClasses,
   evaluate: evaluateButtonClasses,
+  clearAll: specialOperatorButtonClasses
 };
 
 export enum SpecialOperators {

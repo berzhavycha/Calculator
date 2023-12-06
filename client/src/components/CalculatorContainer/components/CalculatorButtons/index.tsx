@@ -8,6 +8,7 @@ interface ICalculatorButtonsProps {
   onButtonClick: (expression: string) => void;
   resizeCalculatorContainer: (increaseWidthBy: number) => void;
   onEvaluate: () => void;
+  onClearAll: () => void;
 }
 
 export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = React.memo(({
@@ -15,6 +16,7 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = React.memo((
   onButtonClick,
   resizeCalculatorContainer,
   onEvaluate,
+  onClearAll
 }) => {
   const operations = useOperations();
   const lastButtonRef = useRef<HTMLButtonElement>(null);
@@ -39,7 +41,10 @@ export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = React.memo((
       onEvaluate();
     } else if (button.type === ButtonType.SPECIAL_OPERATOR && button.content === BACKSPACE) {
       handleBackspaceButtonClick();
-    } else {
+    } else if (button.type === ButtonType.CLEAR_ALL) {
+      onClearAll()
+    }
+    else {
       onButtonClick(expression + button.content);
     }
   };

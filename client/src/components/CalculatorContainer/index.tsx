@@ -19,6 +19,12 @@ export const CalculatorContainer: React.FC = () => {
     }
   }, []);
 
+  const clearAll = () => {
+    setResult('')
+    setErrorMessage('')
+    setExpression('')
+  }
+
   return (
     <div className="bg-gray-100 h-screen flex items-center justify-center">
       <div ref={calculatorContainerRef} className="bg-white pt-8 pr-8 pl-8 pb-4 rounded shadow-md">
@@ -36,6 +42,7 @@ export const CalculatorContainer: React.FC = () => {
           onButtonClick={setExpression}
           resizeCalculatorContainer={adjustCalculatorWidth}
           onEvaluate={getExpressionResult}
+          onClearAll={clearAll}
         />
       </div>
     </div>

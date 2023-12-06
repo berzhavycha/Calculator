@@ -18,7 +18,7 @@ export const generateSpecialOperators = (
 
     updatedCurrentRowContainer.push({
       content: operator,
-      type: ButtonType.SPECIAL_OPERATOR,
+      type: operator === SpecialOperators.CLEAR_ALL ? ButtonType.CLEAR_ALL : ButtonType.SPECIAL_OPERATOR,
     });
   }
 
