@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface ICalculation {
   expression: string;
+  result: string
 }
 
 type SetLastExpressions = Dispatch<SetStateAction<ICalculation[]>>;
@@ -33,9 +34,10 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions): voi
       setLastExpressions((prevExpressions: ICalculation[]) => {
         const updatedExpressions: ICalculation[] = [
           ...prevExpressions.slice(1, import.meta.env.VITE_EXPRESSION_LIMIT),
-          { expression },
+          { expression, result},
         ];
-        return updatedExpressions;
+
+        return updatedExpressions
       });
     }
   }, [result]);

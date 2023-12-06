@@ -4,7 +4,7 @@ import { ICalculation, useFetchExpressions } from "./hooks";
 import { queryBuilder } from "@queryBuilder";
 
 export const CalculationHistory: React.FC = () => {
-  const { expression, setExpression } = useCurrentExpression();
+  const { expression, setExpression, setResult } = useCurrentExpression();
   const [lastExpressions, setLastExpressions] = useState<ICalculation[]>([])
 
   useFetchExpressions(setLastExpressions);
@@ -15,18 +15,12 @@ export const CalculationHistory: React.FC = () => {
     const clickedExpression = event.currentTarget.innerText;
     const expressionBeforeUpdate = expression
     const lastExpressionsBeforeUpdate = lastExpressions
-
-    setLastExpressions(prev => {
-      const lastExpressionsCopy = [...prev]
-      const clickedExpressionIndex = lastExpressions.findIndex(item => item.expression === clickedExpression)
-
-      lastExpressionsCopy.splice(clickedExpressionIndex, 1)
-      lastExpressionsCopy.push({ expression: clickedExpression })
-
-      return lastExpressionsCopy
-    })
-
-    setExpression(expression + clickedExpression);
+    
+    const clickedExpressionIndex = lastExpressions.findIndex(item => item.expression === clickedExpression)
+    const cachedClickedExpression = lastExpressions[clickedExpressionIndex]
+    
+    setExpression(clickedExpression);
+    setResult(cachedClickedExpression.result)
 
     try {
       await queryBuilder.makeRequest("calculations", "POST", {
@@ -35,6 +29,7 @@ export const CalculationHistory: React.FC = () => {
     } catch (error) {
       setExpression(expressionBeforeUpdate);
       setLastExpressions(lastExpressionsBeforeUpdate)
+      setResult('')
     }
   };
 
