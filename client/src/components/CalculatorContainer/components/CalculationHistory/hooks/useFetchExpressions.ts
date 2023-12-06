@@ -36,7 +36,7 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
     if (result && !isHistoryItemClicked) {
       setLastExpressions((prevExpressions: ICalculation[]) => {
         const updatedExpressions: ICalculation[] = [
-          ...prevExpressions.slice(1, import.meta.env.VITE_EXPRESSION_LIMIT),
+          ...prevExpressions.slice(1,EXPRESSION_LIMIT),
           { expression, result },
         ];
 
