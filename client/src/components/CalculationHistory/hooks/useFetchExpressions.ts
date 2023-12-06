@@ -10,7 +10,7 @@ export interface ICalculation {
 
 type SetLastExpressions = Dispatch<SetStateAction<ICalculation[]>>;
 
-export const useFetchExpressions = (setLastExpressions: SetLastExpressions): void => {
+export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHistoryItemClicked: boolean): void => {
   const { expression, result } = useCurrentExpression();
 
   useEffect(() => {
@@ -30,20 +30,8 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions): voi
   }, []);
 
   useEffect(() => {
-    if (result) {
+    if (result && !isHistoryItemClicked) {
       setLastExpressions((prevExpressions: ICalculation[]) => {
-        const expressionIndex = prevExpressions.findIndex(item => item.expression === expression)
-
-        if (expressionIndex !== -1) {
-
-          const lastExpressionsCopy = [...prevExpressions]
-
-          lastExpressionsCopy.splice(expressionIndex, 1)
-          lastExpressionsCopy.push({ expression, result })
-
-          return lastExpressionsCopy
-        }
-
         const updatedExpressions: ICalculation[] = [
           ...prevExpressions.slice(1, import.meta.env.VITE_EXPRESSION_LIMIT),
           { expression, result },

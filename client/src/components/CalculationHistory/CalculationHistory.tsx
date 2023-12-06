@@ -6,8 +6,9 @@ import { queryBuilder } from "@queryBuilder";
 export const CalculationHistory: React.FC = () => {
   const { expression, setExpression, setResult } = useCurrentExpression();
   const [lastExpressions, setLastExpressions] = useState<ICalculation[]>([])
+  const [isHistoryItemClicked, setIsHistoryItemClicked] = useState<boolean>(false)
 
-  useFetchExpressions(setLastExpressions);
+  useFetchExpressions(setLastExpressions, isHistoryItemClicked);
 
   const handleExpressionClick = async (
     event: React.MouseEvent<HTMLParagraphElement>
@@ -15,13 +16,26 @@ export const CalculationHistory: React.FC = () => {
     const clickedExpression = event.currentTarget.innerText;
     const expressionBeforeUpdate = expression
     const lastExpressionsBeforeUpdate = lastExpressions
-    
-    const cachedClickedExpression = lastExpressions.find(item => item.expression === clickedExpression)
 
-    if(cachedClickedExpression){
-      setExpression(cachedClickedExpression.expression);
-      setResult(cachedClickedExpression.result)
+    const cachedClickedExpressionIndex = lastExpressions.findIndex(item => item.expression === clickedExpression)
+
+    if (cachedClickedExpressionIndex !== -1) {
+      const { expression, result } = lastExpressions[cachedClickedExpressionIndex]
+
+      setExpression(expression);
+      setIsHistoryItemClicked(true)
+      setResult(result)
+
+      setLastExpressions((prevExpressions: ICalculation[]) => {
+        const lastExpressionsCopy = [...prevExpressions]
+
+        lastExpressionsCopy.splice(cachedClickedExpressionIndex, 1)
+        lastExpressionsCopy.push({expression, result})
+
+        return lastExpressionsCopy
+      })
     }
+
 
     try {
       await queryBuilder.makeRequest("calculations", "POST", {
@@ -32,6 +46,8 @@ export const CalculationHistory: React.FC = () => {
       setLastExpressions(lastExpressionsBeforeUpdate)
       setResult('')
     }
+
+    setIsHistoryItemClicked(false)
   };
 
   return (
