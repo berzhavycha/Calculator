@@ -1,21 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCurrentExpression } from "@context";
-import { useFetchExpressions } from "./hooks";
+import { ICalculation, useFetchExpressions } from "./hooks";
+import { queryBuilder } from "@queryBuilder";
 
 export const CalculationHistory: React.FC = () => {
   const { expression, setExpression } = useCurrentExpression();
-  const expressions = useFetchExpressions();
+  const [lastExpressions, setLastExpressions] = useState<ICalculation[]>([])
 
-  const handleExpressionClick = (event: React.MouseEvent<HTMLParagraphElement>): void => {
+  useFetchExpressions(setLastExpressions);
+
+  const handleExpressionClick = async (
+    event: React.MouseEvent<HTMLParagraphElement>
+    ): Promise<void> => {
     const clickedExpression = event.currentTarget.innerText;
+    const expressionBeforeUpdate = expression
+    const lastExpressionsBeforeUpdate = lastExpressions
+    
+    setLastExpressions(prev => {
+      const lastExpressionsCopy = [...prev]
+      const clickedExpressionIndex = lastExpressions.findIndex(item => item.expression === clickedExpression)
+      
+      lastExpressionsCopy.splice(clickedExpressionIndex, 1)
+      lastExpressionsCopy.push({expression: clickedExpression})
+
+      return lastExpressionsCopy
+    })
+
     setExpression(expression + clickedExpression);
+
+    try {
+      await queryBuilder.makeRequest("calculations", "POST", {
+        expression: clickedExpression,
+      });
+    } catch (error) {
+      setExpression(expressionBeforeUpdate);
+      setLastExpressions(lastExpressionsBeforeUpdate)
+    }
   };
 
   return (
     <div className="bg-gray-100 mb-6 p-2 pb-0.5 rounded-md shadow-md">
-      {expressions.length > 0 ? (
+      {lastExpressions.length > 0 ? (
         <ul>
-          {expressions.map((calculation, index) => (
+          {lastExpressions.map((calculation, index) => (
             <li
               key={index}
               className="mb-2 p-1 pr-2 bg-white rounded-md shadow-md hover:bg-gray-100 text-xs cursor-pointer"
