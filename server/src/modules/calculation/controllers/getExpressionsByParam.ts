@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { findExpressions } from "../services/findExpressions";
 import { DEFAULT_LIMIT_NUMBER, ASC} from "../constants";
+import { Sort } from "../models/mongo";
 
 export const getExpressionByParam = async (req: Request, res: Response): Promise<void> => {
   try {
     const limit = parseInt(req.query.limit as string) ?? DEFAULT_LIMIT_NUMBER;
-    const sortOrder = parseInt(req.query.order as string) ?? ASC;
+    const sortOrder = req.query.order as Sort ?? ASC;
 
     if (!limit || isNaN(limit)) {
       res.status(400).json({ error: "Invalid or missing 'limit' parameter" });

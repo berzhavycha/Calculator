@@ -6,13 +6,14 @@ interface IExpression {
   last_request_at: Date;
 }
 
-type SortCriteria = { [key: string]: 'asc' | 'desc' };
+export type Sort = 'asc' | 'desc'
+type SortCriteria = { [key: string]: Sort };
 
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
   updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
   findOne(query: Partial<IExpression>): Promise<IExpression | null>;
-  findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]>;
+  findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]>;
 }
 
 export class MongoCalculationModel implements ICalculationModel {
@@ -36,20 +37,18 @@ export class MongoCalculationModel implements ICalculationModel {
   }
 
 
-  public async findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]> {
+  public async findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]> {
     let resultExpressions: IExpression[];
 
     const sortCriteria: SortCriteria = {};
 
     if (sortField && sortOrder) {
-      sortCriteria[sortField] = sortOrder === 1 ? 'asc' : 'desc';
+      sortCriteria[sortField] = sortOrder;
 
       resultExpressions = await Calculation.find({})
         .sort(sortCriteria)
         .limit(limit)
         .exec();
-
-      resultExpressions = resultExpressions.reverse()
     } else {
       resultExpressions = await Calculation.find({})
         .limit(limit)
