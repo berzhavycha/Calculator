@@ -16,11 +16,12 @@ export const CalculationHistory: React.FC = () => {
     const expressionBeforeUpdate = expression
     const lastExpressionsBeforeUpdate = lastExpressions
     
-    const clickedExpressionIndex = lastExpressions.findIndex(item => item.expression === clickedExpression)
-    const cachedClickedExpression = lastExpressions[clickedExpressionIndex]
-    
-    setExpression(clickedExpression);
-    setResult(cachedClickedExpression.result)
+    const cachedClickedExpression = lastExpressions.find(item => item.expression === clickedExpression)
+
+    if(cachedClickedExpression){
+      setExpression(cachedClickedExpression.expression);
+      setResult(cachedClickedExpression.result)
+    }
 
     try {
       await queryBuilder.makeRequest("calculations", "POST", {
