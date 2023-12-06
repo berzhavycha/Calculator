@@ -1,15 +1,21 @@
-import { SortOrder } from "mongoose";
 import { Calculation } from "./schemas/Calculation";
+import { ASC, DESC } from '../../constants'
 
 interface IExpression {
   expression: string;
   result: number;
+  last_request_at: Date;
 }
+
+export type Sort = typeof ASC | typeof DESC
+type SortCriteria = { [key: string]: Sort };
+
 
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
-  findOne(expression: string): Promise<IExpression | null>;
-  findMany(limit: number, sortOrder?: number): Promise<IExpression[]>;
+  updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
+  findOne(query: Partial<IExpression>): Promise<IExpression | null>;
+  findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]>;
 }
 
 export class MongoCalculationModel implements ICalculationModel {
@@ -18,21 +24,39 @@ export class MongoCalculationModel implements ICalculationModel {
     await newCalculation.save();
   }
 
-  public async findOne(expression: string): Promise<IExpression | null> {
-    const cachedCalculation: IExpression | null = await Calculation.findOne({ expression });
+  public async findOne(query: Partial<IExpression>): Promise<IExpression | null> {
+    const cachedCalculation: IExpression | null = await Calculation.findOne(query);
     return cachedCalculation;
   }
 
-  public async findMany(limit: number, sortOrder?: number): Promise<IExpression[]> {
-    let resultExpressions: IExpression[]
+  public async updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void> {
+    const cachedCalculation = await Calculation.findOne(query);
 
-    if(sortOrder){
-        const sortCriteria: Record<string, SortOrder> = { _id: sortOrder as SortOrder };
-        resultExpressions = await Calculation.find().sort(sortCriteria).limit(limit);
-    }else{
-        resultExpressions = await Calculation.find().limit(limit);
+    if (cachedCalculation) {
+      Object.assign(cachedCalculation, update);
+      await cachedCalculation.save();
+    }
+  }
+
+  public async findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]> {
+    let resultExpressions: IExpression[];
+
+    const sortCriteria: SortCriteria = {};
+
+    if (sortField && sortOrder) {
+      sortCriteria[sortField] = sortOrder;
+
+      resultExpressions = await Calculation.find({})
+        .sort(sortCriteria)
+        .limit(limit)
+        .exec();
+    } else {
+      resultExpressions = await Calculation.find({})
+        .limit(limit)
+        .exec();
     }
 
     return resultExpressions;
   }
+
 }

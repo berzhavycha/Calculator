@@ -16,7 +16,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 modules.get.forEach(({ route, controller }) => {
   app.get(route, controller);
 });

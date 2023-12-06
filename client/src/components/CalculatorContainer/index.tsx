@@ -26,7 +26,8 @@ export const CalculatorContainer: React.FC = () => {
           expression={expression}
           result={result}
           contentKey={"expression"}
-          onChoosingListItem={setExpression}
+          setExpression={setExpression}
+          setResult={setResult}
         />
         <InputExpression expression={expression} onExpressionChange={setExpression} onEnter={getExpressionResult} />
         <ResultExpression result={result} errorMessage={errorMessage} />

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { queryBuilder } from "@queryBuilder";
 import { EXPRESSION_LIMIT, EXPRESSION_ORDER } from "@global";
 
 export interface ICalculation {
   expression: string;
+  result: string
 }
 
 interface IResponse {
@@ -11,32 +12,37 @@ interface IResponse {
   result: string;
 }
 
-export const useFetchExpressions = (expression: string, result: string): ICalculation[] => {
-  const [expressions, setExpressions] = useState<ICalculation[]>([]);
+type SetLastExpressions = Dispatch<SetStateAction<ICalculation[]>>;
 
+export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHistoryItemClicked: boolean, expression: string, result: string): void => {
   useEffect(() => {
     const fetchOperations = async () => {
       try {
+
         const data = await queryBuilder.makeRequest<IResponse[]>(
           `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
           "GET",
         );
 
-        const isCurrentExpressionInState =
-          expressions.find((item) => item.expression === expression) ||
-          data.find((item: ICalculation) => item.expression === expression);
-
-        if (result && !isCurrentExpressionInState) {
-          setExpressions((prev) => [...prev.slice(0, 4), { expression }].reverse());
-        } else {
-          setExpressions(data);
-        }
+        setLastExpressions([...data].reverse());
       } catch (error) {
-        setExpressions([]);
+        setLastExpressions([]);
       }
     };
     fetchOperations();
+  }, []);
+
+  useEffect(() => {
+    if (result && !isHistoryItemClicked) {
+      setLastExpressions((prevExpressions: ICalculation[]) => {
+        const updatedExpressions: ICalculation[] = [
+          ...prevExpressions.slice(1, import.meta.env.VITE_EXPRESSION_LIMIT),
+          { expression, result },
+        ];
+
+        return updatedExpressions
+      });
+    }
   }, [result]);
 
-  return expressions;
 };
