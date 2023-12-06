@@ -20,7 +20,7 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions): voi
           "GET"
         );
 
-        setLastExpressions([...data]);
+        setLastExpressions([...data].reverse());
       } catch (error) {
         setLastExpressions([]);
       }

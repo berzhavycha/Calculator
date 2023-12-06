@@ -8,5 +8,6 @@ export const findExpressions = async (limit: number, sortOrder: Sort) => {
 
   return lastExpressions.map((expression) => ({
     expression: expression.expression,
-  })).reverse();
+    result: expression.result
+  }));
 };

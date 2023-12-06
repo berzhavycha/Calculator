@@ -1,4 +1,5 @@
 import { Calculation } from "./schemas/Calculation";
+import { ASC, DESC } from '../../constants'
 
 interface IExpression {
   expression: string;
@@ -6,7 +7,7 @@ interface IExpression {
   last_request_at: Date;
 }
 
-export type Sort = 'asc' | 'desc'
+export type Sort = typeof ASC | typeof DESC
 type SortCriteria = { [key: string]: Sort };
 
 interface ICalculationModel {
