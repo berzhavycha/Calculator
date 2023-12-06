@@ -50,8 +50,6 @@ export class MongoCalculationModel implements ICalculationModel {
         .sort(sortCriteria)
         .limit(limit)
         .exec();
-
-      resultExpressions = resultExpressions.reverse()
     } else {
       resultExpressions = await Calculation.find({})
         .limit(limit)
