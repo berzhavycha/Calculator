@@ -1,4 +1,3 @@
-import { SortOrder } from "mongoose";
 import { Calculation } from "./schemas/Calculation";
 
 interface IExpression {
@@ -6,6 +5,8 @@ interface IExpression {
   result: number;
   last_request_at: Date;
 }
+
+type SortCriteria = { [key: string]: 'asc' | 'desc' };
 
 interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
@@ -34,18 +35,21 @@ export class MongoCalculationModel implements ICalculationModel {
     }
   }
 
-  public async findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]> {
-    let resultExpressions: IExpression[]
 
-    const sortCriteria: { [key: string]: SortOrder } = {};
+  public async findMany(limit: number, sortField?: string, sortOrder?: number): Promise<IExpression[]> {
+    let resultExpressions: IExpression[];
+
+    const sortCriteria: SortCriteria = {};
 
     if (sortField && sortOrder) {
-      sortCriteria[sortField] = sortOrder as SortOrder;
+      sortCriteria[sortField] = sortOrder === 1 ? 'asc' : 'desc';
 
       resultExpressions = await Calculation.find({})
         .sort(sortCriteria)
         .limit(limit)
         .exec();
+
+      resultExpressions = resultExpressions.reverse()
     } else {
       resultExpressions = await Calculation.find({})
         .limit(limit)
@@ -54,4 +58,5 @@ export class MongoCalculationModel implements ICalculationModel {
 
     return resultExpressions;
   }
+
 }

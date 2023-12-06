@@ -11,17 +11,17 @@ export const CalculationHistory: React.FC = () => {
 
   const handleExpressionClick = async (
     event: React.MouseEvent<HTMLParagraphElement>
-    ): Promise<void> => {
+  ): Promise<void> => {
     const clickedExpression = event.currentTarget.innerText;
     const expressionBeforeUpdate = expression
     const lastExpressionsBeforeUpdate = lastExpressions
-    
+
     setLastExpressions(prev => {
       const lastExpressionsCopy = [...prev]
       const clickedExpressionIndex = lastExpressions.findIndex(item => item.expression === clickedExpression)
-      
+
       lastExpressionsCopy.splice(clickedExpressionIndex, 1)
-      lastExpressionsCopy.push({expression: clickedExpression})
+      lastExpressionsCopy.push({ expression: clickedExpression })
 
       return lastExpressionsCopy
     })
