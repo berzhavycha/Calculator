@@ -1,4 +1,4 @@
-import { OperatorType } from "@modules";
+import { OperatorType } from "@modules/calculation/calculatorMethods";
 import { OperationsType } from "@config";
 
 export interface PriorityInfo {
