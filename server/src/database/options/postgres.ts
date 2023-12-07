@@ -1,9 +1,6 @@
 import { POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER } from '@global';
 import { Pool, PoolClient } from 'pg';
-
-interface IDatabase {
-  connect(url: string): Promise<void>;
-}
+import { IDatabase } from './mongo';
 
 export class PostgresDatabase implements IDatabase {
   private pool: Pool | null = null;

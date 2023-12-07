@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface IDatabase {
+export interface IDatabase {
   connect(url: string): void;
 }
 

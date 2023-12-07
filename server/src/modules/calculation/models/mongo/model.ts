@@ -11,7 +11,7 @@ export type Sort = typeof ASC | typeof DESC
 type SortCriteria = { [key: string]: Sort };
 
 
-interface ICalculationModel {
+export interface ICalculationModel {
   createAndSaveNewEntry(expression: string, result: number): Promise<void>;
   updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
   findOne(query: Partial<IExpression>): Promise<IExpression | null>;
