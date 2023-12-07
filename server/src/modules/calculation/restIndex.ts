@@ -1,3 +1,4 @@
+import { getHistoryStatusController } from './controllers/getHistoryStatus';
 import { Request, Response } from "express";
 import { postCalculationController } from "./controllers/postCalculation";
 import { getExpressionByParam } from "./controllers/getExpressionsByParam";
@@ -13,6 +14,9 @@ export type IRestMethods = {
 };
 
 export const calculationRestMethods: IRestMethods = {
-  get: [{ route: "/calculations", controller: getExpressionByParam }],
+  get: [
+    { route: "/calculations", controller: getExpressionByParam },
+    { route: '/calculations/status', controller: getHistoryStatusController }
+  ],
   post: [{ route: "/calculations", controller: postCalculationController }],
 };

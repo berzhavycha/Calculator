@@ -77,4 +77,7 @@ export default Object.freeze({
   operations,
   calculationMethod: CalculationMethods.REGEX_CALCULATION,
   database: DataBases.MONGO_DB,
+  modulesConnection: {
+    isHistoryEnabled: true
+  }
 });
