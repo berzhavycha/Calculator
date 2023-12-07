@@ -1,7 +1,7 @@
 import { Calculation } from "./schemas/Calculation";
 import { ASC, DESC } from '../../constants'
 
-interface IExpression {
+export interface IExpression {
   expression: string;
   result: number;
   last_request_at: Date;
