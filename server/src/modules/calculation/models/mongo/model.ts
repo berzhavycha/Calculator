@@ -1,22 +1,7 @@
 import { Calculation } from "./schemas/Calculation";
-import { ASC, DESC } from '../../constants'
+import { IExpression, ICalculationModel, Sort } from "../interfaces";
 
-interface IExpression {
-  expression: string;
-  result: number;
-  last_request_at: Date;
-}
-
-export type Sort = typeof ASC | typeof DESC
 type SortCriteria = { [key: string]: Sort };
-
-
-interface ICalculationModel {
-  createAndSaveNewEntry(expression: string, result: number): Promise<void>;
-  updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void>;
-  findOne(query: Partial<IExpression>): Promise<IExpression | null>;
-  findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]>;
-}
 
 export class MongoCalculationModel implements ICalculationModel {
   public async createAndSaveNewEntry(expression: string, result: number): Promise<void> {

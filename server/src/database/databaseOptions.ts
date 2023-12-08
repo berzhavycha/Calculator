@@ -1,8 +1,10 @@
-import { MongoDatabase } from "./options/mongo";
+import { MongoDatabase, PostgresDatabase } from "./options";
+import { DataBases } from "./constants";
 import config from "@config";
 
 const databaseServices = Object.freeze({
-  mongoDB: new MongoDatabase(),
+  [DataBases.MONGO_DB]: new MongoDatabase(),
+  [DataBases.POSTGRE_SQL]: new PostgresDatabase()
 });
 
 export const currentDatabase = databaseServices[config.database];
