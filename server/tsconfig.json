@@ -1,5 +1,6 @@
 {
     "ts-node": {
+        "files": true,
         "require": [
             "tsconfig-paths/register"
         ]
@@ -50,11 +51,15 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "rootDirs": [
+            "."
+        ]
     },
     "include": [
-        "./src/**/*",
-        "./tests/**/*",
-        "../shared/config"
+        "**/*.ts",
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

@@ -6,7 +6,7 @@ export const createCalculation = async (expression: string) => {
   const cachedCalculation = await calculationModel.findOne({ expression });
 
   if (cachedCalculation) {
-    await calculationModel.updateEntry({ expression }, { last_request_at: new Date() })
+    await calculationModel.updateEntry({ expression }, { last_request_at: new Date()})
     result = cachedCalculation.result;
   } else {
     result = calculationProcessor.evaluate(expression);

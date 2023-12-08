@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
-
-interface IDatabase {
-  connect(url: string): void;
-}
+import { IDatabase } from "@database/interfaces";
 
 export class MongoDatabase implements IDatabase {
   public connect(url: string) {
