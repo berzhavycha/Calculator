@@ -1,6 +1,6 @@
 import { POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER } from '@global';
 import { Pool, PoolClient } from 'pg';
-import { IDatabase } from '../mongo/mongo';
+import { IDatabase } from '../mongo';
 
 export class PostgresDatabase implements IDatabase {
   private pool: Pool | null = null;
@@ -12,10 +12,6 @@ export class PostgresDatabase implements IDatabase {
         password: POSTGRES_PASSWORD,
         host: POSTGRES_HOST,
     });
-  }
-
-  public getPool() {
-    return this.pool
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

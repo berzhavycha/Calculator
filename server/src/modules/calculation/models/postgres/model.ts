@@ -1,62 +1,54 @@
+import { tableName } from './migrations';
 import { Knex } from 'knex';
-import { IExpression, ICalculationModel, Sort } from '../mongo';
-import { database } from '@database/options/postgres/db';
-
-const tableName = 'calculations';
+import { ICalculationModel, IExpression, Sort } from '../mongo';
 
 export class PostgresCalculationModel implements ICalculationModel {
+    private knex: Knex;
 
-    public async createAndSaveNewEntry(expression: string, result: number): Promise<void> {
-        console.log(database)
-        // await this.database(tableName).insert({ expression, result, last_request_at: new Date() });
+    constructor(knex: Knex) {
+        this.knex = knex;
     }
 
+    public async createAndSaveNewEntry(expression: string, result: number): Promise<void> {
+        await this.knex(tableName).insert({ expression, result, last_request_at: new Date() });
+    }
+    
     public async findOne(query: Partial<IExpression>): Promise<IExpression | null> {
-        // const result = await this.database(tableName).where(query).first();
+        const result = await this.knex(tableName).where(query).first();
 
-        // if (result) {
-        //     return {
-        //         expression: result.expression,
-        //         result: result.result,
-        //         last_request_at: result.last_request_at,
-        //     };
-        // }
-
-        // return null;
-
-        return {
-            expression: '1',
-            result: 1,
-            last_request_at: new Date()
+        if (result) {
+            const expression: IExpression = {
+                expression: result.expression,
+                result: result.result,
+                last_request_at: result.last_request_at,
+            };
+            return expression;
         }
+
+        return null;
     }
 
     public async updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void> {
-        // await this.database(tableName).where(query).update(update);
+        await this.knex(tableName).where(query).update(update);
     }
 
     public async findMany(limit: number, sortField?: string, sortOrder?: Sort): Promise<IExpression[]> {
-        // let query = this.database(tableName);
+        let query = this.knex(tableName);
 
-        // if (sortField && sortOrder) {
-        //     query = query.orderBy(sortField, sortOrder);
-        // }
+        if (sortField && sortOrder) {
+            query = query.orderBy(sortField, sortOrder);
+        }
 
-        // if (limit > 0) {
-        //     query = query.limit(limit);
-        // }
+        if (limit > 0) {
+            query = query.limit(limit);
+        }
 
-        // const results = await query;
+        const results = await query;
 
-        // return results.map((row: IExpression) => ({
-        //     expression: row.expression,
-        //     result: row.result,
-        //     last_request_at: row.last_request_at,
-        // }));
-        return [{
-            expression: '1',
-            result: 1,
-            last_request_at: new Date()
-        }]
+        return results.map((row: IExpression) => ({
+            expression: row.expression,
+            result: row.result,
+            last_request_at: row.last_request_at,
+        }));
     }
 }

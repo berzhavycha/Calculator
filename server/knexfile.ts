@@ -1,27 +1,27 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
-require('ts-node/register');
+import { POSTGRES_DB, POSTGRES_KNEX_MAX_POOL, POSTGRES_HOST, POSTGRES_KNEX_MIN_POOL, POSTGRES_PASSWORD, POSTGRES_USER } from '@global';
 import type { Knex } from 'knex';
 
 const environments: string[] = ['development', 'staging', 'production'];
 
 const connection: Knex.ConnectionConfig = {
-  host: process.env.POSTGRES_HOST as string,
-  database: process.env.POSTGRES_DB as string,
-  user: process.env.POSTGRES_USER as string,
-  password: process.env.POSTGRES_PASSWORD as string,
+  host: POSTGRES_HOST,
+  database: POSTGRES_DB,
+  user: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
 };
 
 const commonConfig: Knex.Config = {
   client: 'pg',
   connection,
   pool: {
-    min: 2,
-    max: 10,
+    min: +POSTGRES_KNEX_MIN_POOL,
+    max: +POSTGRES_KNEX_MAX_POOL,
   },
   migrations: {
-    tableName: 'calculation',
-    directory: './src/database/options/postgres/db/migrations'
+    tableName: 'knex_migrations',
+    directory: './src/modules/calculation/models/postgres/migrations'
   }
 };
 

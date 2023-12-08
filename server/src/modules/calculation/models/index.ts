@@ -1,1 +1,12 @@
-export * from './modelsOptions'
+import { PostgresCalculationModel } from './postgres/model';
+import { DataBases } from "@database";
+import { MongoCalculationModel } from "./mongo";
+import config from '@config'
+import { knexDatabase } from '@database/options/postgres';
+
+export const modelsOptions = {
+    [DataBases.MONGO_DB]: new MongoCalculationModel(),
+    [DataBases.POSTGRE_SQL]: new PostgresCalculationModel(knexDatabase)
+}
+
+export const calculationModel = modelsOptions[config.database]

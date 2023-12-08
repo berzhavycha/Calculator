@@ -1,6 +1,7 @@
+import { POSTGRES_CALCULATION_COLLECTION } from '@global';
 import { Knex } from 'knex';
 
-const tableName = 'calculations';
+export const tableName = POSTGRES_CALCULATION_COLLECTION;
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(tableName, function (table) {

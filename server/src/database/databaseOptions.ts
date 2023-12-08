@@ -1,6 +1,5 @@
-import { MongoDatabase } from "./options/mongo/mongo";
+import { MongoDatabase, PostgresDatabase } from "./options";
 import config from "@config";
-import { PostgresDatabase } from "./options/postgres/postgres";
 import { DataBases } from "./constants";
 
 const databaseServices = Object.freeze({
