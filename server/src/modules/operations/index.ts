@@ -1,4 +1,4 @@
-import { Module } from "../calculation";
+import { Module } from "@modules/interfaces";
 import { getOperationsController } from "./controllers/getOperationsController";
 
 export const operationsModule: Module = {

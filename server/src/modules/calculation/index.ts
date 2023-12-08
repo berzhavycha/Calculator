@@ -1,22 +1,6 @@
-import { getHistoryStatusController } from './controllers/getHistoryStatus';
-import { Request, Response } from "express";
-import { postCalculationController } from "./controllers/postCalculation";
-import { getExpressionByParam } from "./controllers/getExpressionsByParam";
+import { getHistoryStatusController, postCalculationController, getExpressionByParam } from './controllers';
 import config from '@config'
-
-export type Method = {
-  route: string;
-  controller: (req: Request, res: Response) => Promise<void>;
-};
-
-export type RestMethods = {
-  get: Method[];
-  post: Method[];
-};
-
-export type Module = {
-  endpoints: RestMethods
-}
+import { Module } from '@modules/interfaces';
 
 const historyEnabled = config.modulesConnection.isHistoryEnabled;
 

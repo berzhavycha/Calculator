@@ -1,18 +1,11 @@
-import { operationsModule} from "./operations";
-import { calculationModule, Method, Module  } from "./calculation";
+import { operationsModule } from './operations';
+import { calculationModule } from './calculation';
+import { Module, RestMethods } from './interfaces';
 
-type Modules = {
-  get: Method[];
-  post: Method[];
-};
+const modulesContainer: Module[] = [operationsModule, calculationModule];
 
-const modulesContainer = [
-  operationsModule,
-  calculationModule
-]
-
-const createModules = (modules: Module[]): Modules => {
-  const result: Modules = {
+const createModules = (modules: Module[]): RestMethods => {
+  const result: RestMethods = {
     get: [],
     post: [],
   };
