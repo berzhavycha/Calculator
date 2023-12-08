@@ -1,3 +1,3 @@
 export * from "./calculatorMethods";
-export * from "./models";
+export * from "./models/modelsOptions";
 export * from "./restIndex";
