@@ -45,7 +45,7 @@
                 "./src/global/*"
             ],
         },
-        "target": "es6",
+        "target": "es2017",
         "module": "commonjs",
         "resolveJsonModule": true,
         "esModuleInterop": true,
