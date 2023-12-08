@@ -1,6 +1,6 @@
 import { reduceAllSpaces } from "@utils";
 import { isMathOperator } from "../isMathOperator";
-import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from "@modules";
+import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from "@modules/calculation/calculatorMethods";
 import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor, IRegExOperatorProcessor } from "./processors";
 import { Errors, MathOperators, OperatorType, SpecialOperators, getPriorityInfoArray } from "../index";
 import { OperationsType } from "@config";
