@@ -1,5 +1,5 @@
 import { reduceAllSpaces } from "@utils";
-import { isMathOperator } from "../isMathOperator";
+import { isMathOperator } from "../utils";
 import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from "../regex";
 import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor, IRegExOperatorProcessor } from "./processors";
 import { Errors, MathOperators, OperatorType, SpecialOperators, getPriorityInfoArray } from "../index";

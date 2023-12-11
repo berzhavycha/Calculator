@@ -7,7 +7,7 @@ export interface PriorityInfo {
   type: OperatorType;
 }
 
-export function getPriorityInfoArray(operations: OperationsType): PriorityInfo[] {
+export function getPriorityInfoArray(operations: Partial<OperationsType>): PriorityInfo[] {
   return Object.entries(operations)
     .reduce((priorityArr: PriorityInfo[], [operator, operatorInfo]) => {
       const existingIndex = priorityArr.findIndex((item) => item.priority === operatorInfo.priority);

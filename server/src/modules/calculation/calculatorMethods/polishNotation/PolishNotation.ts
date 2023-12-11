@@ -1,7 +1,7 @@
 import { OperatorType, MathOperators, SpecialOperators, Errors, CalculationMethods } from "../constants";
 import { TOKENIZE_REGEX_PATTERN } from "../regex";
 import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from "./processors";
-import { isMathOperator } from "../isMathOperator";
+import { isMathOperator } from "../utils";
 import { OperationsType } from "@config";
 import { reduceAllSpaces } from "@utils";
 
