@@ -5,7 +5,7 @@ import {
   Associativity,
   CalculationMethods,
 } from "@modules/calculation/calculatorMethods/constants";
-import { factorial } from "@modules/calculation/calculatorMethods/factorial";
+import { factorial } from "@modules/calculation/calculatorMethods/utils";
 import { DataBases } from "@database/constants";
 
 export type IOperation = {
