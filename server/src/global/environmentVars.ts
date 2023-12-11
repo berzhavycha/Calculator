@@ -12,3 +12,5 @@ export const POSTGRES_PASSWORD= process.env.POSTGRES_PASSWORD as string
 export const POSTGRES_HOST = process.env.POSTGRES_HOST as string
 export const POSTGRES_KNEX_MIN_POOL = process.env.POSTGRES_KNEX_MIN_POOL as string
 export const POSTGRES_KNEX_MAX_POOL = process.env.POSTGRES_KNEX_MAX_POOL as string
+
+export const LOG_LEVEL = process.env.LOG_LEVEL as string

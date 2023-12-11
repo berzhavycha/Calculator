@@ -1,0 +1,2 @@
+{"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-11T16:31:17.376Z"}
+{"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-11T16:31:17.385Z"}

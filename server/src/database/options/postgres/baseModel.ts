@@ -1,3 +1,4 @@
+import { appLogger } from '@log';
 import { database } from './knexDatabase'
 
 export class BaseKnexModel {
@@ -9,6 +10,7 @@ export class BaseKnexModel {
 
     get table() {
         if (!this.tableName) {
+            appLogger.error('Postgres Knex Base Model Error: You must set a table name!')
             throw new Error('You must set a table name!');
         }
         return database(this.tableName);
