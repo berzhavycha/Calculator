@@ -44,4 +44,4 @@ currentDatabase.connect().then(() => {
     appLogger.info(logString)
     console.log(logString)
   });
-}
+})
