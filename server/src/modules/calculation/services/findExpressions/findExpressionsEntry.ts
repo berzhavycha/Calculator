@@ -1,6 +1,6 @@
-import { DEFAULT_SORT_FIELD } from './../constants';
-import { calculationModel } from "../models/modelsOptions";
-import { Sort } from '../models';
+import { DEFAULT_SORT_FIELD } from '../../constants';
+import { calculationModel } from "../../models/modelsOptions";
+import { Sort } from '../../models';
 
 
 export const findExpressions = async (limit: number, sortOrder: Sort) => {

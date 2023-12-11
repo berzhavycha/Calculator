@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../../../server';
-import { createCalculation } from '../../services/createCalculation';
+import { createCalculation } from '../../services/createCalculation/createCalculationEntry';
 
 jest.mock('../../services/createCalculation', () => ({
     createCalculation: jest.fn(),

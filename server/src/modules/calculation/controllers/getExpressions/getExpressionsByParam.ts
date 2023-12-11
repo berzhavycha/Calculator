@@ -1,6 +1,6 @@
 import { calculationLogger } from './../log/logger';
 import { Request, Response } from "express";
-import { findExpressions } from "../../services/findExpressions";
+import { findExpressions } from "../../services/findExpressions/findExpressionsEntry";
 import { ASC } from "../../constants";
 import { Sort } from "../../models";
 

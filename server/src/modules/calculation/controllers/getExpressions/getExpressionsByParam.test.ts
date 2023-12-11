@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../../../server'; 
-import { findExpressions } from '../../services/findExpressions';
+import { findExpressions } from '../../services/findExpressions/findExpressionsEntry';
 import { ASC, DEFAULT_LIMIT_NUMBER, DESC } from '../../constants';
 
 jest.mock('../../services/findExpressions', () => ({

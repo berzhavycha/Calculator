@@ -1,5 +1,5 @@
-import { calculationModel } from "../models";
-import { calculationProcessor } from "../calculatorMethods";
+import { calculationModel } from "../../models";
+import { calculationProcessor } from "../../calculatorMethods";
 
 export const createCalculation = async (expression: string) => {
   let result;
