@@ -51,6 +51,8 @@ export class PolishNotation {
     const output: string[] = [];
     const expressionOperators: string[] = [];
     let stringOperators: string = "";
+    let leftBracketCount = 0;
+    let rightBracketCount = 0;
 
     expression.forEach((token) => {
       stringOperators += token;
@@ -58,6 +60,14 @@ export class PolishNotation {
       if (!isNaN(parseFloat(token))) {
         output.push(token);
       } else if (isMathOperator(token) || this.isSpecialOperator(token)) {
+        if (token === SpecialOperators.LEFT_BRACKET) {
+          leftBracketCount++;
+        } else if (token === SpecialOperators.RIGHT_BRACKET) {
+          rightBracketCount++;
+          if (rightBracketCount > leftBracketCount) {
+            throw new Error("Mismatched brackets: More right brackets than left brackets");
+          }
+        }
         this.executeOperatorProcessor(expressionOperators, output, token);
         stringOperators = "";
       } else if (isMathOperator(stringOperators)) {
