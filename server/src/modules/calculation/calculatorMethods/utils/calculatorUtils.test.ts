@@ -1,6 +1,5 @@
 import { OperatorType } from '../constants';
-import { factorial } from './factorial';
-import { getPriorityInfoArray, PriorityInfo } from './getPriorityInfoArray';
+import { getPriorityInfoArray, PriorityInfo, factorial } from './index';
 
 describe("Calculator utils", () => {
     describe('factorial function', () => {
