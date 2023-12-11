@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import "module-alias/register";
-import { PORT, MONGODB_URL } from "@global";
+import { PORT } from "@global";
 import { currentDatabase } from "@database";
 import { modules } from "@modules";
 import { LoggerService } from "@log";
@@ -38,10 +38,10 @@ modules.post.forEach(({ route, controller }) => {
   });
 });
 
-currentDatabase.connect(MONGODB_URL).then(() => {
+currentDatabase.connect().then(() => {
   app.listen(PORT, () => {
     const logString = `Server running on port ${PORT}`
     appLogger.info(logString)
     console.log(logString)
   });
-});
+}

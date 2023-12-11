@@ -1,6 +1,6 @@
 import { reduceAllSpaces } from "@utils";
 import { isMathOperator } from "../isMathOperator";
-import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from "@modules/calculation/calculatorMethods";
+import { TOKENIZE_REGEX_PATTERN, PARENTHESES_EXPRESSION, getPrioritizedRegexes } from "../regex";
 import { BinaryProcessor, UnaryLeftProcessor, UnaryRightProcessor, IRegExOperatorProcessor } from "./processors";
 import { Errors, MathOperators, OperatorType, SpecialOperators, getPriorityInfoArray } from "../index";
 import { OperationsType } from "@config";
@@ -42,7 +42,7 @@ export class RegexCalculation implements ICalculatorModelService {
     };
   }
 
-  private findHighestPriorityOperatorResult(expression: string): SubExpressionResult | null {
+  public findHighestPriorityOperatorResult(expression: string): SubExpressionResult | null {
     const priorityRegexes = getPrioritizedRegexes(getPriorityInfoArray(this.availableOperators));
 
     for (const priorityRegex of priorityRegexes) {
@@ -61,13 +61,13 @@ export class RegexCalculation implements ICalculatorModelService {
     return null;
   }
 
-  private handleNegativeExpression(expression: string[]) {
+  public handleNegativeExpression(expression: string[]) {
     if (expression[0] === MathOperators.MINUS) {
       expression.splice(0, 2, expression[0] + expression[1]);
     }
   }
 
-  private calculate(tokens: string[]): number {
+  public calculate(tokens: string[]): number {
     const expression = tokens.join("");
     const highestPriorityOperator = this.findHighestPriorityOperatorResult(expression);
 
@@ -131,6 +131,8 @@ export class RegexCalculation implements ICalculatorModelService {
     if (!tokens || tokens.join("") !== expressionWithoutSpaces) {
       const invalidChars = [...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, "")];
       const uniqueInvalidChars = [...new Set(invalidChars)];
+
+      console.log(tokens, uniqueInvalidChars)
 
       throw new Error("Invalid symbols: " + uniqueInvalidChars);
     }

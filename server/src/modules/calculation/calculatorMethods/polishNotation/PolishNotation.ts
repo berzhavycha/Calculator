@@ -34,7 +34,7 @@ export class PolishNotation {
     return Object.values(SpecialOperators).includes(token as SpecialOperators);
   }
 
-  private executeOperatorProcessor(
+  public executeOperatorProcessor(
     expressionOperators: string[],
     output: string[],
     token: MathOperators | SpecialOperators,
@@ -47,7 +47,7 @@ export class PolishNotation {
     }
   }
 
-  private infixToPostfix(expression: string[]): string[] {
+  public infixToPostfix(expression: string[]): string[] {
     const output: string[] = [];
     const expressionOperators: string[] = [];
     let stringOperators: string = "";
@@ -71,7 +71,7 @@ export class PolishNotation {
     return output;
   }
 
-  private tokenize(expression: string): string[] {
+  public tokenize(expression: string): string[] {
     if (expression.trim() === "") {
       return ["0"];
     }

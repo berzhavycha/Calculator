@@ -16,7 +16,7 @@ export class PostgresDatabase implements IDatabase {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async connect(_url: string): Promise<void> {
+  public async connect(): Promise<void> {
     if (!this.pool) {
       const errorMessage = 'Postgres Connection Error: Database pool not initialized.'
       appLogger.error(errorMessage)
