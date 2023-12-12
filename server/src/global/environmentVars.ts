@@ -4,6 +4,7 @@ dotenv.config({ path: "./.env" });
 
 export const PORT = process.env.PORT || 5001
 export const MONGODB_URL = process.env.MONGODB_URL as string
+export const MONGODB_TEST_URL = process.env.MONGODB_TEST_URL as string
 
 export const POSTGRES_USER = process.env.POSTGRES_USER as string
 export const POSTGRES_DB = process.env.POSTGRES_DB as string

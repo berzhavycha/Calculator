@@ -5,7 +5,7 @@ import { DataBases } from '@database';
 import { ASC } from '@modules/calculation/constants';
 
 
-describe('MongoDB Calculation Model', () => {
+describe('mongoModel.unit', () => {
     let mongoServer: MongoMemoryServer;
     const mongoModel = modelsOptions[DataBases.MONGO_DB];
     const mockEntry = { expression: '2222+1111', result: 3333, last_request_at: new Date() }
