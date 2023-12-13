@@ -1,5 +1,5 @@
 import Knex from 'knex';
 import config from './knexfile';
-import { POSTGRES_MODE } from '@global';
+import { MODE } from '@global';
 
-export const database = Knex(config[POSTGRES_MODE || 'development']);
+export const database = Knex(config[MODE || 'development']);
