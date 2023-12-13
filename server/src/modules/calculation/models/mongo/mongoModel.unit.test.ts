@@ -2,7 +2,7 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { modelsOptions } from '../modelsOptions';
 import { DataBases } from '@database';
-import { ASC } from '@modules/calculation/constants';
+import { ASC, DESC } from '@modules/calculation/constants';
 
 
 describe('mongoModel.unit', () => {
@@ -85,16 +85,25 @@ describe('mongoModel.unit', () => {
         });
 
         test('should find limited entries sorted in asc', async () => {
-            await Promise.all([
-                mongoModel.createAndSaveNewEntry('1+1', 2),
-                mongoModel.createAndSaveNewEntry('4+4', 8),
-                mongoModel.createAndSaveNewEntry('5+5', 10),
-                mongoModel.createAndSaveNewEntry('3+3', 6),
-            ]);
+            await mongoModel.createAndSaveNewEntry('1+1', 2)
+            await mongoModel.createAndSaveNewEntry('4+4', 8)
+            await mongoModel.createAndSaveNewEntry('5+5', 10)
+            await mongoModel.createAndSaveNewEntry('3+3', 6)
 
             const expressions = await mongoModel.findMany(3, "last_request_at", ASC);
             expect(expressions[0].expression).toBe(mockEntry.expression);
             expect(expressions[expressions.length - 1].expression).toBe("3+3");
+        });
+
+        test('should find limited entries sorted in desc', async () => {
+            await mongoModel.createAndSaveNewEntry('1+1', 2)
+            await mongoModel.createAndSaveNewEntry('4+4', 8)
+            await mongoModel.createAndSaveNewEntry('5+5', 10)
+            await mongoModel.createAndSaveNewEntry('3+3', 6)
+
+            const expressions = await mongoModel.findMany(3, "last_request_at", DESC);
+            expect(expressions[0].expression).toBe("3+3");
+            expect(expressions[expressions.length - 1].expression).toBe("4+4");
         });
     });
 });
