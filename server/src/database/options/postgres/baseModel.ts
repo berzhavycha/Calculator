@@ -27,6 +27,13 @@ export class BaseKnexModel {
         return result;
     }
 
+    async delete<QueryType>(query: QueryType): Promise<void> {
+        if(JSON.stringify(query) === "{}"){
+            await this.table.truncate().returning('*');
+        }
+        await this.table.where(query as string).del().returning('*');
+    }
+
     async update<QueryType, Payload, Result>(query: QueryType, data: Payload): Promise<Result | null> {
         const [result] = await this.table.where(query as string).update(data).returning('*');
         return result;
