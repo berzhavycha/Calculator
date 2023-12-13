@@ -5,10 +5,10 @@ import { PoolClient } from 'pg';
 import { DataBases } from '@database';
 import { POSTGRES_CALCULATION_COLLECTION } from '@global';
 
+
 describe('postgresModel.int', () => {
     const postgresModel = modelsOptions[DataBases.POSTGRE_SQL];
     const testEntry = { expression: '2222+1111', result: 3333, last_request_at: new Date() }
-
     let client: PoolClient
 
     beforeAll(async () => {
