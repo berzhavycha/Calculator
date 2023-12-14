@@ -1,6 +1,7 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { List } from '../index';
-import { vi } from 'vitest'
+import { vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 
 describe('List component', () => {
   const items = [
@@ -25,21 +26,15 @@ describe('List component', () => {
     });
   });
 
-  test('should call onItemClick with the correct content when a list item is clicked', () => {
-    const items = [
-      { id: 1, name: 'Item 1' },
-      { id: 2, name: 'Item 2' },
-      { id: 3, name: 'Item 3' },
-    ];
-
+  test('should call onItemClick with the correct content when a list item is clicked', async () => {
     const { getAllByRole } = render(
       <List items={items} contentKey={contentKey} onItemClick={onItemClick} />
     );
 
     const listItems = getAllByRole('listitem');
-    listItems.forEach((item, index) => {
-      fireEvent.click(item);
+    for (const [index, item] of listItems.entries()) {
+      await userEvent.click(item);
       expect(onItemClick).toHaveBeenCalledWith(items[index][contentKey]);
-    });
+    }
   });
 });
