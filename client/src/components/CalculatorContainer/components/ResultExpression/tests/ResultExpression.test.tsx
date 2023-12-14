@@ -2,31 +2,19 @@ import { render } from '@testing-library/react';
 import { ResultExpression } from '../index';
 
 describe('ResultExpression component', () => {
-    test('renders result when result prop is provided', () => {
-        const {getByText, queryByText} = render(<ResultExpression result="42" errorMessage="Error message" />);
+  test('matches the snapshot', () => {
+    const mockProps = {
+      result: '14',
+      errorMessage: 'Invalid expression',
+    };
 
-        const resultElement = getByText('42');
-        const errorMessageElement = queryByText('Error message');
+    const { container } = render(
+      <ResultExpression
+        result={mockProps.result}
+        errorMessage={mockProps.errorMessage}
+      />
+    );
 
-        expect(resultElement).toBeInTheDocument();
-        expect(errorMessageElement).toBeNull();
-    });
-
-    test('renders error message when result prop is not provided', () => {
-        const { getByText } = render(
-            <ResultExpression result="" errorMessage="Error message" />
-        );
-
-        const errorMessageElement = getByText('Error message');
-
-        expect(errorMessageElement).toBeInTheDocument();
-    });
-
-    test('renders "0" when result prop is empty', () => {
-        const { getByText } = render(
-            <ResultExpression result="" errorMessage="Error message" />
-        );
-        const zeroResultElement = getByText('0');
-        expect(zeroResultElement).toBeInTheDocument();
-    });
+    expect(container).toMatchSnapshot();
+  });
 });

@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ListItem component > matches the snapshot 1`] = `
+<div>
+  <li
+    class="mb-2 p-1 pr-2 bg-white rounded-md shadow-md hover:bg-gray-100 text-xs cursor-pointer"
+  >
+    <p
+      class="text-blue-500 font-bold text-right"
+    >
+      Item content
+    </p>
+  </li>
+</div>
+`;
