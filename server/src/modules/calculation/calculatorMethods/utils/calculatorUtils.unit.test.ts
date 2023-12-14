@@ -3,15 +3,15 @@ import { getPriorityInfoArray, PriorityInfo, factorial } from './index';
 
 describe("Calculator utils", () => {
     describe('factorial function', () => {
-        test('should return 1 for input 0', () => {
+        it('should return 1 for input 0', () => {
             expect(factorial(0)).toBe(1);
         });
 
-        test('should return 1 for input 1', () => {
+        it('should return 1 for input 1', () => {
             expect(factorial(1)).toBe(1);
         });
 
-        test('should calculate the factorial of a positive number', () => {
+        it('should calculate the factorial of a positive number', () => {
             expect(factorial(5)).toBe(120);
             expect(factorial(10)).toBe(3628800);
         });
@@ -19,7 +19,7 @@ describe("Calculator utils", () => {
 
 
     describe('getPriorityInfoArray', () => {
-        test('should return the correct PriorityInfo array sorted by priority', () => {
+        it('should return the correct PriorityInfo array sorted by priority', () => {
             const operations = {
                 '+': { priority: 1, type: OperatorType.BINARY, calculate: (a: number, b: number) => a + b },
                 '-': { priority: 1, type: OperatorType.BINARY, calculate: (a: number, b: number) => a - b },
@@ -37,7 +37,7 @@ describe("Calculator utils", () => {
             expect(result).toEqual(expected);
         });
 
-        test('should handle an empty operations object', () => {
+        it('should handle an empty operations object', () => {
             const emptyOperations = {};
             const result = getPriorityInfoArray(emptyOperations);
             expect(result).toEqual([]);

@@ -25,7 +25,7 @@ describe('mongoModel.int', () => {
     });
 
     describe('createAndSaveNewEntry method', () => {
-        test('should create and save a new entry in the database', async () => {
+        it('should create and save a new entry in the database', async () => {
             await mongoModel.createAndSaveNewEntry(testEntry.expression, testEntry.result);
 
             const expression = await mongoModel.findOne({ expression: testEntry.expression });
@@ -35,7 +35,7 @@ describe('mongoModel.int', () => {
     });
 
     describe('findOne method', () => {
-        test('should find an existing entry in the database', async () => {
+        it('should find an existing entry in the database', async () => {
             await mongoModel.createAndSaveNewEntry(testEntry.expression, testEntry.result);
 
             const foundExpression = await mongoModel.findOne({ expression: testEntry.expression });
@@ -43,14 +43,14 @@ describe('mongoModel.int', () => {
             expect(foundExpression?.result).toEqual(testEntry.result);
         });
 
-        test('should return null if the entry does not exist', async () => {
+        it('should return null if the entry does not exist', async () => {
             const nonExistentExpression = await mongoModel.findOne({ expression: '112414+21412421' });
             expect(nonExistentExpression).toBeNull();
         });
     });
 
     describe('updateEntry method', () => {
-        test('should update an existing entry in the database', async () => {
+        it('should update an existing entry in the database', async () => {
             await mongoModel.createAndSaveNewEntry(testEntry.expression, testEntry.result);
 
             const newDate = new Date()
@@ -61,7 +61,7 @@ describe('mongoModel.int', () => {
             expect(updatedExpression?.last_request_at).toEqual(newDate);
         });
 
-        test('should not update if the entry does not exist', async () => {
+        it('should not update if the entry does not exist', async () => {
             await mongoModel.updateEntry({ expression: '3+3' }, { last_request_at: new Date() });
 
             const nonExistentExpression = await mongoModel.findOne({ expression: '3+3' });
@@ -70,7 +70,7 @@ describe('mongoModel.int', () => {
     });
 
     describe('findMany method', () => {
-        test('should find multiple entries in the database', async () => {
+        it('should find multiple entries in the database', async () => {
             await Promise.all([
                 mongoModel.createAndSaveNewEntry('1+1', 2),
                 mongoModel.createAndSaveNewEntry('4+4', 8),
@@ -82,7 +82,7 @@ describe('mongoModel.int', () => {
             expect(expressions.length).toEqual(2);
         });
 
-        test('should handle cases when sortField or sortOrder is not provided', async () => {
+        it('should handle cases when sortField or sortOrder is not provided', async () => {
             await Promise.all([
                 mongoModel.createAndSaveNewEntry('1+1', 2),
                 mongoModel.createAndSaveNewEntry('4+4', 8),
@@ -94,7 +94,7 @@ describe('mongoModel.int', () => {
             expect(expressionsNoSort.length).toBe(3);
         });
 
-        test('should find limited entries sorted in asc', async () => {
+        it('should find limited entries sorted in asc', async () => {
             await mongoModel.createAndSaveNewEntry('1+1', 2)
             await mongoModel.createAndSaveNewEntry('4+4', 8)
             await mongoModel.createAndSaveNewEntry('5+5', 10)
@@ -106,7 +106,7 @@ describe('mongoModel.int', () => {
             expect(expressions[expressions.length - 1].expression).toBe("3+3");
         });
 
-        test('should find limited entries sorted in desc', async () => {
+        it('should find limited entries sorted in desc', async () => {
             await mongoModel.createAndSaveNewEntry('1+1', 2)
             await mongoModel.createAndSaveNewEntry('4+4', 8)
             await mongoModel.createAndSaveNewEntry('5+5', 10)

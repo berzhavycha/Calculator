@@ -17,7 +17,7 @@ describe('MongoDatabase', () => {
         jest.clearAllMocks();
     });
 
-    test('should connect to MongoDB successfully', async () => {
+    it('should connect to MongoDB successfully', async () => {
         (mongoose.connect as jest.Mock).mockResolvedValueOnce({
             connection: {
                 on: jest.fn(),
@@ -27,7 +27,7 @@ describe('MongoDatabase', () => {
         expect(mongoose.connect).toHaveBeenCalledWith('mocked_mongodb:/testdb');
     });
 
-    test('should throw an error when MongoDB connection fails', async () => {
+    it('should throw an error when MongoDB connection fails', async () => {
         const errorMessage = 'MongoDB connection failed';
         (mongoose.connect as jest.Mock).mockRejectedValueOnce(new Error(errorMessage));
 

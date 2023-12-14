@@ -10,7 +10,7 @@ describe('RegexCalculation', () => {
     });
 
     describe('Edge Cases and Limit Testing', () => {
-        test('evaluate method should handle scenarios with floating-point precision', () => {
+        it('evaluate method should handle scenarios with floating-point precision', () => {
             const expression = '0.1+0.2';
             const expected = 0.3;
             const result = regexCalculation.evaluate(expression);
@@ -19,7 +19,7 @@ describe('RegexCalculation', () => {
     });
 
     describe('findHighestPriorityOperatorResult Method', () => {
-        test('should correctly find highest priority operator in expressions', () => {
+        it('should correctly find highest priority operator in expressions', () => {
             let expression = '2+3*4';
             const result = regexCalculation.findHighestPriorityOperatorResult(expression);
             expect(result).toEqual({ subExpressionResult: 12, subExpressionMatch: '3*4' });
@@ -29,7 +29,7 @@ describe('RegexCalculation', () => {
             expect(newResult).toEqual({ subExpressionResult: -1, subExpressionMatch: '-2/2' });
         });
 
-        test('should return null for expressions without operators', () => {
+        it('should return null for expressions without operators', () => {
             const expression = '5';
             const result = regexCalculation.findHighestPriorityOperatorResult(expression);
             expect(result).toBeNull();
@@ -37,7 +37,7 @@ describe('RegexCalculation', () => {
     });
 
     describe('calculate method', () => {
-        test('should correctly calculate expressions with basic operations', () => {
+        it('should correctly calculate expressions with basic operations', () => {
             let tokens = ['2', '+', '3', '*', '4'];
             const result = regexCalculation.calculate(tokens);
             expect(result).toBe(14);
@@ -47,20 +47,20 @@ describe('RegexCalculation', () => {
             expect(newResult).toBe(8);
         });
 
-        test('should handle expressions with single numbers', () => {
+        it('should handle expressions with single numbers', () => {
             const tokens = ['5'];
             const result = regexCalculation.calculate(tokens);
             expect(result).toBe(5);
         });
 
-        test('should throw error for invalid expressions', () => {
+        it('should throw error for invalid expressions', () => {
             const tokens = ['2', '+'];
             expect(() => regexCalculation.calculate(tokens)).toThrow();
         });
     });
 
     describe('Handling Unary Minus', () => {
-        test('should handle unary minus in expressions correctly', () => {
+        it('should handle unary minus in expressions correctly', () => {
             let expression = '-2*3';
             const result = regexCalculation.evaluate(expression);
             expect(result).toBe(-6);
@@ -74,7 +74,7 @@ describe('RegexCalculation', () => {
             expect(thirdResult).toBe(-6);
         });
 
-        test('should handle multiple consecutive unary minuses', () => {
+        it('should handle multiple consecutive unary minuses', () => {
             const expression = '--2*3';
             expect(() => regexCalculation.evaluate(expression)).toThrow();
         });
@@ -82,7 +82,7 @@ describe('RegexCalculation', () => {
 
 
     describe('Error Handling', () => {
-        test('evaluate method should throw error for expressions with invalid characters', () => {
+        it('evaluate method should throw error for expressions with invalid characters', () => {
             const invalidExpressions: string[] = [
                 '3 @ 4',
                 '2 # 5',
@@ -95,7 +95,7 @@ describe('RegexCalculation', () => {
             });
         });
 
-        test('evaluate method should throw error for expressions starting or ending with operators', () => {
+        it('evaluate method should throw error for expressions starting or ending with operators', () => {
             const invalidExpressions: string[] = [
                 '+3',
                 '4*',
@@ -110,7 +110,7 @@ describe('RegexCalculation', () => {
 
     describe('Evaluation', () => {
         describe('Trigonometric Function Tests', () => {
-            test('evaluate method should correctly compute trigonometric functions with various angles', () => {
+            it('evaluate method should correctly compute trigonometric functions with various angles', () => {
                 const testCases: { expression: string; expected: number }[] = [
                     { expression: 'sin(0)', expected: Math.sin(0) },
                     { expression: 'cos(0.5)', expected: Math.cos(0.5) },
@@ -123,7 +123,7 @@ describe('RegexCalculation', () => {
                 });
             });
 
-            test('evaluate method should handle trigonometric functions with negative numbers as arguments', () => {
+            it('evaluate method should handle trigonometric functions with negative numbers as arguments', () => {
                 const expression = 'sin(-1)+cos(-0.5)';
                 const expected = Math.sin(-1) + Math.cos(-0.5);
                 const result = regexCalculation.evaluate(expression);
@@ -133,14 +133,14 @@ describe('RegexCalculation', () => {
 
 
         describe('Parentheses Handling', () => {
-            test('evaluate method should handle nested parentheses correctly', () => {
+            it('evaluate method should handle nested parentheses correctly', () => {
                 const expression = '((3+4)*2)';
                 const expected = 14;
                 const result = regexCalculation.evaluate(expression);
                 expect(result).toBe(expected);
             });
 
-            test('evaluate method should throw error for mismatched parentheses', () => {
+            it('evaluate method should throw error for mismatched parentheses', () => {
                 const invalidExpressions: string[] = [
                     '(3+4',
                     '4*(2 + 3))',
@@ -152,7 +152,7 @@ describe('RegexCalculation', () => {
                 });
             });
 
-            test('evaluate method should maintain correct order of operations within parentheses', () => {
+            it('evaluate method should maintain correct order of operations within parentheses', () => {
                 const expression = '(3+4)*2-(5/2)';
                 const expected = 11.5;
                 const result = regexCalculation.evaluate(expression);
@@ -160,7 +160,7 @@ describe('RegexCalculation', () => {
             });
         });
 
-        test('evaluate method should correctly compute mathematical expressions in regex calculation', () => {
+        it('evaluate method should correctly compute mathematical expressions in regex calculation', () => {
             const testCases: { expression: string; expected: number }[] = [
                 { expression: '3+4', expected: 7 },
                 { expression: '5*2', expected: 10 },
@@ -176,7 +176,7 @@ describe('RegexCalculation', () => {
             });
         });
 
-        test('evaluate method should return 0 on empty expression', () => {
+        it('evaluate method should return 0 on empty expression', () => {
             const expression = '';
             expect(regexCalculation.evaluate(expression)).toEqual(0);
         });

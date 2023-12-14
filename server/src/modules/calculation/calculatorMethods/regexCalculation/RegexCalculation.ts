@@ -132,8 +132,6 @@ export class RegexCalculation implements ICalculatorModelService {
       const invalidChars = [...expressionWithoutSpaces.replace(TOKENIZE_REGEX_PATTERN, "")];
       const uniqueInvalidChars = [...new Set(invalidChars)];
 
-      console.log(tokens, uniqueInvalidChars)
-
       throw new Error("Invalid symbols: " + uniqueInvalidChars);
     }
 

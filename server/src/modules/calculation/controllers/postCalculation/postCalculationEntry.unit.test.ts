@@ -9,7 +9,7 @@ describe('postCalculationController', () => {
         jest.clearAllMocks();
     });
 
-    test('should create calculation and return result', async () => {
+    it('should create calculation and return result', async () => {
         const mockResult = 42;
         (createCalculation as jest.Mock).mockResolvedValue(mockResult);
 
@@ -23,7 +23,7 @@ describe('postCalculationController', () => {
         expect(createCalculation).toHaveBeenCalledWith('2 + 40');
     });
 
-    test('should handle service error and return 500 status', async () => {
+    it('should handle service error and return 500 status', async () => {
         const errorMessage = 'Invalid Expression';
         (createCalculation as jest.Mock).mockRejectedValue(new Error(errorMessage));
 

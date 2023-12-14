@@ -1,16 +1,10 @@
 import { BaseKnexModel } from '../baseModel';
-import { POSTGRES_TEST_DB, POSTGRES_HOST, POSTGRES_TEST_USER, POSTGRES_TEST_PASSWORD, POSTGRES_CALCULATION_COLLECTION } from '@global';
-import { Pool, PoolClient } from 'pg';
+import { PoolClient } from 'pg';
+import { mockPool } from '../../../constants';
+import { POSTGRES_CALCULATION_COLLECTION } from '@global';
 
 describe('BaseKnexModel', () => {
     let baseModel: BaseKnexModel;
-    const mockPool = new Pool({
-        host: POSTGRES_HOST,
-        database: POSTGRES_TEST_DB,
-        user: POSTGRES_TEST_USER,
-        password: POSTGRES_TEST_PASSWORD,
-    });
-
     let client: PoolClient
 
     beforeAll(async () => {
@@ -31,7 +25,7 @@ describe('BaseKnexModel', () => {
     });
 
     describe('all', () => {
-        test('should data from the database', async () => {
+        it('should return data from the database', async () => {
             const dataToInsert = [
                 { id: 1, expression: '1+2', result: 3, last_request_at: new Date() },
                 { id: 2, expression: '3+4', result: 7, last_request_at: new Date() },
@@ -46,7 +40,7 @@ describe('BaseKnexModel', () => {
             expect(allData).toEqual(dataToInsert);
         });
 
-        test('should return empty array for all when no data is present', async () => {
+        it('should return empty array for all when no data is present', async () => {
             await baseModel.delete({});
 
             const allData = await baseModel.all();
@@ -55,7 +49,7 @@ describe('BaseKnexModel', () => {
     })
 
     describe('insert', () => {
-        test('should insert data into the table', async () => {
+        it('should insert data into the table', async () => {
             const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
             const insertedData = await baseModel.insert(dataToInsert);
             expect(insertedData).toMatchObject(dataToInsert);
@@ -63,7 +57,7 @@ describe('BaseKnexModel', () => {
     })
 
     describe('delete', () => {
-        test('should delete data from the table', async () => {
+        it('should delete data from the table', async () => {
             const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
             await baseModel.insert(dataToInsert);
 
@@ -75,7 +69,7 @@ describe('BaseKnexModel', () => {
     })
 
     describe('update', () => {
-        test('should update data in the table', async () => {
+        it('should update data in the table', async () => {
             const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
             await baseModel.insert(dataToInsert);
 
@@ -86,7 +80,7 @@ describe('BaseKnexModel', () => {
             expect(foundEntry).toMatchObject(updatedData);
         });
 
-        test('shouldn`t update data in the table if it doesn`t exist', async () => {
+        it('shouldn`t update data in the table if it doesn`t exist', async () => {
             const updatedData = { last_request_at: new Date() }
             await baseModel.update({ expression: '1+2' }, updatedData);
 
@@ -96,7 +90,7 @@ describe('BaseKnexModel', () => {
     })
 
     describe('findBy', () => {
-        test('should find data in the table', async () => {
+        it('should find data in the table', async () => {
             const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
             await baseModel.insert(dataToInsert);
 
@@ -104,7 +98,7 @@ describe('BaseKnexModel', () => {
             expect(foundEntry).toMatchObject(dataToInsert);
         });
 
-        test('should return undefined if data doesn`t exist in the table', async () => {
+        it('should return undefined if data doesn`t exist in the table', async () => {
             const foundEntry = await baseModel.findBy({ expression: '1+2' });
             expect(foundEntry).toBeUndefined();
         });

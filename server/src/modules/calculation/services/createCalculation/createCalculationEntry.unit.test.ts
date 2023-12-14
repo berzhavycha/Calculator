@@ -5,8 +5,8 @@ describe('createCalculationEntry', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
-
-    test('should calculate and save new result if expression is not cached', async () => {
+    
+    it('should calculate and save new result if expression is not cached', async () => {
         calculationModel.findOne = jest.fn().mockResolvedValue(null);
         calculationModel.createAndSaveNewEntry = jest.fn().mockResolvedValue(10);
         calculationModel.updateEntry = jest.fn()
@@ -18,7 +18,7 @@ describe('createCalculationEntry', () => {
         expect(calculationModel.updateEntry).not.toHaveBeenCalled();
     });
 
-    test('should get the result from database and update the entry', async () => {
+    it('should get the result from database and update the entry', async () => {
         calculationModel.findOne = jest.fn().mockResolvedValue({ expression: "5*2", result: 10, last_request_at: new Date() });
         calculationModel.createAndSaveNewEntry = jest.fn();
         calculationModel.updateEntry = jest.fn()

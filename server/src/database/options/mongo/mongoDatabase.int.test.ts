@@ -7,7 +7,7 @@ describe('MongoDatabase', () => {
         mongoDatabase = new MongoDatabase();
     });
 
-    test('should connect to MongoDB successfully', async () => {
+    it('should connect to MongoDB successfully', async () => {
         await expect(mongoDatabase.connect()).resolves.toBeUndefined();
     });
 });

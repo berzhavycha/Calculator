@@ -1,19 +1,13 @@
+import { mockPool } from '@database';
 import { modelsOptions } from '../modelsOptions';
 import { ASC, DEFAULT_SORT_FIELD, DESC } from '@modules/calculation/constants';
-import { Pool, PoolClient } from 'pg';
+import { PoolClient } from 'pg';
 import { DataBases } from '@database';
-import { POSTGRES_TEST_DB, POSTGRES_HOST, POSTGRES_TEST_USER, POSTGRES_TEST_PASSWORD, POSTGRES_CALCULATION_COLLECTION } from '@global';
+import { POSTGRES_CALCULATION_COLLECTION } from '@global';
 
 describe('postgresModel.int', () => {
     const postgresModel = modelsOptions[DataBases.POSTGRE_SQL];
     const testEntry = { expression: '2222+1111', result: 3333, last_request_at: new Date() }
-
-    const mockPool = new Pool({
-        host: POSTGRES_HOST,
-        database: POSTGRES_TEST_DB,
-        user: POSTGRES_TEST_USER,
-        password: POSTGRES_TEST_PASSWORD,
-    });
 
     let client: PoolClient
 
@@ -34,7 +28,7 @@ describe('postgresModel.int', () => {
     });
 
     describe('createAndSaveNewEntry method', () => {
-        test('should create and save a new entry in the database', async () => {
+        it('should create and save a new entry in the database', async () => {
             await postgresModel.createAndSaveNewEntry(testEntry.expression, testEntry.result);
 
             const expression = await postgresModel.findOne({ expression: testEntry.expression });
@@ -44,7 +38,7 @@ describe('postgresModel.int', () => {
     });
 
     describe('findOne method', () => {
-        test('should find an existing entry in the database', async () => {
+        it('should find an existing entry in the database', async () => {
             await postgresModel.createAndSaveNewEntry(testEntry.expression, testEntry.result);
 
             const foundExpression = await postgresModel.findOne({ expression: testEntry.expression });
@@ -52,14 +46,14 @@ describe('postgresModel.int', () => {
             expect(foundExpression?.result).toEqual(testEntry.result);
         });
 
-        test('should return undefined if the entry does not exist', async () => {
+        it('should return undefined if the entry does not exist', async () => {
             const nonExistentExpression = await postgresModel.findOne({ expression: '112414+21412421' });
             expect(nonExistentExpression).toBeUndefined();
         });
     });
 
     describe('updateEntry method', () => {
-        test('should update an existing entry in the database', async () => {
+        it('should update an existing entry in the database', async () => {
             await postgresModel.createAndSaveNewEntry(testEntry.expression, testEntry.result);
 
             const newDate = new Date()
@@ -70,7 +64,7 @@ describe('postgresModel.int', () => {
             expect(updatedExpression?.last_request_at).toEqual(newDate);
         });
 
-        test('should not update if the entry does not exist', async () => {
+        it('should not update if the entry does not exist', async () => {
             await postgresModel.updateEntry({ expression: '123+123' }, { last_request_at: new Date() });
 
             const nonExistentExpression = await postgresModel.findOne({ expression: '123+123' });
@@ -79,7 +73,7 @@ describe('postgresModel.int', () => {
     });
 
     describe('findMany method', () => {
-        test('should find multiple entries in the database', async () => {
+        it('should find multiple entries in the database', async () => {
             await Promise.all([
                 postgresModel.createAndSaveNewEntry('1+1', 2),
                 postgresModel.createAndSaveNewEntry('4+4', 8),
@@ -91,7 +85,7 @@ describe('postgresModel.int', () => {
             expect(expressions.length).toEqual(2);
         });
 
-        test('should handle cases when sortField or sortOrder is not provided', async () => {
+        it('should handle cases when sortField or sortOrder is not provided', async () => {
             await Promise.all([
                 postgresModel.createAndSaveNewEntry('1+1', 2),
                 postgresModel.createAndSaveNewEntry('4+4', 8),
@@ -103,7 +97,7 @@ describe('postgresModel.int', () => {
             expect(expressionsNoSort.length).toBe(3);
         });
 
-        test('should find limited entries sorted in asc', async () => {
+        it('should find limited entries sorted in asc', async () => {
             await postgresModel.createAndSaveNewEntry('1+1', 2)
             await postgresModel.createAndSaveNewEntry('4+4', 8)
             await postgresModel.createAndSaveNewEntry('5+5', 10)
@@ -115,7 +109,7 @@ describe('postgresModel.int', () => {
         });
 
 
-        test('should find limited entries sorted in desc', async () => {
+        it('should find limited entries sorted in desc', async () => {
             await postgresModel.createAndSaveNewEntry('1+1', 2)
             await postgresModel.createAndSaveNewEntry('4+4', 8)
             await postgresModel.createAndSaveNewEntry('5+5', 10)

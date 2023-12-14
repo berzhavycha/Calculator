@@ -15,7 +15,7 @@ afterAll(async () => {
 });
 
 describe('findExpressions', () => {
-    test('should retrieve last expressions with specified limit and sortOrder', async () => {
+    it('should retrieve last expressions with specified limit and sortOrder', async () => {
         const expressions = await findExpressions(DEFAULT_LIMIT_NUMBER, ASC);
 
         expect(expressions).toBeDefined();

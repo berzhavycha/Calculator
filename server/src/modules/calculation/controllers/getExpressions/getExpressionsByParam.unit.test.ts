@@ -11,7 +11,7 @@ describe('getExpressionByParam.unit controller', () => {
     jest.clearAllMocks();
   });
 
-  test('should return expressions with limit and ascending order', async () => {
+  it('should return expressions with limit and ascending order', async () => {
     const mockExpressions = [{ expression: '1+2', result: 3 }, {expression: '2*2', result: 4}];
 
     (findExpressions as jest.Mock).mockResolvedValue(mockExpressions);
@@ -23,7 +23,7 @@ describe('getExpressionByParam.unit controller', () => {
     expect(findExpressions).toHaveBeenCalledWith(DEFAULT_LIMIT_NUMBER, ASC);
   });
 
-  test('should return expressions with limit and descending order', async () => {
+  it('should return expressions with limit and descending order', async () => {
     const mockExpressions = [{ expression: '1+2', result: 3 }, {expression: '2*2', result: 4}];
 
     (findExpressions as jest.Mock).mockResolvedValue(mockExpressions);
@@ -35,7 +35,7 @@ describe('getExpressionByParam.unit controller', () => {
     expect(findExpressions).toHaveBeenCalledWith(DEFAULT_LIMIT_NUMBER, DESC);
   });
 
-  test('should return error for invalid limit parameter', async () => {
+  it('should return error for invalid limit parameter', async () => {
     const response = await request(app).get('/calculations?limit=f');
 
     expect(response.status).toBe(400);
@@ -43,7 +43,7 @@ describe('getExpressionByParam.unit controller', () => {
     expect(findExpressions).not.toHaveBeenCalled();
   });
 
-  test('should handle internal server error', async () => {
+  it('should handle internal server error', async () => {
     (findExpressions as jest.Mock).mockRejectedValue(new Error('Some internal error'));
 
     const response = await request(app).get('/calculations?limit=-1');

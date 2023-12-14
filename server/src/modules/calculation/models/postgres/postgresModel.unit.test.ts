@@ -14,7 +14,7 @@ describe('PostgresCalculationModel', () => {
     });
 
     describe('createAndSaveNewEntry method', () => {
-        test('should create and save a new entry', async () => {
+        it('should create and save a new entry', async () => {
             const expression = '2+2';
             const result = 4;
 
@@ -31,7 +31,7 @@ describe('PostgresCalculationModel', () => {
     })
 
     describe('findOne method', () => {
-        test('should find an existing entry in the database', async () => {
+        it('should find an existing entry in the database', async () => {
             const query = { expression: '2+2' };
             const mockedResult = { expression: '2+2', result: 4, last_request_at: new Date() }
 
@@ -43,7 +43,7 @@ describe('PostgresCalculationModel', () => {
             expect(result).toEqual(mockedResult)
         });
 
-        test('should return null if the entry does not exist', async () => {
+        it('should return null if the entry does not exist', async () => {
             const query = { expression: '2+2' };
 
             jest.spyOn(BaseKnexModel.prototype, 'findBy').mockResolvedValue(null)
@@ -56,7 +56,7 @@ describe('PostgresCalculationModel', () => {
     })
 
     describe('updateEntry', () => {
-        test('should update an existing entry in the database', async () => {
+        it('should update an existing entry in the database', async () => {
             const query = { expression: '2+2' };
             const update = { last_request_at: new Date() };
 
@@ -67,7 +67,7 @@ describe('PostgresCalculationModel', () => {
             expect(postgresModel.update).toHaveBeenCalledWith(query, update);
         });
 
-        test('should not update if the entry does not exist', async () => {
+        it('should not update if the entry does not exist', async () => {
             const query = { expression: '111+222' };
             const update = { last_request_at: new Date() };
 

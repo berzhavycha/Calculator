@@ -28,7 +28,7 @@ describe('PostgresDatabase', () => {
         jest.restoreAllMocks();
     });
 
-    test('should connect to PostgreSQL and release the client', async () => {
+    it('should connect to PostgreSQL and release the client', async () => {
         const postgresDB = new PostgresDatabase();
 
         await postgresDB.connect();
@@ -37,7 +37,7 @@ describe('PostgresDatabase', () => {
         expect(mockClientRelease).toHaveBeenCalled();
     });
 
-    test('should throw an error if pool is not initialized', async () => {
+    it('should throw an error if pool is not initialized', async () => {
         const postgresDB = new PostgresDatabase();
         postgresDB['pool'] = null;
 

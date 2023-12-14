@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../../../server';
 
 describe('postCalculationController', () => {
-    test('should create calculation and return result', async () => {
+    it('should create calculation and return result', async () => {
         const response = await request(app)
             .post('/calculations')
             .send({ expression: '2 + 40' })
@@ -12,7 +12,7 @@ describe('postCalculationController', () => {
         expect(response.body).toEqual({ result: 42 });
     });
 
-    test('should handle service error and return 500 status', async () => {
+    it('should handle service error and return 500 status', async () => {
         const response = await request(app)
             .post('/calculations')
             .send({ expression: 'inv' })

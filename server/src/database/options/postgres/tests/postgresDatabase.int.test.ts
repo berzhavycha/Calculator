@@ -13,7 +13,7 @@ describe('PostgresDatabase', () => {
     }
   });
 
-  test('should connect to PostgreSQL successfully', async () => {
+  it('should connect to PostgreSQL successfully', async () => {
     await expect(postgresDatabase.connect()).resolves.toBeUndefined();
   });
 });
