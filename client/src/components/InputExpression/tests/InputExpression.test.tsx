@@ -11,6 +11,7 @@ describe('InputExpression component', () => {
         const { getByRole } = render(
             <InputExpression
                 expression=""
+                inputName={"input-expression"}
                 onExpressionChange={mockOnExpressionChange}
                 onEnter={mockOnEnter}
             />
@@ -29,11 +30,12 @@ describe('InputExpression component', () => {
     });
 
     test('should render with the provided expression value', () => {
-        const expression = '2 + 2';
+        const expression = '2+2';
 
         const { getByDisplayValue } = render(
             <InputExpression
                 expression={expression}
+                inputName={"input-expression"}
                 onExpressionChange={mockOnExpressionChange}
                 onEnter={mockOnEnter}
             />
@@ -47,6 +49,7 @@ describe('InputExpression component', () => {
         const { getByRole } = render(
             <InputExpression
                 expression=""
+                inputName={"input-expression"}
                 onExpressionChange={mockOnExpressionChange}
                 onEnter={mockOnEnter}
             />
