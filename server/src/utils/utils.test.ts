@@ -2,7 +2,6 @@ import { escapeRegExp, reduceAllSpaces } from './index';
 
 describe('escapeRegExp', () => {
     it('should escape special characters in a string', () => {
-
         const inputString = '^ $ * . [ ] { } ( ) ? + |';
         const expectedOutput = '\\^ \\$ \\* \\. \\[ \\] \\{ \\} \\( \\) \\? \\+ \\|';
         expect(escapeRegExp(inputString)).toBe(expectedOutput);
