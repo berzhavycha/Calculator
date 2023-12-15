@@ -10,7 +10,7 @@ export class MongoDatabase implements IDatabase {
         appLogger.info("Connected to MongoDB!")
       })
       .catch((error) => {
-        appLogger.info(error)
+        appLogger.error(error)
         throw error;
       });
   }

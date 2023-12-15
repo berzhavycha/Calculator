@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import config from "@config";
 
 export const getOperationsController = async (
-  req: Request,
+  _req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
