@@ -1,9 +1,8 @@
+import { calculationLogger } from './../log/logger';
 import { Request, Response } from "express";
 import { findExpressions } from "../services/findExpressions";
 import { DEFAULT_LIMIT_NUMBER, ASC } from "../constants";
 import { Sort } from "../models";
-import { calculationLogger } from "../log/logger";
-import { buildRequestInfoLog } from "@utils";
 
 export const getExpressionByParam = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -20,9 +19,8 @@ export const getExpressionByParam = async (req: Request, res: Response): Promise
 
     const expressions = await findExpressions(limit, sortOrder);
     res.setHeader("Content-Type", "application/json").status(200).json(expressions);
-    calculationLogger.info(`${buildRequestInfoLog(req, { limit: limit + '', sortOrder: sortOrder + '' })}`);
   } catch (error) {
-    calculationLogger.error('Error retrieving expressions by params:', error);
+    calculationLogger.error('Error retrieving expressions by params:' + error);
     res.setHeader("Content-Type", "application/json").status(500).json({ error: "Internal server error" });
   }
 };

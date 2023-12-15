@@ -1,8 +1,0 @@
-{"level":"info","message":"Request handled successfully. Request: GET /calculations/status, historyStatus: true","module":"calculation","timestamp":"2023-12-09T21:22:27.339Z"}
-{"level":"info","message":"Request handled successfully. Request: GET /calculations?limit=5&order=desc, limit: 5, sortOrder: desc","module":"calculation","timestamp":"2023-12-09T21:22:27.459Z"}
-{"level":"info","message":"Request handled successfully. Request: GET /calculations/status, historyStatus: true","module":"calculation","timestamp":"2023-12-11T16:30:46.616Z"}
-{"level":"info","message":"Request handled successfully. Request: GET /calculations?limit=5&order=desc, limit: 5, sortOrder: desc","module":"calculation","timestamp":"2023-12-11T16:30:46.751Z"}
-{"level":"info","message":"Request handled successfully. Request: POST /calculations, expression: 12+2, result: 14","module":"calculation","timestamp":"2023-12-11T16:30:49.315Z"}
-{"level":"info","message":"Request handled successfully. Request: POST /calculations, expression: 125+2525, result: 2650","module":"calculation","timestamp":"2023-12-11T16:30:53.363Z"}
-{"level":"info","message":"Request handled successfully. Request: GET /calculations/status, historyStatus: true","module":"calculation","timestamp":"2023-12-11T16:31:06.660Z"}
-{"level":"info","message":"Request handled successfully. Request: GET /calculations?limit=5&order=desc, limit: 5, sortOrder: desc","module":"calculation","timestamp":"2023-12-11T16:31:06.746Z"}

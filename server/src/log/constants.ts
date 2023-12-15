@@ -3,4 +3,5 @@ export enum LogLevels {
     WARN = 'warn',
     INFO = 'info',
     DEBUG = 'debug',
+    HTTP = 'http'
 }

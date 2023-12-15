@@ -16,8 +16,6 @@
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T09:20:43.687Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T09:20:59.976Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T09:20:59.982Z"}
-{"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T09:21:06.129Z"}
-{"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T09:21:06.134Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T09:21:46.657Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T09:21:46.662Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T09:22:14.773Z"}
@@ -104,14 +102,28 @@
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:50:52.271Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:52:19.846Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:52:19.852Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:52:23.185Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:52:23.194Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:52:24.889Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:52:24.921Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:52:44.841Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:52:44.848Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:52:48.385Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:52:48.402Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:53:10.906Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:53:10.913Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:53:13.117Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:53:13.121Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:53:30.093Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:53:30.098Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:53:32.080Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:53:32.096Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:53:34.069Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:53:34.116Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:57:38.686Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:57:38.697Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:57:41.415Z"}
+{"PORT":"4000","database":"mongoDB","level":"error","message":"Error occurred - undefined","timestamp":"2023-12-15T12:57:41.444Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:57:59.718Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Server running on port 4000","timestamp":"2023-12-15T12:57:59.725Z"}
 {"PORT":"4000","database":"mongoDB","level":"info","message":"Connected to MongoDB!","timestamp":"2023-12-15T12:58:13.221Z"}
