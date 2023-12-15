@@ -12,14 +12,43 @@ export class LoggerService implements ILoggerService {
     public logsDirectory: string;
     public logger: winston.Logger
 
-    constructor(moduleName: string, logDirectory: string = 'files') {
+    private enableHttpLogging: boolean;
+
+    constructor(moduleName: string, logDirectory: string = 'files', enableHttpLogging: boolean = false) {
         this.moduleName = moduleName;
-        this.logsDirectory = path.join(process.cwd(), logDirectory); 
+        this.logsDirectory = path.join(process.cwd(), logDirectory);
+        this.enableHttpLogging = enableHttpLogging;
 
         this.logger = this.createLogger();
     }
 
     private createLogger(): winston.Logger {
+        const transports: winston.transport[] = [
+            new winston.transports.File({
+                filename: this.logFilePath(`${this.moduleName}-combined.log`),
+            }),
+            new winston.transports.File({
+                filename: this.logFilePath(`${this.moduleName}-error.log`),
+                level: LogLevels.ERROR,
+                format: combine(this.errorFilter(), timestamp(), json()),
+            }),
+            new winston.transports.File({
+                filename: this.logFilePath(`${this.moduleName}-info.log`),
+                level: LogLevels.INFO,
+                format: combine(this.infoFilter(), timestamp(), json()),
+            })
+        ];
+
+        if (this.enableHttpLogging) {
+            transports.push(
+                new winston.transports.File({
+                    filename: this.logFilePath(`${this.moduleName}-http.log`),
+                    level: LogLevels.HTTP,
+                    format: combine(this.httpFilter(), timestamp(), json()),
+                })
+            );
+        }
+
         return winston.createLogger({
             defaultMeta: {
                 database: config.database,
@@ -27,29 +56,10 @@ export class LoggerService implements ILoggerService {
             },
             level: LOG_LEVEL || LogLevels.INFO,
             format: combine(timestamp(), json()),
-            transports: [
-                new winston.transports.File({
-                    filename: this.logFilePath(`${this.moduleName}-combined.log`),
-                }),
-                new winston.transports.File({
-                    filename: this.logFilePath(`${this.moduleName}-error.log`),
-                    level: LogLevels.ERROR,
-                    format: combine(this.errorFilter(), timestamp(), json()),
-                }),
-                new winston.transports.File({
-                    filename: this.logFilePath(`${this.moduleName}-info.log`),
-                    level: LogLevels.INFO,
-                    format: combine(this.infoFilter(), timestamp(), json()),
-                }),
-                new winston.transports.File({
-                    filename: this.logFilePath(`${this.moduleName}-http.log`),
-                    level: LogLevels.HTTP,
-                    format: combine(this.httpFilter(), timestamp(), json()),
-                }),
-            ],
+            transports: transports,
         });
     }
-
+    
     private errorFilter = winston.format((error) => {
         return error.level === LogLevels.ERROR ? error : false;
     });
@@ -62,7 +72,7 @@ export class LoggerService implements ILoggerService {
         return http.level === LogLevels.HTTP ? http : false;
     });
 
-    private logFilePath = (fileName: string): string => path.join(this.logsDirectory, fileName); 
+    private logFilePath = (fileName: string): string => path.join(this.logsDirectory, fileName);
 
     public info(message: string): void {
         this.logger.info(message);
@@ -73,6 +83,9 @@ export class LoggerService implements ILoggerService {
     }
 
     public http(message: string): void {
-        this.logger.http(message);
+        this.logger.log({
+            level: LogLevels.HTTP,
+            message: message
+        });
     }
 }

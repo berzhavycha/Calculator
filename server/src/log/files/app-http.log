@@ -64,3 +64,27 @@
 {"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations","timestamp":"2023-12-15T14:10:51.003Z"}
 {"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: POST, URL: /calculations","timestamp":"2023-12-15T14:10:51.006Z"}
 {"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: POST, URL: /calculations, Status: 500","timestamp":"2023-12-15T14:10:51.041Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations/status","timestamp":"2023-12-15T14:13:01.072Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: GET, URL: /calculations/status","timestamp":"2023-12-15T14:13:01.084Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: GET, URL: /calculations/status, Status: 304","timestamp":"2023-12-15T14:13:01.086Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /operations","timestamp":"2023-12-15T14:13:01.088Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: GET, URL: /operations","timestamp":"2023-12-15T14:13:01.098Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: GET, URL: /operations, Status: 304","timestamp":"2023-12-15T14:13:01.100Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations?limit=5&order=desc","timestamp":"2023-12-15T14:13:01.129Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: GET, URL: /calculations?limit=5&order=desc","timestamp":"2023-12-15T14:13:01.136Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: GET, URL: /calculations?limit=5&order=desc, Status: 304","timestamp":"2023-12-15T14:13:01.188Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations/status","timestamp":"2023-12-15T14:15:42.155Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /operations","timestamp":"2023-12-15T14:15:42.175Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: GET, URL: /calculations/status","timestamp":"2023-12-15T14:15:42.185Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: GET, URL: /calculations/status, Status: 304","timestamp":"2023-12-15T14:15:42.188Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: GET, URL: /operations","timestamp":"2023-12-15T14:15:42.191Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: GET, URL: /operations, Status: 304","timestamp":"2023-12-15T14:15:42.193Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations?limit=5&order=desc","timestamp":"2023-12-15T14:15:42.278Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: GET, URL: /calculations?limit=5&order=desc","timestamp":"2023-12-15T14:15:42.295Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: GET, URL: /calculations?limit=5&order=desc, Status: 304","timestamp":"2023-12-15T14:15:42.349Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations","timestamp":"2023-12-15T14:15:44.223Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: POST, URL: /calculations","timestamp":"2023-12-15T14:15:44.238Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: POST, URL: /calculations, Status: 200","timestamp":"2023-12-15T14:15:44.361Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: OPTIONS, URL: /calculations","timestamp":"2023-12-15T14:16:01.491Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Incoming Request - Method: POST, URL: /calculations","timestamp":"2023-12-15T14:16:01.496Z"}
+{"PORT":"4000","database":"mongoDB","level":"http","message":"Outgoing Response - Method: POST, URL: /calculations, Status: 200","timestamp":"2023-12-15T14:16:01.602Z"}
