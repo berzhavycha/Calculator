@@ -31,17 +31,28 @@ class ApiClient {
     }
 
     try {
+      console.log(`Sending ${method} request to: ${url}, Request Headers: `, requestOptions.headers);
+      if (body) {
+        console.log('Request Body:', body);
+      }
+
       const response = await fetch(url, requestOptions);
+
+      console.log(`Received response for ${method} request to: ${url}, Response Status: ${response.status}`);
 
       const data = await response.json();
 
       if (!response.ok) {
+        console.error('Request failed with error:', data.message);
         throw new Error(data.message);
       }
 
+      console.log('Request successful. Response data:', data);
       return data;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : "Failed to perform request");
+      const errorMessage = `Failed to perform request: ${error instanceof Error ? error.message : 'Unknown error occurred'}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     }
   }
 }

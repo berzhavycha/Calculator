@@ -18,7 +18,6 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
   useEffect(() => {
     const fetchOperations = async () => {
       try {
-
         const data = await queryBuilder.makeRequest<IResponse[]>(
           `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
           "GET",
