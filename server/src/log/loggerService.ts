@@ -25,17 +25,14 @@ export class LoggerService implements ILoggerService {
     private createLogger(): winston.Logger {
         const transports: winston.transport[] = [
             new winston.transports.File({
-                filename: this.logFilePath(`${this.moduleName}-combined.log`),
-            }),
-            new winston.transports.File({
-                filename: this.logFilePath(`${this.moduleName}-error.log`),
+                filename: this.logFilePath(`${this.moduleName}-warns.log`),
                 level: LogLevels.ERROR,
-                format: combine(this.errorFilter(), timestamp(), json()),
+                format: combine(timestamp(), json()),
             }),
             new winston.transports.File({
-                filename: this.logFilePath(`${this.moduleName}-info.log`),
-                level: LogLevels.INFO,
-                format: combine(this.infoFilter(), timestamp(), json()),
+                filename: this.logFilePath(`${this.moduleName}-debug.log`),
+                level: LogLevels.DEBUG,
+                format: combine(timestamp(), json()),
             })
         ];
 
@@ -44,7 +41,7 @@ export class LoggerService implements ILoggerService {
                 new winston.transports.File({
                     filename: this.logFilePath(`${this.moduleName}-http.log`),
                     level: LogLevels.HTTP,
-                    format: combine(this.httpFilter(), timestamp(), json()),
+                    format: combine(timestamp(), json()),
                 })
             );
         }
@@ -59,19 +56,6 @@ export class LoggerService implements ILoggerService {
             transports: transports,
         });
     }
-    
-    private errorFilter = winston.format((error) => {
-        return error.level === LogLevels.ERROR ? error : false;
-    });
-
-    private infoFilter = winston.format((info) => {
-        return info.level === LogLevels.INFO ? info : false;
-    });
-
-    private httpFilter = winston.format((http) => {
-        return http.level === LogLevels.HTTP ? http : false;
-    });
-
     private logFilePath = (fileName: string): string => path.join(this.logsDirectory, fileName);
 
     public info(message: string): void {
