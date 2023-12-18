@@ -1,4 +1,4 @@
-import { calculationLogger } from './../log/logger';
+import { calculationLogger } from '@modules/calculation/log/logger';
 import { Request, Response } from "express";
 import { findExpressions } from "../../services/findExpressions/findExpressionsEntry";
 import { ASC } from "../../constants";

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { createCalculation } from "../services/createCalculation";
-import { calculationLogger } from "../log/logger";
+import { createCalculation } from "@modules/calculation/services";
+import { calculationLogger } from "@modules/calculation/log/logger";
 
 export const postCalculationController = async (req: Request, res: Response): Promise<void> => {
   const { expression } = req.body;
