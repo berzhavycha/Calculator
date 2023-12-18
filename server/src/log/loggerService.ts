@@ -26,7 +26,7 @@ export class LoggerService implements ILoggerService {
         const transports: winston.transport[] = [
             new winston.transports.File({
                 filename: this.logFilePath(`${this.moduleName}-warns.log`),
-                level: LogLevels.ERROR,
+                level: LogLevels.WARN,
                 format: combine(timestamp(), json()),
             }),
             new winston.transports.File({
