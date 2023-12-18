@@ -1,0 +1,66 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CalculatorButtons component > matches the snapshot 1`] = `
+<div>
+  <div
+    class="button-container flex flex-col items-end"
+  >
+    <div
+      class="flex mb-4 gap-8"
+    >
+      <button
+        class="p-2 bg-gray-400 text-white rounded hover:bg-gray-500 h-10 w-20"
+        data-calc-btn="C"
+      >
+        C
+      </button>
+      <button
+        class="p-2 bg-gray-400 text-white rounded hover:bg-gray-500 h-10 w-20"
+        data-calc-btn="("
+      >
+        (
+      </button>
+      <button
+        class="p-2 bg-gray-400 text-white rounded hover:bg-gray-500 h-10 w-20"
+        data-calc-btn=")"
+      >
+        )
+      </button>
+      <button
+        class="p-2 bg-gray-400 text-white rounded hover:bg-gray-500 h-10 w-20"
+        data-calc-btn="⌫"
+      >
+        ⌫
+      </button>
+    </div>
+    <div
+      class="flex mb-4 gap-8"
+    >
+      <button
+        class="p-2 bg-indigo-400 text-white rounded hover:bg-blue-700 h-10 w-20"
+        data-calc-btn="."
+      >
+        .
+      </button>
+      <button
+        class="p-2 bg-indigo-400 text-white rounded hover:bg-blue-700 h-10 w-20"
+        data-calc-btn="0"
+      >
+        0
+      </button>
+      <button
+        class="p-2 bg-purple-700 text-white rounded hover:bg-purple-800 h-10 w-20"
+        data-calc-btn="="
+      >
+        =
+      </button>
+      <button
+        class="p-2 bg-green-400 text-white rounded hover:bg-green-500 h-10 w-20"
+        data-calc-btn="undefined"
+      >
+        undefined
+      </button>
+    </div>
+  </div>
+</div>
+`;
