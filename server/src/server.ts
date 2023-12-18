@@ -5,6 +5,7 @@ import { PORT, MONGODB_URL } from "@global";
 import { currentDatabase } from "@database";
 import { modules } from "@modules";
 import { LoggerService } from "@log";
+import { responseLog } from "@utils";
 
 const app = express();
 export const appLogger = new LoggerService('app', './src/log/files/')
@@ -25,18 +26,14 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
 
 modules.get.forEach(({ route, controller }) => {
   app.get(route, (req: Request, res: Response) => {
-    res.on('finish', () => {
-      appLogger.http(`Outgoing Response - Method: ${req.method}, URL: ${req.url}, Status: ${res.statusCode}`);
-    });
+    responseLog(req, res)
     controller(req, res);
   });
 });
 
 modules.post.forEach(({ route, controller }) => {
   app.post(route, (req: Request, res: Response) => {
-    res.on('finish', () => {
-      appLogger.http(`Outgoing Response - Method: ${req.method}, URL: ${req.url}, Status: ${res.statusCode}`);
-    });
+    responseLog(req, res)
     controller(req, res);
   });
 });
