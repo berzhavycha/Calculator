@@ -1,15 +1,17 @@
 import mongoose from "mongoose";
 import { IDatabase } from "@database/interfaces";
+import { appLogger } from "../../../server";
+import { MONGODB_URL } from "@global";
 
 export class MongoDatabase implements IDatabase {
-  public connect(url: string) {
+  public connect() {
     return mongoose
-      .connect(url)
+      .connect(MONGODB_URL)
       .then(() => {
-        console.log("Connected to MongoDB!");
+        appLogger.info("Connected to MongoDB!")
       })
       .catch((error) => {
-        console.log(error);
+        appLogger.error(error)
         throw error;
       });
   }

@@ -1,5 +1,5 @@
-import { SpecialOperators } from "@modules/calculation/calculatorMethods";
 import config from "@config";
+import { SpecialOperators } from "@modules/calculation/calculatorMethods";
 
 const escapedOperators = [...Object.keys(config.operations), ...Object.values(SpecialOperators)]
   .map((operator) => operator.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))

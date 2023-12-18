@@ -1,4 +1,5 @@
 import { database } from './knexDatabase'
+import { appLogger } from '../../../server';
 
 export class BaseKnexModel {
     tableName: string;
@@ -9,7 +10,10 @@ export class BaseKnexModel {
 
     get table() {
         if (!this.tableName) {
-            throw new Error('You must set a table name!');
+            const errorMessage = 'Postgres Knex Base Model Error: You must set a table name!'
+
+            appLogger.error(errorMessage)
+            throw new Error(errorMessage);
         }
         return database(this.tableName);
     }
@@ -21,6 +25,13 @@ export class BaseKnexModel {
     async insert<Payload, Result>(data: Payload): Promise<Result> {
         const [result] = await this.table.insert(data).returning('*');
         return result;
+    }
+
+    async delete<QueryType>(query: QueryType): Promise<void> {
+        if(JSON.stringify(query) === "{}"){
+            await this.table.truncate().returning('*');
+        }
+        await this.table.where(query as string).del().returning('*');
     }
 
     async update<QueryType, Payload, Result>(query: QueryType, data: Payload): Promise<Result | null> {

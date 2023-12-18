@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputExpression component > matches the snapshot 1`] = `
+<div>
+  <input
+    aria-label="expression-input"
+    class="w-full p-2 border rounded outline-none text-right"
+    type="text"
+    value="2 + 2"
+  />
+</div>
+`;

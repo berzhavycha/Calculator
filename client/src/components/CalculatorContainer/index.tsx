@@ -39,7 +39,7 @@ export const CalculatorContainer: React.FC = () => {
           setExpression={setExpression}
           setResult={setResult}
         />}
-        <InputExpression expression={expression} onExpressionChange={setExpression} onEnter={getExpressionResult} />
+        <InputExpression expression={expression} inputName="input-expression" onExpressionChange={setExpression} onEnter={getExpressionResult} />
         <ResultExpression result={result} errorMessage={errorMessage} />
         <CalculatorButtons
           expression={expression}

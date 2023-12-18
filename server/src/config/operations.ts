@@ -5,7 +5,7 @@ import {
   Associativity,
   CalculationMethods,
 } from "@modules/calculation/calculatorMethods/constants";
-import { factorial } from "@modules/calculation/calculatorMethods/factorial";
+import { factorial } from "@modules/calculation/calculatorMethods/utils";
 import { DataBases } from "@database/constants";
 
 export type IOperation = {
@@ -75,7 +75,7 @@ const operations: OperationsType = {
 
 export default Object.freeze({
   operations,
-  calculationMethod: CalculationMethods.REGEX_CALCULATION,
+  calculationMethod: CalculationMethods.POLISH_NOTATION,
   database: DataBases.MONGO_DB,
   modulesConnection: {
     isHistoryEnabled: true

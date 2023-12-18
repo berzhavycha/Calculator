@@ -1,7 +1,7 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from "../constants";
+import { OperatorType, MathOperators, SpecialOperators, Errors, CalculationMethods } from "../constants";
 import { TOKENIZE_REGEX_PATTERN } from "../regex";
 import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from "./processors";
-import { isMathOperator } from "../isMathOperator";
+import { isMathOperator } from "../utils";
 import { OperationsType } from "@config";
 import { reduceAllSpaces } from "@utils";
 
@@ -34,7 +34,7 @@ export class PolishNotation {
     return Object.values(SpecialOperators).includes(token as SpecialOperators);
   }
 
-  private executeOperatorProcessor(
+  public executeOperatorProcessor(
     expressionOperators: string[],
     output: string[],
     token: MathOperators | SpecialOperators,
@@ -43,14 +43,16 @@ export class PolishNotation {
     if (opProcessor) {
       opProcessor.process(expressionOperators, output, token);
     } else {
-      throw new Error("There is no processor for this token!");
+      throw new Error(`There is no processor for this token: ${token}! Method: ${CalculationMethods.POLISH_NOTATION}`);
     }
   }
 
-  private infixToPostfix(expression: string[]): string[] {
+  public infixToPostfix(expression: string[]): string[] {
     const output: string[] = [];
     const expressionOperators: string[] = [];
     let stringOperators: string = "";
+    let leftBracketCount = 0;
+    let rightBracketCount = 0;
 
     expression.forEach((token) => {
       stringOperators += token;
@@ -58,6 +60,14 @@ export class PolishNotation {
       if (!isNaN(parseFloat(token))) {
         output.push(token);
       } else if (isMathOperator(token) || this.isSpecialOperator(token)) {
+        if (token === SpecialOperators.LEFT_BRACKET) {
+          leftBracketCount++;
+        } else if (token === SpecialOperators.RIGHT_BRACKET) {
+          rightBracketCount++;
+          if (rightBracketCount > leftBracketCount) {
+            throw new Error("Mismatched brackets: More right brackets than left brackets");
+          }
+        }
         this.executeOperatorProcessor(expressionOperators, output, token);
         stringOperators = "";
       } else if (isMathOperator(stringOperators)) {
@@ -71,7 +81,7 @@ export class PolishNotation {
     return output;
   }
 
-  private tokenize(expression: string): string[] {
+  public tokenize(expression: string): string[] {
     if (expression.trim() === "") {
       return ["0"];
     }

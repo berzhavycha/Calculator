@@ -1,3 +1,3 @@
-export * from './getExpressionsByParam'
-export * from './getHistoryStatus'
-export * from './postCalculation'
+export * from './getExpressions/getExpressionsByParam'
+export * from './getHistory/getHistoryStatus'
+export * from './postCalculation/postCalculationEntry'
