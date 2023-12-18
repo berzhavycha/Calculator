@@ -101,7 +101,6 @@ describe('mongoModel.int', () => {
             await mongoModel.createAndSaveNewEntry('3+3', 6)
 
             const expressions = await mongoModel.findMany(4, DEFAULT_SORT_FIELD, ASC);
-            console.log(expressions)
             expect(expressions[0].expression).toBe("1+1");
             expect(expressions[expressions.length - 1].expression).toBe("3+3");
         });
@@ -113,7 +112,6 @@ describe('mongoModel.int', () => {
             await mongoModel.createAndSaveNewEntry('3+3', 6)
 
             const expressions = await mongoModel.findMany(4, DEFAULT_SORT_FIELD, DESC);
-            console.log(expressions)
             expect(expressions[0].expression).toBe("3+3");
             expect(expressions[expressions.length - 1].expression).toBe("1+1");
         });
