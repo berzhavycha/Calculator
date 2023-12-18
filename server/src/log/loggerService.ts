@@ -12,13 +12,9 @@ export class LoggerService implements ILoggerService {
     public logsDirectory: string;
     public logger: winston.Logger
 
-    private enableHttpLogging: boolean;
-
-    constructor(moduleName: string, logDirectory: string = 'files', enableHttpLogging: boolean = false) {
+    constructor(moduleName: string, logDirectory: string = 'files') {
         this.moduleName = moduleName;
         this.logsDirectory = path.join(process.cwd(), logDirectory);
-        this.enableHttpLogging = enableHttpLogging;
-
         this.logger = this.createLogger();
     }
 
@@ -35,16 +31,6 @@ export class LoggerService implements ILoggerService {
                 format: combine(timestamp(), json()),
             })
         ];
-
-        if (this.enableHttpLogging) {
-            transports.push(
-                new winston.transports.File({
-                    filename: this.logFilePath(`${this.moduleName}-http.log`),
-                    level: LogLevels.HTTP,
-                    format: combine(timestamp(), json()),
-                })
-            );
-        }
 
         return winston.createLogger({
             defaultMeta: {

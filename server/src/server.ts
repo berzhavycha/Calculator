@@ -7,7 +7,7 @@ import { modules } from "@modules";
 import { LoggerService } from "@log";
 
 const app = express();
-export const appLogger = new LoggerService('app', './src/log/files/', true)
+export const appLogger = new LoggerService('app', './src/log/files/')
 
 app.use(bodyParser.json());
 
