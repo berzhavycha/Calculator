@@ -52,10 +52,12 @@ export const CalculationHistory: React.FC<ICalculationHistoryProps> = React.memo
       await queryBuilder.makeRequest("calculations", "POST", JSON.stringify({
         expression: content,
       }));
+      console.log('Making an optimistic request because of clicking history item:', content);
     } catch (error) {
       setExpression(expressionBeforeUpdate);
       setLastExpressions(lastExpressionsBeforeUpdate)
       setResult('')
+      console.error('Error occurred during optimistic update while clicking history item:', error);
     }
 
     setIsHistoryItemClicked(false)

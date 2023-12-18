@@ -36,12 +36,14 @@ class ApiClient {
       const data = await response.json();
 
       if (!response.ok) {
+        console.error('Request failed with error:', data.message);
         throw new Error(data.message);
       }
 
       return data;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : "Failed to perform request");
+      const errorMessage = `Failed to perform request: ${error instanceof Error ? error.message : 'Unknown error occurred'}`;
+      throw new Error(errorMessage);
     }
   }
 }
