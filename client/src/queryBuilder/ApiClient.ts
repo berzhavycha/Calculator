@@ -31,14 +31,7 @@ class ApiClient {
     }
 
     try {
-      console.log(`Sending ${method} request to: ${url}, Request Headers: `, requestOptions.headers);
-      if (body) {
-        console.log('Request Body:', body);
-      }
-
       const response = await fetch(url, requestOptions);
-
-      console.log(`Received response for ${method} request to: ${url}, Response Status: ${response.status}`);
 
       const data = await response.json();
 
@@ -47,11 +40,9 @@ class ApiClient {
         throw new Error(data.message);
       }
 
-      console.log('Request successful. Response data:', data);
       return data;
     } catch (error) {
       const errorMessage = `Failed to perform request: ${error instanceof Error ? error.message : 'Unknown error occurred'}`;
-      console.error(errorMessage);
       throw new Error(errorMessage);
     }
   }

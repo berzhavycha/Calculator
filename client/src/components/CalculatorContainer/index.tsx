@@ -13,6 +13,7 @@ export const CalculatorContainer: React.FC = () => {
   const getExpressionResult = useGetExpressionResult({ expression, setResult, setErrorMessage });
 
   const isHistoryModuleEnabled = useFetchModuleStatus('calculations')
+  console.log('isHistoryModuleEnabled: ', isHistoryModuleEnabled)
 
   const adjustCalculatorWidth = useCallback((increaseWidthBy: number): void => {
     const container = calculatorContainerRef.current;
