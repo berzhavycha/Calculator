@@ -19,7 +19,7 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((req: Request, _res: Response, next: NextFunction) => {
-  appLogger.http(`Incoming Request - Method: ${req.method}, URL: ${req.url} ${req.body ? JSON.stringify(req.body): ''}`);
+  appLogger.http(`Incoming Request - Method: ${req.method}, URL: ${req.url} ${req.body ? `BODY: ${JSON.stringify(req.body)}` : ''}`);
   next();
 });
 
