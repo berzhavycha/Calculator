@@ -1,6 +1,7 @@
 import { POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER } from '@global';
 import { Pool, PoolClient } from 'pg';
 import { IDatabase } from '@database/interfaces';
+import { appLogger } from '../../../server';
 
 export class PostgresDatabase implements IDatabase {
   private pool: Pool | null = null;
@@ -17,12 +18,14 @@ export class PostgresDatabase implements IDatabase {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async connect(_url: string): Promise<void> {
     if (!this.pool) {
-      throw new Error('Database pool not initialized.');
+      const errorMessage = 'Postgres Connection Error: Database pool not initialized.'
+      appLogger.error(errorMessage)
+      throw new Error(errorMessage);
     }
 
     const client: PoolClient = await this.pool.connect();
-    console.log('Connected to PostgreSQL!');
-    
+    appLogger.info('Connected to PostgreSQL!')
+
     client.release(); 
   }
 }

@@ -17,6 +17,7 @@ module.exports = {
             '@modules': path.resolve(__dirname, 'src/modules/'),
             '@utils': path.resolve(__dirname, 'src/utils/'),
             '@global': path.resolve(__dirname, 'src/global/'),
+            '@log': path.resolve(__dirname, 'src/log/'),
         }
     },
     module: {

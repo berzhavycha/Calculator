@@ -1,4 +1,4 @@
-import { OperatorType, MathOperators, SpecialOperators, Errors } from "../constants";
+import { OperatorType, MathOperators, SpecialOperators, Errors, CalculationMethods } from "../constants";
 import { TOKENIZE_REGEX_PATTERN } from "../regex";
 import { LeftBracketProcessor, RightBracketProcessor, IOperatorProcessor, OperatorProcessor } from "./processors";
 import { isMathOperator } from "../isMathOperator";
@@ -43,7 +43,7 @@ export class PolishNotation {
     if (opProcessor) {
       opProcessor.process(expressionOperators, output, token);
     } else {
-      throw new Error("There is no processor for this token!");
+      throw new Error(`There is no processor for this token: ${token}! Method: ${CalculationMethods.POLISH_NOTATION}`);
     }
   }
 

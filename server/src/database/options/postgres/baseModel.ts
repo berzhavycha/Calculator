@@ -1,4 +1,5 @@
 import { database } from './knexDatabase'
+import { appLogger } from '../../../server';
 
 export class BaseKnexModel {
     tableName: string;
@@ -9,7 +10,10 @@ export class BaseKnexModel {
 
     get table() {
         if (!this.tableName) {
-            throw new Error('You must set a table name!');
+            const errorMessage = 'Postgres Knex Base Model Error: You must set a table name!'
+
+            appLogger.error(errorMessage)
+            throw new Error(errorMessage);
         }
         return database(this.tableName);
     }
