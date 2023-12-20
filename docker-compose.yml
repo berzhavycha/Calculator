@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  client:
+    env_file:
+      - ./client/.env 
+  
+  server:
+    env_file:
+      - ./server/.env 
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  postgres:
+    image: postgres
+    ports:
+      - 5433:5433
+    environment:
+      POSTGRES_PASSWORD: pa55word_to_postgre5Ql
