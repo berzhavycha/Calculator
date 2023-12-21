@@ -1,15 +1,52 @@
+version: '3.8' 
+
 services:
   client:
-    build: 
+    build:
       context: ./client
-      dockerfile: ./Dockerfile.prod
-    ports:
-      - "3000:80"
+      dockerfile: ./Dockerfile
+      target: production 
+    env_file:
+      - ./client/.env
 
   server:
-    build: 
+    build:
       context: ./server
-      dockerfile: ./Dockerfile.prod
+      dockerfile: ./Dockerfile
+      target: production 
     ports:
       - "4000:4000"
-   
+    env_file:
+      - ./server/.env
+
+  nginx:
+    build:
+      context: ./client 
+      dockerfile: ./Dockerfile
+      target: nginx  
+    ports:
+      - "3000:80"
+    depends_on:
+      - client 
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/mongodb-data:/data/db
+      - ./server/src/database/options/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+  postgres:
+    image: postgres
+    ports:
+      - 5433:5433
+    environment:
+      POSTGRES_PASSWORD: pa55word_to_postgre5Ql
+    volumes: 
+      - '~/postgresdb-data:/var/lib/postgresql/data'
+      - ./server/src/database/options/postgres/init-script.sql:/docker-entrypoint-initdb.d/create-tables.sql
+
+volumes:
+  mongodb-data:
+  postgresdb-data:
