@@ -35,7 +35,6 @@ services:
       - 27017:27017
     volumes:
       - ~/mongodb-data:/data/db
-      - ./server/src/database/options/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 
   postgres:
     image: postgres
@@ -45,7 +44,6 @@ services:
       POSTGRES_PASSWORD: pa55word_to_postgre5Ql
     volumes: 
       - '~/postgresdb-data:/var/lib/postgresql/data'
-      - ./server/src/database/options/postgres/init-script.sql:/docker-entrypoint-initdb.d/create-tables.sql
 
 volumes:
   mongodb-data:

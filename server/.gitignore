@@ -4,5 +4,3 @@ build/index.js
 dist/index.js
 *.log
 log/
-mongo-init.js
-init-script.sql

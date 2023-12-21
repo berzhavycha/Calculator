@@ -9,7 +9,7 @@ CMD ["npm", "run", "dev"]
 FROM node:16-alpine AS production
 WORKDIR /app
 COPY package*.json ./
-RUN npm install 
+RUN npm ci
 COPY . .
 EXPOSE 4000
 RUN npm run build

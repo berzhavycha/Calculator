@@ -27,7 +27,6 @@ services:
       - 27017:27017
     volumes:
       - mongodb-data:/data/db
-      - ./server/src/database/options/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 
   postgres:
     image: postgres
