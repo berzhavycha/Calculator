@@ -9,6 +9,8 @@ services:
     volumes: 
       - ./client:/app
       - /app/node_modules
+    env_file:
+      - ./client/.env
 
   server:
     build: 
@@ -20,6 +22,10 @@ services:
     volumes: 
       - ./server:/app
       - /app/node_modules
+    env_file:
+      - ./server/.env
+    command: sh -c 'echo "Running migrations..." && npx knex migrate:latest --knexfile /app/src/database/options/postgres/knexfile.ts && echo "Migrations complete." && npm run dev'
+
 
   mongo:
     image: mongo
@@ -31,13 +37,15 @@ services:
   postgres:
     image: postgres
     ports:
-      - 5433:5433
+      - 5433:5432
     environment:
       POSTGRES_PASSWORD: pa55word_to_postgre5Ql
     volumes: 
       - 'postgresdb-data:/var/lib/postgresql/data'
       - ./server/src/database/options/postgres/init-script.sql:/docker-entrypoint-initdb.d/create-tables.sql
-
+    depends_on:
+      - server
+    
 volumes:
   mongodb-data:
   postgresdb-data:

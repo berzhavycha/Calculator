@@ -1,13 +1,5 @@
 CREATE USER calculator_user WITH PASSWORD 'calculator_user_password';
-
-CREATE DATABASE calculatordb;
-GRANT ALL PRIVILEGES ON DATABASE calculatordb TO calculator_user;
-
-\c calculatordb;
-
-CREATE TABLE IF NOT EXISTS calculation_expression (
-  id SERIAL PRIMARY KEY,
-  expression VARCHAR(255) NOT NULL,
-  result INTEGER NOT NULL,
-  last_request_at TIMESTAMP NOT NULL
-)
+CREATE DATABASE calculator_db;
+ALTER DATABASE calculator_db OWNER TO calculator_user;
+ALTER DATABASE calculator_db OWNER TO postgres;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO calculator_user;
