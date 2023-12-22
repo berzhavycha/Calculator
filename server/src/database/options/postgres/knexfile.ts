@@ -28,7 +28,7 @@ const config: Record<string, Knex.Config> = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: '../../../modules/calculation/models/postgres/migrations'
+      directory: './migrations'
     }
   },
   development: {
@@ -40,7 +40,7 @@ const config: Record<string, Knex.Config> = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: '../../../modules/calculation/models/postgres/migrations'
+      directory: './migrations'
     }
   },
 };
