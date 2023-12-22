@@ -1,5 +1,8 @@
 import { Knex } from 'knex';
+import dotenv from 'dotenv'
+dotenv.config({ path: "../../../../.env" });
 import { POSTGRES_DB, POSTGRES_KNEX_MAX_POOL, POSTGRES_HOST, POSTGRES_KNEX_MIN_POOL, POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_TEST_DB, POSTGRES_TEST_USER, POSTGRES_TEST_PASSWORD } from '@global';
+
 
 const testConnection: Knex.ConnectionConfig = {
   host: POSTGRES_HOST,
@@ -25,7 +28,7 @@ const config: Record<string, Knex.Config> = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: './src/modules/calculation/models/postgres/migrations'
+      directory: './migrations'
     }
   },
   development: {
@@ -37,7 +40,7 @@ const config: Record<string, Knex.Config> = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: './src/modules/calculation/models/postgres/migrations'
+      directory: './migrations'
     }
   },
 };
