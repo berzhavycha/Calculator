@@ -8,6 +8,9 @@ Welcome to the calculator! This calculator is a versatile and user-friendly tool
 - [Usage](#usage)
   - [Installation](#installation)
   - [Commands](#commands)
+- [Building Docker Containers](#building-docker-containers)
+  - [Development Mode](#development-mode)
+  - [Production Mode](#production-mode)
 - [Development](#development)
   - [Pre-Requisites](#pre-requisites)
   - [File Structure](#file-structure)
@@ -50,17 +53,17 @@ Make sure you have looked to the .env.example file in both client and server and
 ### Development Mode
 
 Steps to Build Docker Container in Development Mode using docker-compose:
-1. Navigate to the project directory:
+1. Navigate to the project directory: <br/>
 \$ cd calculator
-2. Build and run docker containers using docker-compose:
+2. Build and run docker containers using docker-compose: <br/>
 \$ docker-compose -f docker-compose-dev.yml up --build -d
 
-### Development Mode
+### Production Mode
 
 Steps to Build Docker Container in Production Mode using docker-compose:
-1. Navigate to the project directory:
+1. Navigate to the project directory: <br/>
 \$ cd calculator
-2. Build and run docker containers using docker-compose:
+2. Build and run docker containers using docker-compose: <br/>
 \$ docker-compose -f docker-compose-prod.yml up --build -d
 
 
