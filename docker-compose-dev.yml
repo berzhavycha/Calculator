@@ -26,7 +26,6 @@ services:
       - ./server/.env
     command: sh -c 'echo "Running migrations..." && npx knex migrate:latest --knexfile /app/src/database/options/postgres/knexfile.ts && echo "Migrations complete." && npm run dev'
 
-
   mongo:
     image: mongo
     ports:

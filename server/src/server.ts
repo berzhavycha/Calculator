@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
-import "module-alias/register";
 import { PORT } from "@global";
 import { currentDatabase } from "@database";
 import { modules } from "@modules";

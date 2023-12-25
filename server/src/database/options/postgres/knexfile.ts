@@ -27,7 +27,6 @@ const config: Record<string, Knex.Config> = {
       max: +POSTGRES_KNEX_MAX_POOL,
     },
     migrations: {
-      tableName: 'knex_migrations',
       directory: './migrations'
     }
   },
@@ -39,7 +38,6 @@ const config: Record<string, Knex.Config> = {
       max: +POSTGRES_KNEX_MAX_POOL,
     },
     migrations: {
-      tableName: 'knex_migrations',
       directory: './migrations'
     }
   },

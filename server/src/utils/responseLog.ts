@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { appLogger } from "src/server";
+import { appLogger } from "../server";
 
 export const responseLog = (req: Request, res: Response) => {
     res.on('finish', () => {
