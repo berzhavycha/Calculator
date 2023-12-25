@@ -76,7 +76,7 @@ const operations: OperationsType = {
 export default Object.freeze({
   operations,
   calculationMethod: CalculationMethods.POLISH_NOTATION,
-  database: DataBases.MONGO_DB,
+  database: DataBases.POSTGRE_SQL,
   modulesConnection: {
     isHistoryEnabled: true
   }
