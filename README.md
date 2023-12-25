@@ -42,6 +42,28 @@ To use the calculator, follow these installation steps:
 
 Make sure you have looked to the .env.example file in both client and server and assigned in your .env file in both client and server values for each of the environment variable.
 
+## Building Docker Containers
+
+- Pre-Requisites
+1. Docker Desktop installed on your machine.
+
+### Development Mode
+
+Steps to Build Docker Container in Development Mode using docker-compose:
+1. Navigate to the project directory:
+\$ cd calculator
+2. Build and run docker containers using docker-compose:
+\$ docker-compose -f docker-compose-dev.yml up --build -d
+
+### Development Mode
+
+Steps to Build Docker Container in Production Mode using docker-compose:
+1. Navigate to the project directory:
+\$ cd calculator
+2. Build and run docker containers using docker-compose:
+\$ docker-compose -f docker-compose-prod.yml up --build -d
+
+
 ## Development
 
 ### Pre-Requisites
@@ -52,22 +74,29 @@ Before you start developing for calculator, make sure you have the following too
 ### File Structure
 ```
 ├───client
+|      ├───.jest
+|      ├───docker
 |      ├───public
 |      └───src
 |           ├───components
 |           ├───context
+|           ├───global
+|           ├───hooks
 |           ├───queryBuilder
 |           ├───App.tsx
 |           └───main.tsx
-└───server
-       ├───build
-       └───src
-            ├───config
-            ├───database
-            ├───models
-            ├───modules
-            ├───utils
-            └───server.ts
+├───server
+|       ├───dist
+|       └───src
+|            ├───config
+|            ├───database
+|            ├───global
+|            ├───log
+|            ├───modules
+|            ├───utils
+|            └───server.ts
+├───docker-compose-dev.yml
+└───docker-compose-prod.yml
 ```
 
 
