@@ -1,1 +1,1 @@
-export * from "./operations/index";
+export * from "./OperationsProvider";

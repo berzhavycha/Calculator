@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { queryBuilder } from "@queryBuilder";
-import { OperationsType } from "../OperationsProvider";
+import { OperationsType } from "..";
 
 export const useFetchOperations = (): OperationsType => {
   const [operations, setOperations] = useState<OperationsType>({});
