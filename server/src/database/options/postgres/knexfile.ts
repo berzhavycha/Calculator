@@ -40,7 +40,7 @@ const config: Record<string, Knex.Config> = {
     migrations: {
       directory: './migrations'
     }
-  },
+  }
 };
 
 export default config

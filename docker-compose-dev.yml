@@ -24,6 +24,9 @@ services:
       - /app/node_modules
     env_file:
       - ./server/.env
+    environment: 
+      POSTGRES_PASSWORD: calculator_user_password
+      POSTGRES_HOST: postgres
     command: sh -c 'echo "Running migrations..." && npx knex migrate:latest --knexfile /app/src/database/options/postgres/knexfile.ts && echo "Migrations complete." && npm run dev'
 
   mongo:
@@ -37,8 +40,6 @@ services:
     image: postgres
     ports:
       - 5433:5432
-    environment:
-      POSTGRES_PASSWORD: pa55word_to_postgre5Ql
     volumes: 
       - 'postgresdb-data:/var/lib/postgresql/data'
       - ./server/src/database/options/postgres/init-script.sql:/docker-entrypoint-initdb.d/create-tables.sql

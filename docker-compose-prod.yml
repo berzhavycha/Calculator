@@ -18,6 +18,7 @@ services:
       - "4000:4000"
     env_file:
       - ./server/.env
+    network_mode: "host"
 
   nginx:
     build:
@@ -39,7 +40,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - 5433:5433
+      - 5433:5432
     environment:
       POSTGRES_PASSWORD: pa55word_to_postgre5Ql
     volumes: 
