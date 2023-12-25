@@ -1,6 +1,5 @@
 node_modules
 .env
-build/index.js
-dist/index.js
+dist
 *.log
 log/
