@@ -3,7 +3,7 @@ import { ASC, DESC } from '../constants'
 export interface IExpression {
     expression: string;
     result: number;
-    last_request_at: Date;
+    lastRequestAt: Date;
 }
 
 export type Sort = typeof ASC | typeof DESC

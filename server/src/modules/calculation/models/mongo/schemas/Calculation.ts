@@ -9,10 +9,10 @@ const CalculationSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  last_request_at: {
+  lastRequestAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-export const Calculation = mongoose.model("Calculation", CalculationSchema);
+export const CalculationHistory = mongoose.model("CalculationHistory", CalculationSchema);

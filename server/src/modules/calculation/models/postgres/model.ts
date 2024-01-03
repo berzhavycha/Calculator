@@ -8,7 +8,7 @@ export class PostgresCalculationModel extends BaseKnexModel implements ICalculat
     }
 
     public async createAndSaveNewEntry(expression: string, result: number): Promise<void> {
-        await this.insert<IExpression, void>({ expression, result, last_request_at: new Date() });
+        await this.insert<IExpression, void>({ expression, result, lastRequestAt: new Date() });
     }
 
     public async findOne(query: Partial<IExpression>): Promise<IExpression | null> {
@@ -36,7 +36,7 @@ export class PostgresCalculationModel extends BaseKnexModel implements ICalculat
         return results.map((row: IExpression) => ({
             expression: row.expression,
             result: row.result,
-            last_request_at: row.last_request_at,
+            lastRequestAt: row.lastRequestAt,
         }));
     }
 }
