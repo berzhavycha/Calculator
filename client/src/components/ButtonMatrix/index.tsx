@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { buttonClasses } from "@components";
 import { IButtonData } from "@components/CalculatorContainer/components/CalculatorButtons/hooks";
 
@@ -7,7 +8,7 @@ interface IButtonMatrixProps {
   onButtonClick: (button: IButtonData) => void;
 }
 
-export const ButtonMatrix: React.FC<IButtonMatrixProps> = ({ buttonMatrix, lastButtonRef, onButtonClick }) => {
+export const ButtonMatrix: FC<IButtonMatrixProps> = ({ buttonMatrix, lastButtonRef, onButtonClick }) => {
   return (
     <div className="button-container flex flex-col items-end">
       {buttonMatrix.map((row, idx) => {

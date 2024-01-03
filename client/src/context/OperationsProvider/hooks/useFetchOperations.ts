@@ -8,7 +8,7 @@ export const useFetchOperations = (): OperationsType => {
   useEffect(() => {
     const fetchOperations = async () => {
       try {
-        const data = await queryBuilder.makeRequest<OperationsType>("operations", "GET");
+        const data = await queryBuilder.makeRequest<OperationsType>("operations");
         setOperations(data);
       } catch (error) {
         setOperations({});

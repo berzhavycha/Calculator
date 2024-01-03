@@ -11,7 +11,7 @@ export const useFetchModuleStatus = (module: string): boolean => {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const data = await queryBuilder.makeRequest<IResponse>(`${module}/status`, "GET");
+        const data = await queryBuilder.makeRequest<IResponse>(`${module}/status`);
         setIsModuleEnabled(data.isEnabled)
       } catch (error) {
         setIsModuleEnabled(false)
@@ -19,7 +19,7 @@ export const useFetchModuleStatus = (module: string): boolean => {
     };
 
     fetchStatus();
-  }, []);
+  }, [module]);
 
   return isModuleEnabled
 };

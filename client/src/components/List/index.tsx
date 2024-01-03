@@ -7,7 +7,7 @@ interface IListProps<T, K extends keyof T> {
 }
 
 export const List = <T, K extends keyof T>({ items, contentKey, onItemClick }: IListProps<T, K>): JSX.Element => {
-  const handleItemClick = (content: string): void => {
+  const itemClickHandler = (content: string): void => {
     onItemClick(content);
   };
 
@@ -15,7 +15,7 @@ export const List = <T, K extends keyof T>({ items, contentKey, onItemClick }: I
     <div className="bg-gray-100 mb-6 p-2 pb-0.5 rounded-md shadow-md">
       <ul>
         {items.map((item, index) => (
-          <ListItem key={index} content={String(item[contentKey])} onItemClick={handleItemClick} />
+          <ListItem key={index} content={String(item[contentKey])} onItemClick={itemClickHandler} />
         ))}
       </ul>
     </div>

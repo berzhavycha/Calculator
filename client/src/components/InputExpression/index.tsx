@@ -1,4 +1,4 @@
-import React from "react";
+import {FC, memo} from "react";
 import { ENTER_CALCULATE_BUTTON } from "@components";
 
 interface IInputExpressionProps {
@@ -8,7 +8,7 @@ interface IInputExpressionProps {
   onEnter: () => void;
 }
 
-export const InputExpression: React.FC<IInputExpressionProps> = React.memo(({ expression, inputName, onExpressionChange, onEnter }) => {
+export const InputExpression: FC<IInputExpressionProps> = memo(({ expression, inputName, onExpressionChange, onEnter }) => {
   const onKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ENTER_CALCULATE_BUTTON) {
       onEnter();

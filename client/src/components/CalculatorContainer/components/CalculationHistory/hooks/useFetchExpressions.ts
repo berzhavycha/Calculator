@@ -20,7 +20,6 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
       try {
         const data = await queryBuilder.makeRequest<IResponse[]>(
           `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
-          "GET",
         );
 
         setLastExpressions([...data].reverse());
@@ -29,7 +28,7 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
       }
     };
     fetchOperations();
-  }, []);
+  }, [setLastExpressions]);
 
   useEffect(() => {
     if (result && !isHistoryItemClicked) {
@@ -42,6 +41,6 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
         return updatedExpressions
       });
     }
-  }, [result]);
+  }, [expression, isHistoryItemClicked, result, setLastExpressions]);
 
 };

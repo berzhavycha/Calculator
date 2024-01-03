@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import { FC, createContext, useContext, PropsWithChildren } from "react";
 import { useFetchOperations } from "./hooks";
 
 export type IOperation = {
@@ -10,17 +10,13 @@ export type IOperation = {
 
 export type OperationsType = Record<string, IOperation>;
 
-interface IProviderProps {
-  children: React.ReactNode;
-}
-
 const OperationsContext = createContext<OperationsType>({});
 
 const useOperations = (): OperationsType => {
   return useContext(OperationsContext);
 };
 
-const OperationsProvider: React.FC<IProviderProps> = ({ children }) => {
+const OperationsProvider: FC<PropsWithChildren> = ({ children }) => {
   const operations = useFetchOperations();
 
   return <OperationsContext.Provider value={operations}>{children}</OperationsContext.Provider>;

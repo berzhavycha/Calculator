@@ -1,10 +1,10 @@
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, FC } from "react";
 import { InputExpression } from "@components";
 import { useGetExpressionResult } from "./hooks";
 import { CalculatorButtons, ResultExpression, CalculationHistory } from './components'
 import { useFetchModuleStatus } from "@hooks";
 
-export const CalculatorContainer: React.FC = () => {
+export const CalculatorContainer: FC = () => {
   const [expression, setExpression] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -13,7 +13,6 @@ export const CalculatorContainer: React.FC = () => {
   const getExpressionResult = useGetExpressionResult({ expression, setResult, setErrorMessage });
 
   const isHistoryModuleEnabled = useFetchModuleStatus('calculations')
-  console.log('isHistoryModuleEnabled: ', isHistoryModuleEnabled)
 
   const adjustCalculatorWidth = useCallback((increaseWidthBy: number): void => {
     const container = calculatorContainerRef.current;
