@@ -25,6 +25,11 @@ describe('BaseKnexModel', () => {
     });
 
     describe('all', () => {
+        it('should return empty array for all when no data is present', async () => {
+            const allData = await baseModel.all();
+            expect(allData).toHaveLength(0);
+        });
+
         it('should return data from the database', async () => {
             const dataToInsert = [
                 { id: 1, expression: '1+2', result: 3, last_request_at: new Date() },
@@ -38,13 +43,6 @@ describe('BaseKnexModel', () => {
 
             const allData = await baseModel.all();
             expect(allData).toEqual(dataToInsert);
-        });
-
-        it('should return empty array for all when no data is present', async () => {
-            await baseModel.delete({});
-
-            const allData = await baseModel.all();
-            expect(allData).toHaveLength(0);
         });
     })
 
