@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IDatabase } from "@database/interfaces";
-import { appLogger } from "../../../server";
 import { MONGODB_URL } from "@global";
+import { appLogger } from "@log";
 
 export class MongoDatabase implements IDatabase {
   public connect() {
