@@ -1,3 +1,5 @@
+import { DataBases } from "@database";
+import { CalculationMethods } from "@modules/calculation/calculatorMethods";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env" });
@@ -20,3 +22,7 @@ export const POSTGRES_KNEX_MIN_POOL = process.env.POSTGRES_KNEX_MIN_POOL as stri
 export const POSTGRES_KNEX_MAX_POOL = process.env.POSTGRES_KNEX_MAX_POOL as string
 
 export const LOG_LEVEL = process.env.LOG_LEVEL as string
+
+export const DATABASE = process.env.DATABASE as DataBases
+export const CALCULATION_METHOD = process.env.CALCULATION_METHOD as CalculationMethods
+export const HISTORY_ENABLED = process.env.HISTORY_ENABLED === 'true'
