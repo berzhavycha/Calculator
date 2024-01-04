@@ -1,7 +1,7 @@
 import { BaseKnexModel } from '../baseModel';
 import { PoolClient } from 'pg';
 import { mockPool } from '../../../constants';
-import { POSTGRES_CALCULATION_COLLECTION } from '@global';
+import { POSTGRES_CALCULATION_HISTORY_COLLECTION } from '@global';
 
 describe('BaseKnexModel', () => {
     let baseModel: BaseKnexModel;
@@ -9,12 +9,12 @@ describe('BaseKnexModel', () => {
 
     beforeAll(async () => {
         client = await mockPool.connect();
-        baseModel = new BaseKnexModel(POSTGRES_CALCULATION_COLLECTION);
+        baseModel = new BaseKnexModel(POSTGRES_CALCULATION_HISTORY_COLLECTION);
     });
 
     afterEach(async () => {
         try {
-            await client.query(`TRUNCATE TABLE ${POSTGRES_CALCULATION_COLLECTION} RESTART IDENTITY;`);
+            await client.query(`TRUNCATE TABLE ${POSTGRES_CALCULATION_HISTORY_COLLECTION} RESTART IDENTITY;`);
         } catch (error) {
             console.error('Error truncating table:', error);
         }
@@ -32,9 +32,9 @@ describe('BaseKnexModel', () => {
 
         it('should return data from the database', async () => {
             const dataToInsert = [
-                { id: 1, expression: '1+2', result: 3, last_request_at: new Date() },
-                { id: 2, expression: '3+4', result: 7, last_request_at: new Date() },
-                { id: 3, expression: '3+8', result: 11, last_request_at: new Date() }
+                { id: 1, expression: '1+2', result: 3, lastRequestAt: new Date() },
+                { id: 2, expression: '3+4', result: 7, lastRequestAt: new Date() },
+                { id: 3, expression: '3+8', result: 11, lastRequestAt: new Date() }
             ];
 
             dataToInsert.forEach(async (data) => {
@@ -48,7 +48,7 @@ describe('BaseKnexModel', () => {
 
     describe('insert', () => {
         it('should insert data into the table', async () => {
-            const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
+            const dataToInsert = { expression: '1+2', result: 3, lastRequestAt: new Date() };
             const insertedData = await baseModel.insert(dataToInsert);
             expect(insertedData).toMatchObject(dataToInsert);
         });
@@ -56,7 +56,7 @@ describe('BaseKnexModel', () => {
 
     describe('delete', () => {
         it('should delete data from the table', async () => {
-            const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
+            const dataToInsert = { expression: '1+2', result: 3, lastRequestAt: new Date() };
             await baseModel.insert(dataToInsert);
 
             await baseModel.delete({ expression: '1+2' });
@@ -68,10 +68,10 @@ describe('BaseKnexModel', () => {
 
     describe('update', () => {
         it('should update data in the table', async () => {
-            const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
+            const dataToInsert = { expression: '1+2', result: 3, lastRequestAt: new Date() };
             await baseModel.insert(dataToInsert);
 
-            const updatedData = { last_request_at: new Date() }
+            const updatedData = { lastRequestAt: new Date() }
             await baseModel.update({ expression: '1+2' }, updatedData);
 
             const foundEntry = await baseModel.findBy({ expression: '1+2' });
@@ -79,7 +79,7 @@ describe('BaseKnexModel', () => {
         });
 
         it('shouldn`t update data in the table if it doesn`t exist', async () => {
-            const updatedData = { last_request_at: new Date() }
+            const updatedData = { lastRequestAt: new Date() }
             await baseModel.update({ expression: '1+2' }, updatedData);
 
             const foundEntry = await baseModel.findBy({ expression: '1+2' });
@@ -89,7 +89,7 @@ describe('BaseKnexModel', () => {
 
     describe('findBy', () => {
         it('should find data in the table', async () => {
-            const dataToInsert = { expression: '1+2', result: 3, last_request_at: new Date() };
+            const dataToInsert = { expression: '1+2', result: 3, lastRequestAt: new Date() };
             await baseModel.insert(dataToInsert);
 
             const foundEntry = await baseModel.findBy({ expression: '1+2' });
