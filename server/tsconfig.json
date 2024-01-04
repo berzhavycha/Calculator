@@ -43,13 +43,7 @@
             ],
             "@global/*": [
                 "./src/global/*"
-            ],
-            "@log": [
-                "./src/log/index.ts"
-            ],
-            "@log/*": [
-                "./src/log/*"
-            ],
+            ]
         },
         "target": "es2017",
         "module": "commonjs",

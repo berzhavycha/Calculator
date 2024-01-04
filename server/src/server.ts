@@ -3,8 +3,8 @@ import bodyParser from "body-parser";
 import { PORT } from "@global";
 import { currentDatabase } from "@database";
 import { modules } from "@modules";
-import { responseLog } from "@utils";
-import { appLogger } from "@log";
+import { appLogger } from "@modules/log";
+import { responseLog } from "@modules/log";
 
 export const app = express();
 
