@@ -3,7 +3,7 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import { modelsOptions } from '../modelsOptions';
 import { ASC, DEFAULT_SORT_FIELD, DESC } from '@modules/calculationHistory/constants';
 import { DataBases } from '@database';
-import { CalculationHistory } from './schemas/Calculation';
+import { CalculationHistory } from './schemas/CalculationHistory';
 
 describe('mongoModel.int', () => {
     const mongoModel = modelsOptions[DataBases.MONGO_DB];

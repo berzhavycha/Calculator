@@ -3,7 +3,7 @@ import { modelsOptions } from '../modelsOptions';
 import { ASC, DEFAULT_SORT_FIELD, DESC } from '@modules/calculationHistory/constants';
 import { PoolClient } from 'pg';
 import { DataBases } from '@database';
-import { POSTGRES_CALCULATION_COLLECTION } from '@global';
+import { POSTGRES_CALCULATION_HISTORY_COLLECTION  } from '@global';
 
 describe('postgresModel.int', () => {
     const postgresModel = modelsOptions[DataBases.POSTGRE_SQL];
@@ -17,7 +17,7 @@ describe('postgresModel.int', () => {
 
     afterEach(async () => {
         try {
-            await client.query(`TRUNCATE TABLE ${POSTGRES_CALCULATION_COLLECTION} RESTART IDENTITY;`);
+            await client.query(`TRUNCATE TABLE ${POSTGRES_CALCULATION_HISTORY_COLLECTION} RESTART IDENTITY;`);
         } catch (error) {
             console.error('Error truncating table:', error);
         }

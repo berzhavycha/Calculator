@@ -1,4 +1,4 @@
-import { CalculationHistory } from "./schemas/Calculation";
+import { CalculationHistory } from "./schemas/CalculationHistory";
 import { IExpression, ICalculationHistoryModel, Sort } from "../interfaces";
 
 type SortCriteria = { [key: string]: Sort };
@@ -32,13 +32,13 @@ export class MongoCalculationHistoryModel implements ICalculationHistoryModel {
       sortCriteria[sortField] = sortOrder;
 
       resultExpressions = await CalculationHistory.find({})
-        .select('expression result')
+        .select('expression result lastRequestAt')
         .sort(sortCriteria)
         .limit(limit)
         .exec();
     } else {
       resultExpressions = await CalculationHistory.find({})
-        .select('expression result')
+        .select('expression result lastRequestAt')
         .limit(limit)
         .exec();
     }

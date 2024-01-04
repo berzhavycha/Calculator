@@ -1,4 +1,4 @@
-import { createCalculationHistory } from "./createCalculationHistoryEntry";
+import { createCalculationHistoryEntry } from "./createCalculationHistoryEntry";
 import { calculationHistoryModel } from "../../models";
 
 describe('createCalculationEntry', () => {
@@ -11,7 +11,7 @@ describe('createCalculationEntry', () => {
         calculationHistoryModel.createAndSaveNewEntry = jest.fn().mockResolvedValue(10);
         calculationHistoryModel.updateEntry = jest.fn()
 
-        const result = await createCalculationHistory('5*2');
+        const result = await createCalculationHistoryEntry('5*2');
 
         expect(result).toEqual(10);
         expect(calculationHistoryModel.createAndSaveNewEntry).toHaveBeenCalledWith('5*2', 10);
@@ -23,7 +23,7 @@ describe('createCalculationEntry', () => {
         calculationHistoryModel.createAndSaveNewEntry = jest.fn();
         calculationHistoryModel.updateEntry = jest.fn()
 
-        const result = await createCalculationHistory('5*2');
+        const result = await createCalculationHistoryEntry('5*2');
 
         expect(result).toEqual(10);
         expect(calculationHistoryModel.createAndSaveNewEntry).not.toHaveBeenCalled();

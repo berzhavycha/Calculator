@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../../../server';
 
-describe('postCalculationController', () => {
+describe('postCalculationHistoryController', () => {
     it('should create calculation and return result', async () => {
         const response = await request(app)
             .post('/calculations')

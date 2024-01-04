@@ -1,13 +1,13 @@
 import { calculationHistoryModel } from "../../models";
 import { calculationProcessor } from "../../calculatorMethods";
 
-export const createCalculationHistory = async (expression: string): Promise<number> => {
+export const createCalculationHistoryEntry = async (expression: string): Promise<number> => {
   let result;
-  const cachedCalculationHistory = await calculationHistoryModel.findOne({ expression });
+  const cachedCalculationHistoryEntry = await calculationHistoryModel.findOne({ expression });
 
-  if (cachedCalculationHistory) {
+  if (cachedCalculationHistoryEntry) {
     await calculationHistoryModel.updateEntry({ expression }, { lastRequestAt: new Date() })
-    result = cachedCalculationHistory.result;
+    result = cachedCalculationHistoryEntry.result;
   } else {
     result = calculationProcessor.evaluate(expression);
     calculationHistoryModel.createAndSaveNewEntry(expression, result);

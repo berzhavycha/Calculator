@@ -1,18 +1,18 @@
 import request from 'supertest';
-import { app } from '../../../../server'; 
+import { app } from '../../../../server';
 import { findExpressions } from '../../services/findExpressions/findExpressionsEntry';
 import { ASC, DEFAULT_LIMIT_NUMBER, DESC } from '../../constants';
 
 jest.mock('../../services/findExpressions/findExpressionsEntry.ts');
 
 describe('getExpressionByParam.unit controller', () => {
- 
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it('should return expressions with limit and ascending order', async () => {
-    const mockExpressions = [{ expression: '1+2', result: 3 }, {expression: '2*2', result: 4}];
+    const mockExpressions = [{ expression: '1+2', result: 3 }, { expression: '2*2', result: 4 }];
 
     (findExpressions as jest.Mock).mockResolvedValue(mockExpressions);
 
@@ -24,7 +24,7 @@ describe('getExpressionByParam.unit controller', () => {
   });
 
   it('should return expressions with limit and descending order', async () => {
-    const mockExpressions = [{ expression: '1+2', result: 3 }, {expression: '2*2', result: 4}];
+    const mockExpressions = [{ expression: '1+2', result: 3 }, { expression: '2*2', result: 4 }];
 
     (findExpressions as jest.Mock).mockResolvedValue(mockExpressions);
 

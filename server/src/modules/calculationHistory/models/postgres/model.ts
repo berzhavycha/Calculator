@@ -1,10 +1,10 @@
 import { IExpression, ICalculationHistoryModel, Sort } from "../interfaces";
 import { BaseKnexModel } from '@database';
-import { POSTGRES_CALCULATION_COLLECTION } from '@global';
+import { POSTGRES_CALCULATION_HISTORY_COLLECTION } from '@global';
 
 export class PostgresCalculationHistoryModel extends BaseKnexModel implements ICalculationHistoryModel {
     constructor() {
-        super(POSTGRES_CALCULATION_COLLECTION);
+        super(POSTGRES_CALCULATION_HISTORY_COLLECTION );
     }
 
     public async createAndSaveNewEntry(expression: string, result: number): Promise<void> {

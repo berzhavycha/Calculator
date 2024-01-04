@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { createCalculationHistory } from "@modules/calculationHistory/services";
+import { createCalculationHistoryEntry } from "@modules/calculationHistory/services";
 import { calculationLogger } from "@modules/calculationHistory/log/logger";
 
 export const postCalculationHistoryController = async (req: Request, res: Response): Promise<void> => {
   const { expression } = req.body;
 
   try {
-    const result = await createCalculationHistory(expression);
+    const result = await createCalculationHistoryEntry(expression);
     res.setHeader("Content-Type", "application/json").status(200).json({ result });
   } catch (error) {
     if (error instanceof Error) {

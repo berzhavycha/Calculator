@@ -4,7 +4,7 @@ import { Module } from '@modules/interfaces';
 
 const historyEnabled = config.modulesConnection.isHistoryEnabled;
 
-export const calculationModule: Module = {
+export const calculationHistoryModule: Module = {
   endpoints: {
     get: [
       { route: '/calculations/status', controller: getHistoryStatusController },
