@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ENV_FILE="../../server/.env"
 
 if [ -f "$ENV_FILE" ]; then
