@@ -2,7 +2,7 @@ import { PostgresCalculationHistoryModel } from './model';
 import { BaseKnexModel } from '@database';
 
 
-describe('PostgresCalculationModel', () => {
+describe('PostgresModel.unit', () => {
     let postgresModel: PostgresCalculationHistoryModel;
 
     beforeEach(() => {
