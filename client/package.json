@@ -12,8 +12,8 @@
     "format": "prettier --write \"src/**/*.+(ts|tsx)\""
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=16.0.0",
+    "npm": ">=8.6.0"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

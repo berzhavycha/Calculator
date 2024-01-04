@@ -20,7 +20,6 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
       try {
         const data = await queryBuilder.makeRequest<IResponse[]>(
           `calculations?limit=${EXPRESSION_LIMIT}&order=${EXPRESSION_ORDER}`,
-          "GET",
         );
 
         setLastExpressions([...data].reverse());
@@ -29,19 +28,25 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
       }
     };
     fetchOperations();
-  }, []);
+  }, [setLastExpressions]);
 
   useEffect(() => {
     if (result && !isHistoryItemClicked) {
       setLastExpressions((prevExpressions: ICalculation[]) => {
-        const updatedExpressions: ICalculation[] = [
-          ...prevExpressions.slice(1,EXPRESSION_LIMIT),
+        if (prevExpressions.length < EXPRESSION_LIMIT) {
+          return [
+            ...prevExpressions,
+            { expression, result },
+          ];
+        }
+
+        return [
+          ...prevExpressions.slice(1, EXPRESSION_LIMIT),
           { expression, result },
         ];
-
-        return updatedExpressions
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
 };

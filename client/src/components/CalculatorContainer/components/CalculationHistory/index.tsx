@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, FC, memo } from "react";
 import { List } from "@components";
 import { queryBuilder } from "@queryBuilder";
 import { useFetchExpressions, ICalculation } from './hooks/useFetchExpressions';
@@ -11,7 +11,7 @@ interface ICalculationHistoryProps {
   setResult: Dispatch<SetStateAction<string>>;
 }
 
-export const CalculationHistory: React.FC<ICalculationHistoryProps> = React.memo(({
+export const CalculationHistory: FC<ICalculationHistoryProps> = memo(({
   expression,
   result,
   contentKey,

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef, FC, memo } from "react";
 import { useOperations } from "@context";
 import { useGetButtonMatrix, IButtonData } from "./hooks";
 import { BACKSPACE, ButtonType, ButtonMatrix } from "@components";
@@ -11,7 +11,7 @@ interface ICalculatorButtonsProps {
   onClearAll: () => void;
 }
 
-export const CalculatorButtons: React.FC<ICalculatorButtonsProps> = React.memo(({
+export const CalculatorButtons: FC<ICalculatorButtonsProps> = memo(({
   expression,
   onButtonClick,
   resizeCalculatorContainer,
