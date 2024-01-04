@@ -33,14 +33,20 @@ export const useFetchExpressions = (setLastExpressions: SetLastExpressions, isHi
   useEffect(() => {
     if (result && !isHistoryItemClicked) {
       setLastExpressions((prevExpressions: ICalculation[]) => {
-        const updatedExpressions: ICalculation[] = [
-          ...prevExpressions.slice(1,EXPRESSION_LIMIT),
+        if (prevExpressions.length < EXPRESSION_LIMIT) {
+          return [
+            ...prevExpressions,
+            { expression, result },
+          ];
+        }
+
+        return [
+          ...prevExpressions.slice(1, EXPRESSION_LIMIT),
           { expression, result },
         ];
-
-        return updatedExpressions
       });
     }
-  }, [expression, isHistoryItemClicked, result, setLastExpressions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result]);
 
 };
