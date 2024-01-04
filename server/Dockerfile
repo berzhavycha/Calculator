@@ -1,16 +1,15 @@
-FROM node:16-alpine AS development
+FROM node:16-alpine AS base
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
 COPY . .
+
+FROM base AS development
+RUN npm install
 EXPOSE 4000
 CMD ["npm", "run", "dev"]
 
-FROM node:16-alpine AS production
-WORKDIR /app
-COPY package*.json ./
+FROM base AS production
 RUN npm ci
-COPY . .
-EXPOSE 4000
 RUN npm run build
+EXPOSE 4000
 CMD ["node", "dist/index.js"]

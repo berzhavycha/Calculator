@@ -24,24 +24,34 @@ To use the calculator, follow these installation steps:
 
 ### Installation
 
-1. Clone the repository to your local machine: <br/>
+1. Clone the repository to your local machine: 
+```
 \$ git clone "https://git.sysgears.com/andriy.berzhavych/calculator"
-2. Navigate to the project directory: <br/>
+```
+2. Navigate to the project directory:
+```
 \$ cd calculator
-3. Install dependencies: <br/>
+```
+3. Install dependencies: 
+```
 \$ cd client <br/>
 \$ npm install <br/>
 \$ cd server <br/>
 \$ npm install <br/>
+```
 
 
 ### Commands
-1. To run calculator: <br/>
+1. To run calculator: 
+```
 \$ cd client <br/>
 \$ npm run dev 
+```
 2. To run webpack-dev-server: <br/>
+```
 \$ cd server <br/>
 \$ npm run dev <br/>
+```
 
 Make sure you have looked to the .env.example file in both client and server and assigned in your .env file in both client and server values for each of the environment variable.
 
@@ -53,18 +63,26 @@ Make sure you have looked to the .env.example file in both client and server and
 ### Development Mode
 
 Steps to Build Docker Container in Development Mode using docker-compose:
-1. Navigate to the project directory: <br/>
+1. Navigate to the project directory: 
+```
 \$ cd calculator
-2. Build and run docker containers using docker-compose: <br/>
+```
+2. Build and run docker containers using docker-compose: 
+```
 \$ docker-compose -f docker-compose-dev.yml up --build -d
+```
 
 ### Production Mode
 
 Steps to Build Docker Container in Production Mode using docker-compose:
-1. Navigate to the project directory: <br/>
+1. Navigate to the project directory: 
+```
 \$ cd calculator
+```
 2. Build and run docker containers using docker-compose: <br/>
+```
 \$ docker-compose -f docker-compose-prod.yml up --build -d
+```
 
 
 ## Development
