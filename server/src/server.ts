@@ -3,11 +3,10 @@ import bodyParser from "body-parser";
 import { PORT } from "@global";
 import { currentDatabase } from "@database";
 import { modules } from "@modules";
-import { LoggerService } from "@log";
-import { responseLog } from "@utils";
+import { appLogger } from "@modules/log";
+import { responseLog } from "@modules/log";
 
 export const app = express();
-export const appLogger = new LoggerService('app', './src/log/files/')
 
 app.use(bodyParser.json());
 

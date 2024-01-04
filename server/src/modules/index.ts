@@ -1,8 +1,8 @@
 import { operationsModule } from './operations';
-import { calculationModule } from './calculation';
+import { calculationHistoryModule } from './calculationHistory';
 import { Module, RestMethods } from './interfaces';
 
-const modulesContainer: Module[] = [operationsModule, calculationModule];
+const modulesContainer: Module[] = [operationsModule, calculationHistoryModule];
 
 const createModules = (modules: Module[]): RestMethods => {
   const result: RestMethods = {

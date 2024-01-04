@@ -1,5 +1,5 @@
 import { database } from './knexDatabase'
-import { appLogger } from '../../../server';
+import { appLogger } from '@modules/log';
 
 export class BaseKnexModel {
     tableName: string;

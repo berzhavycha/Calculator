@@ -3,10 +3,9 @@ import {
   MathOperationPriority,
   OperatorType,
   Associativity,
-  CalculationMethods,
-} from "@modules/calculation/calculatorMethods/constants";
-import { factorial } from "@modules/calculation/calculatorMethods/utils";
-import { DataBases } from "@database/constants";
+} from "@modules/calculationHistory/calculatorMethods/constants";
+import { factorial } from "@modules/calculationHistory/calculatorMethods/utils";
+import { CALCULATION_METHOD, DATABASE, HISTORY_ENABLED } from "@global";
 
 export type IOperation = {
   priority: number;
@@ -75,9 +74,9 @@ const operations: OperationsType = {
 
 export default Object.freeze({
   operations,
-  calculationMethod: CalculationMethods.POLISH_NOTATION,
-  database: DataBases.POSTGRE_SQL,
+  calculationMethod: CALCULATION_METHOD,
+  database: DATABASE,
   modulesConnection: {
-    isHistoryEnabled: true
+    isHistoryEnabled: HISTORY_ENABLED
   }
 });

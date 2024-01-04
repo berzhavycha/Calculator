@@ -1,14 +1,14 @@
-import { POSTGRES_CALCULATION_COLLECTION } from '@global';
+import { POSTGRES_CALCULATION_HISTORY_COLLECTION} from '@global';
 import { Knex } from 'knex';
 
-export const tableName = POSTGRES_CALCULATION_COLLECTION;
+export const tableName = POSTGRES_CALCULATION_HISTORY_COLLECTION;
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(tableName, function (table) {
     table.increments('id').primary();
     table.string('expression').notNullable();
     table.integer('result').notNullable();
-    table.timestamp("last_request_at").notNullable();
+    table.timestamp("lastRequestAt").notNullable();
   });
 }
 
