@@ -1,5 +1,5 @@
 import { DataBases } from "@database";
-import { CalculationMethods } from "@modules/calculation/calculatorMethods";
+import { CalculationMethods } from "@modules/calculationHistory/calculatorMethods";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env" });

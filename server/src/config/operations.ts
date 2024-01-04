@@ -3,8 +3,8 @@ import {
   MathOperationPriority,
   OperatorType,
   Associativity,
-} from "@modules/calculation/calculatorMethods/constants";
-import { factorial } from "@modules/calculation/calculatorMethods/utils";
+} from "@modules/calculationHistory/calculatorMethods/constants";
+import { factorial } from "@modules/calculationHistory/calculatorMethods/utils";
 import { CALCULATION_METHOD, DATABASE, HISTORY_ENABLED } from "@global";
 
 export type IOperation = {
