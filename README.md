@@ -67,9 +67,13 @@ Steps to Build Docker Container in Development Mode using docker-compose:
 ```
 \$ cd calculator
 ```
-2. Build and run docker containers using docker-compose: 
+2. Navigate to the docker directory: 
 ```
-\$ docker-compose -f docker-compose-dev.yml up --build -d
+\$ cd docker
+```
+3. Build and run docker containers by running up_calculator_dev.sh file: 
+```
+\$ ./up_calculator_dev.sh
 ```
 
 ### Production Mode
@@ -79,9 +83,13 @@ Steps to Build Docker Container in Production Mode using docker-compose:
 ```
 \$ cd calculator
 ```
-2. Build and run docker containers using docker-compose: <br/>
+2. Navigate to the docker directory: 
 ```
-\$ docker-compose -f docker-compose-prod.yml up --build -d
+\$ cd docker
+```
+3. Build and run docker containers by running up_calculator_prod.sh file: 
+```
+\$ ./up_calculator_prod.sh
 ```
 
 
@@ -99,13 +107,13 @@ Before you start developing for calculator, make sure you have the following too
    * [docker](./client/docker)
    * [public](./client/public)
    * [src](./client/src)
-    * [components](./client/src/components)
-    * [context](./client/src/context)
-    * [global](./client/src/global)
-    * [hooks](./client/src/hooks)
-    * [queryBuilder](./client/src/queryBuilder)
-    * [App.tsx](./client/src/App.tsx)
-    * [main.tsx](./client/src/main.tsx)
+      * [components](./client/src/components)
+      * [context](./client/src/context)
+      * [global](./client/src/global)
+      * [hooks](./client/src/hooks)
+      * [queryBuilder](./client/src/queryBuilder)
+      * [App.tsx](./client/src/App.tsx)
+      * [main.tsx](./client/src/main.tsx)
    * [Dockerfile](./client/Dockerfile)
    * [package-lock.json](./client/package-lock.json)
    * [package.json](./client/package.json)
@@ -114,21 +122,21 @@ Before you start developing for calculator, make sure you have the following too
    * [vite.config.ts](./client/vite.config.ts)
  * [docker](./docker)
    * [scripts](./docker/scripts/)
-    * [down_calculator_dev.sh](./docker/scripts/down_calculator_dev.sh)
-    * [down_calculator_prod.sh](./docker/scripts/down_calculator_prod.sh)
-    * [up_calculator_dev.sh](./docker/scripts/up_calculator_dev.sh)
-    * [up_calculator_prod.sh](./docker/scripts/up_calculator_prod.sh)
+      * [down_calculator_dev.sh](./docker/scripts/down_calculator_dev.sh)
+      * [down_calculator_prod.sh](./docker/scripts/down_calculator_prod.sh)
+      * [up_calculator_dev.sh](./docker/scripts/up_calculator_dev.sh)
+      * [up_calculator_prod.sh](./docker/scripts/up_calculator_prod.sh)
    * [docker-compose-dev.yml](./docker/docker-compose-dev.yml)
    * [docker-compose-prod.yml](./docker/docker-compose-prod.yml)
  * [server](./server)
    * [dist](./server/dist)
    * [src](./server/src)
-    * [config](./server/src/config)
-    * [database](./server/src/database)
-    * [global](./server/src/global)
-    * [modules](./server/src/modules)
-    * [utils](./server/src/utils)
-    * [server.ts](./server/src/server.ts)
+      * [config](./server/src/config)
+      * [database](./server/src/database)
+      * [global](./server/src/global)
+      * [modules](./server/src/modules)
+      * [utils](./server/src/utils)
+      * [server.ts](./server/src/server.ts)
    * [Dockerfile](./server/Dockerfile)
    * [jest.config.js](./server/jest.config.js)
    * [package-lock.json](./server/package-lock.json)
