@@ -7,7 +7,7 @@ describe('findExpressions', () => {
         jest.clearAllMocks();
     });
 
-    it('should return limited amount of entries sorted in ascending order by last_request_at', async () => {
+    it('should return limited amount of entries sorted in ascending order by lastRequestAt', async () => {
         const mockResult = [
             { expression: '5*2', result: 10 },
             { expression: '5*3', result: 15 },

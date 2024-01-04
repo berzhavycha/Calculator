@@ -25,7 +25,7 @@ describe('PostgresCalculationModel', () => {
             expect(postgresModel.insert).toHaveBeenCalledWith({
                 expression,
                 result,
-                last_request_at: expect.any(Date),
+                lastRequestAt: expect.any(Date),
             });
         });
     })
@@ -33,7 +33,7 @@ describe('PostgresCalculationModel', () => {
     describe('findOne method', () => {
         it('should find an existing entry in the database', async () => {
             const query = { expression: '2+2' };
-            const mockedResult = { expression: '2+2', result: 4, last_request_at: new Date() }
+            const mockedResult = { expression: '2+2', result: 4, lastRequestAt: new Date() }
 
             jest.spyOn(BaseKnexModel.prototype, 'findBy').mockResolvedValue(mockedResult)
 

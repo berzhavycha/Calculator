@@ -5,21 +5,20 @@ type SortCriteria = { [key: string]: Sort };
 
 export class MongoCalculationHistoryModel implements ICalculationHistoryModel {
   public async createAndSaveNewEntry(expression: string, result: number): Promise<void> {
-    const newCalculationHistory = new CalculationHistory({ expression, result });
-    await newCalculationHistory.save();
+    const newCalculationHistoryEntry = new CalculationHistory({ expression, result });
+    await newCalculationHistoryEntry.save();
   }
 
   public async findOne(query: Partial<IExpression>): Promise<IExpression | null> {
-    const cachedCalculationHistory: IExpression | null = await CalculationHistory.findOne(query);
-    return cachedCalculationHistory;
+    return CalculationHistory.findOne(query);
   }
 
   public async updateEntry(query: Partial<IExpression>, update: Partial<IExpression>): Promise<void> {
-    const cachedCalculationHistory = await CalculationHistory.findOne(query);
+    const cachedCalculationHistoryEntry = await CalculationHistory.findOne(query);
 
-    if (cachedCalculationHistory) {
-      Object.assign(cachedCalculationHistory, update);
-      await cachedCalculationHistory.save();
+    if (cachedCalculationHistoryEntry) {
+      Object.assign(cachedCalculationHistoryEntry, update);
+      await cachedCalculationHistoryEntry.save();
     }
   }
 

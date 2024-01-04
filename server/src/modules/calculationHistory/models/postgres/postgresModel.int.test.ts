@@ -7,7 +7,7 @@ import { POSTGRES_CALCULATION_HISTORY_COLLECTION  } from '@global';
 
 describe('postgresModel.int', () => {
     const postgresModel = modelsOptions[DataBases.POSTGRE_SQL];
-    const testEntry = { expression: '2222+1111', result: 3333, last_request_at: new Date() }
+    const testEntry = { expression: '2222+1111', result: 3333, lastRequestAt: new Date() }
 
     let client: PoolClient
 

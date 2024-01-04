@@ -19,7 +19,7 @@ describe('createCalculationEntry', () => {
     });
 
     it('should get the result from database and update the entry', async () => {
-        calculationHistoryModel.findOne = jest.fn().mockResolvedValue({ expression: "5*2", result: 10, last_request_at: new Date() });
+        calculationHistoryModel.findOne = jest.fn().mockResolvedValue({ expression: "5*2", result: 10, lastRequestAt: new Date() });
         calculationHistoryModel.createAndSaveNewEntry = jest.fn();
         calculationHistoryModel.updateEntry = jest.fn()
 
@@ -27,6 +27,6 @@ describe('createCalculationEntry', () => {
 
         expect(result).toEqual(10);
         expect(calculationHistoryModel.createAndSaveNewEntry).not.toHaveBeenCalled();
-        expect(calculationHistoryModel.updateEntry).toHaveBeenCalledWith({ expression: "5*2" }, { last_request_at: new Date() });
+        expect(calculationHistoryModel.updateEntry).toHaveBeenCalledWith({ expression: "5*2" }, { lastRequestAt: new Date() });
     });
 });
