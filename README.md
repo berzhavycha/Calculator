@@ -93,31 +93,48 @@ Before you start developing for calculator, make sure you have the following too
 2. Git
 
 ### File Structure
-```
-├───client
-|      ├───.jest
-|      ├───docker
-|      ├───public
-|      └───src
-|           ├───components
-|           ├───context
-|           ├───global
-|           ├───hooks
-|           ├───queryBuilder
-|           ├───App.tsx
-|           └───main.tsx
-├───server
-|       ├───dist
-|       └───src
-|            ├───config
-|            ├───database
-|            ├───global
-|            ├───log
-|            ├───modules
-|            ├───utils
-|            └───server.ts
-├───docker-compose-dev.yml
-└───docker-compose-prod.yml
-```
+.
+ * [client](./client)
+   * [.jest](./client/.jest)
+   * [docker](./client/docker)
+   * [public](./client/public)
+   * [src](./client/src)
+    * [components](./client/src/components)
+    * [context](./client/src/context)
+    * [global](./client/src/global)
+    * [hooks](./client/src/hooks)
+    * [queryBuilder](./client/src/queryBuilder)
+    * [App.tsx](./client/src/App.tsx)
+    * [main.tsx](./client/src/main.tsx)
+   * [Dockerfile](./client/Dockerfile)
+   * [package-lock.json](./client/package-lock.json)
+   * [package.json](./client/package.json)
+   * [tsconfig.json](./client/tsconfig.json)
+   * [tsconfig.node.json](./client/tsconfig.node.json)
+   * [vite.config.ts](./client/vite.config.ts)
+ * [docker](./docker)
+   * [scripts](./docker/scripts/)
+    * [down_calculator_dev.sh](./docker/scripts/down_calculator_dev.sh)
+    * [down_calculator_prod.sh](./docker/scripts/down_calculator_prod.sh)
+    * [up_calculator_dev.sh](./docker/scripts/up_calculator_dev.sh)
+    * [up_calculator_prod.sh](./docker/scripts/up_calculator_prod.sh)
+   * [docker-compose-dev.yml](./docker/docker-compose-dev.yml)
+   * [docker-compose-prod.yml](./docker/docker-compose-prod.yml)
+ * [server](./server)
+   * [dist](./server/dist)
+   * [src](./server/src)
+    * [config](./server/src/config)
+    * [database](./server/src/database)
+    * [global](./server/src/global)
+    * [modules](./server/src/modules)
+    * [utils](./server/src/utils)
+    * [server.ts](./server/src/server.ts)
+   * [Dockerfile](./server/Dockerfile)
+   * [jest.config.js](./server/jest.config.js)
+   * [package-lock.json](./server/package-lock.json)
+   * [package.json](./server/package.json)
+   * [tsconfig.json](./server/tsconfig.json)
+   * [webpack.config.js](./server/webpack.config.js)
+ * [README.md](./README.md)
 
 
