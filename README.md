@@ -34,23 +34,23 @@ To use the calculator, follow these installation steps:
 ```
 3. Install dependencies: 
 ```
-\$ cd client <br/>
-\$ npm install <br/>
-\$ cd server <br/>
-\$ npm install <br/>
+\$ cd client 
+\$ npm install 
+\$ cd server 
+\$ npm install 
 ```
 
 
 ### Commands
 1. To run calculator: 
 ```
-\$ cd client <br/>
+\$ cd client 
 \$ npm run dev 
 ```
-2. To run webpack-dev-server: <br/>
+2. To run webpack-dev-server: 
 ```
-\$ cd server <br/>
-\$ npm run dev <br/>
+\$ cd server 
+\$ npm run dev 
 ```
 
 Make sure you have looked to the .env.example file in both client and server and assigned in your .env file in both client and server values for each of the environment variable.
