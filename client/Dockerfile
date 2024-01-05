@@ -1,17 +1,17 @@
-FROM node:16-alpine as development
+FROM node:16-alpine as base
 WORKDIR /app
 COPY package*.json ./
+
+FROM base as development
 RUN npm install
 RUN mkdir -p node_modules/.vite/ && chmod -R 777 node_modules/.vite/
-COPY . /app
+COPY . .
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
 
-FROM node:16-alpine as builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci 
-COPY . /app
+FROM base as builder
+RUN npm ci
+COPY . .
 RUN npm run build
 
 FROM nginx:1.23.1-alpine as production

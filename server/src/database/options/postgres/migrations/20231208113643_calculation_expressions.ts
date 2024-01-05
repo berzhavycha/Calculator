@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id').primary();
     table.string('expression').notNullable();
     table.integer('result').notNullable();
-    table.timestamp("lastRequestAt").notNullable();
+    table.timestamp("last_request_at").notNullable();
   });
 }
 

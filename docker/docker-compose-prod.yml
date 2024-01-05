@@ -35,3 +35,4 @@ services:
       POSTGRES_PASSWORD: calculator_user_password
       POSTGRES_DB: calculator_db
       POSTGRES_USER: calculator_user
+      

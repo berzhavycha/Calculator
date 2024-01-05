@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: "../../../../.env" });
+
 import { Knex } from 'knex';
 import { POSTGRES_DB, POSTGRES_KNEX_MAX_POOL, POSTGRES_HOST, POSTGRES_KNEX_MIN_POOL, POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_TEST_DB, POSTGRES_TEST_USER, POSTGRES_TEST_PASSWORD, POSTGRES_TEST_HOST } from '@global';
 

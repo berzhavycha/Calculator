@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CalculationSchema = new mongoose.Schema({
+const CalculationHistorySchema = new mongoose.Schema({
   expression: {
     type: String,
     required: true,
@@ -15,4 +15,4 @@ const CalculationSchema = new mongoose.Schema({
   },
 });
 
-export const CalculationHistory = mongoose.model("CalculationHistory", CalculationSchema);
+export const CalculationHistory = mongoose.model("CalculationHistory", CalculationHistorySchema);
