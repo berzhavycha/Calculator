@@ -1,5 +1,5 @@
 import { PostgresCalculationHistoryModel } from './postgres/model';
-import { DataBases } from "@database";
+import { DataBases } from "@modules/database";
 import { MongoCalculationHistoryModel } from "./mongo/model";
 import config from '@config'
 

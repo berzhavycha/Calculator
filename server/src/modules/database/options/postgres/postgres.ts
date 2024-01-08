@@ -1,6 +1,6 @@
 import { POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER } from '@global';
 import { Pool, PoolClient } from 'pg';
-import { IDatabase } from '@database/interfaces';
+import { IDatabase } from '../../interfaces';
 import { appLogger } from '@modules/log';
 
 export class PostgresDatabase implements IDatabase {

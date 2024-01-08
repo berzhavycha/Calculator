@@ -1,4 +1,4 @@
-import { DataBases } from "@database";
+import { DataBases } from "@modules/database";
 import { CalculationMethods } from "@modules/calculationHistory/calculatorMethods";
 import dotenv from "dotenv";
 

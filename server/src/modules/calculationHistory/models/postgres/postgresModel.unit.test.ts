@@ -1,5 +1,5 @@
 import { PostgresCalculationHistoryModel } from './model';
-import { BaseKnexModel } from '@database';
+import { BaseKnexModel } from '@modules/database';
 
 
 describe('PostgresModel.unit', () => {

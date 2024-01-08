@@ -6,8 +6,8 @@ export type Method = {
 };
 
 export type RestMethods = {
-    get: Method[];
-    post: Method[];
+    get?: Method[];
+    post?: Method[];
 };
 
 export type Module = {

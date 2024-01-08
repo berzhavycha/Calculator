@@ -1,18 +1,24 @@
 import { operationsModule } from './operations';
 import { calculationHistoryModule } from './calculationHistory';
 import { Module, RestMethods } from './interfaces';
+import { logModule } from './log';
+import { databaseModule } from './database';
 
-const modulesContainer: Module[] = [operationsModule, calculationHistoryModule];
+const modulesContainer: Module[] = [operationsModule, calculationHistoryModule, logModule, databaseModule];
 
 const createModules = (modules: Module[]): RestMethods => {
   const result: RestMethods = {
-    get: [],
+    get: [], 
     post: [],
   };
 
   modules.forEach((mod) => {
-    result.get.push(...mod.endpoints.get);
-    result.post.push(...mod.endpoints.post);
+    if (mod.endpoints.get) {
+      result.get?.push(...mod.endpoints.get);
+    }
+    if (mod.endpoints.post) {
+      result.post?.push(...mod.endpoints.post);
+    }
   });
 
   return result;

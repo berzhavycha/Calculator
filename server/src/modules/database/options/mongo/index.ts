@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IDatabase } from "@database/interfaces";
+import { IDatabase } from "../../interfaces";
 import { MONGODB_URL } from "@global";
 import { appLogger } from "@modules/log";
 
