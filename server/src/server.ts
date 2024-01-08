@@ -21,14 +21,14 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
   next();
 });
 
-modules.get.forEach(({ route, controller }) => {
+modules.get?.forEach(({ route, controller }) => {
   app.get(route, (req: Request, res: Response) => {
     responseLog(req, res)
     controller(req, res);
   });
 });
 
-modules.post.forEach(({ route, controller }) => {
+modules.post?.forEach(({ route, controller }) => {
   app.post(route, (req: Request, res: Response) => {
     responseLog(req, res)
     controller(req, res);

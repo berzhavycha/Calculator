@@ -1,10 +1,7 @@
 import { Module } from '@modules/interfaces'
 
 export const databaseModule: Module = {
-    endpoints: {
-        get: [],
-        post: []
-    }
+    endpoints: {}
 }
 
 export * from "./constants";

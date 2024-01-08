@@ -1,10 +1,7 @@
 import { Module } from '@modules/interfaces'
 
 export const logModule: Module = {
-    endpoints: {
-        get: [],
-        post: []
-    }
+    endpoints: {}
 }
 
 export * from './constants'
