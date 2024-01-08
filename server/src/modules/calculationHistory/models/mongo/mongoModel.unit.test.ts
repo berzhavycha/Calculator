@@ -1,7 +1,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { modelsOptions } from '../modelsOptions';
-import { DataBases } from '@database';
+import { DataBases } from '@modules/database';
 import { ASC, DESC } from '@modules/calculationHistory/constants';
 
 

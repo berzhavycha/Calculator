@@ -1,5 +1,5 @@
 import { IExpression, ICalculationHistoryModel, Sort } from "../interfaces";
-import { BaseKnexModel } from '@database';
+import { BaseKnexModel } from '@modules/database';
 import { POSTGRES_CALCULATION_HISTORY_COLLECTION } from '@global';
 
 export class PostgresCalculationHistoryModel extends BaseKnexModel implements ICalculationHistoryModel {

@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import { PORT } from "@global";
-import { currentDatabase } from "@database";
+import { currentDatabase } from "@modules/database";
 import { modules } from "@modules";
 import { appLogger, responseLog } from "@modules/log";
 

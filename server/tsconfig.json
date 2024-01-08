@@ -20,12 +20,6 @@
             "@modules/*": [
                 "./src/modules/*"
             ],
-            "@database": [
-                "./src/database/index.ts"
-            ],
-            "@database/*": [
-                "./src/database/*"
-            ],
             "@services": [
                 "./src/services/index.ts"
             ],

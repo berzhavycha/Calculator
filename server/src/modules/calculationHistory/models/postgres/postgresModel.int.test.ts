@@ -1,8 +1,7 @@
-import { mockPool } from '@database';
+import { mockPool,DataBases } from '@modules/database';
 import { modelsOptions } from '../modelsOptions';
 import { ASC, DEFAULT_SORT_FIELD, DESC } from '@modules/calculationHistory/constants';
 import { PoolClient } from 'pg';
-import { DataBases } from '@database';
 import { POSTGRES_CALCULATION_HISTORY_COLLECTION  } from '@global';
 
 describe('postgresModel.int', () => {
